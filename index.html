@@ -1,268 +1,1300 @@
---- index.html
-+++ index.html
-@@ -107,6 +107,9 @@
-       <button onclick="alternarAba('encaminhamentos')" id="nav-btn-encaminhamentos" class="tab-btn px-3 py-1.5 rounded-md transition whitespace-nowrap flex items-center gap-1.5 text-slate-600 hover:text-brand-700">
-         <span>📄</span> Guia de Encaminhamento
-       </button>
-+      <button onclick="alternarAba('atermacao')" id="nav-btn-atermacao" class="tab-btn px-3 py-1.5 rounded-md transition whitespace-nowrap flex items-center gap-1.5 text-slate-600 hover:text-brand-700">
-+        <span>⚖️</span> Atermação (PSA / TRF3)
-+      </button>
-       <button onclick="alternarAba('registro')" id="nav-btn-registro" class="tab-btn px-3 py-1.5 rounded-md transition whitespace-nowrap flex items-center gap-1.5 text-slate-600 hover:text-brand-700">
-         <span>📊</span> Registro & Quantitativo
-       </button>
-@@ -487,6 +490,135 @@
-   </div>
- </section>
- 
-+<!-- VIEW NOVA: ATERMAÇÃO & CIÊNCIA JUS POSTULANDI (PSA / TRF3) -->
-+<section id="view-atermacao" class="hidden space-y-6">
-+  <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-+    <div>
-+      <div class="flex items-center gap-2 mb-1">
-+        <span class="text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Rito Jus Postulandi</span>
-+        <h2 class="text-xl font-bold text-brand-800">Atermação Partes sem Advogado (PSA / TRF3)</h2>
-+      </div>
-+      <p class="text-sm text-slate-600">Diretrizes operacionais e emissão do Termo de Ciência e Responsabilidade do Cidadão no JEF.</p>
-+    </div>
-+    <button onclick="puxarDadosUltimoAtendimento('atermacao')" class="text-xs bg-brand-50 text-brand-700 font-bold px-3 py-2 rounded-lg border border-brand-200 hover:bg-brand-100 transition self-start sm:self-auto flex items-center gap-1">
-+      <span>🔄</span> Puxar Dados do Atendimento
-+    </button>
-+  </div>
-+
-+  <!-- Alerta Institucional da LAPREVS -->
-+  <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl text-xs text-amber-900 space-y-1">
-+    <p class="font-bold">⚠️ ATENÇÃO OBRIGATÓRIA AOS ACADÊMICOS DE PLANTÃO:</p>
-+    <p>
-+      A LAPREVS presta auxílio extensionista para viabilizar o acesso à Justiça através do <strong>Portal Partes sem Advogado (PSA/TRF3)</strong>. 
-+      A petição corre exclusivamente no nome do próprio cidadão (art. 3º e 10 da Lei nº 10.259/2001). 
-+      <strong>Não junte procuração ad judicia com poderes privativos de advocacia</strong>, e recolha a assinatura obrigatória do Termo de Ciência abaixo para que o assistido saiba que deve acompanhar pessoalmente as perícias e intimações.
-+    </p>
-+  </div>
-+
-+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-+    <!-- Painel de Preenchimento -->
-+    <div class="lg:col-span-1 bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
-+      <h3 class="font-bold text-slate-800 border-b pb-2 text-sm">Dados do Cidadão Atermado</h3>
-+
-+      <div>
-+        <label class="block text-xs font-semibold text-slate-600 mb-1">Nome do Autor(a)</label>
-+        <input type="text" id="aterm-nome" placeholder="Nome Completo" class="w-full text-xs rounded-lg border border-slate-300 p-2">
-+      </div>
-+
-+      <div class="grid grid-cols-2 gap-2">
-+        <div>
-+          <label class="block text-xs font-semibold text-slate-600 mb-1">CPF / Documento</label>
-+          <input type="text" id="aterm-cpf" placeholder="000.000.000-00" class="w-full text-xs rounded-lg border border-slate-300 p-2 font-mono">
-+        </div>
-+        <div>
-+          <label class="block text-xs font-semibold text-slate-600 mb-1">Telefone WhatsApp</label>
-+          <input type="text" id="aterm-telefone" placeholder="(67) 99999-9999" class="w-full text-xs rounded-lg border border-slate-300 p-2">
-+        </div>
-+      </div>
-+
-+      <div>
-+        <label class="block text-xs font-semibold text-slate-600 mb-1">Ação Distribuída no PSA</label>
-+        <input type="text" id="aterm-acao" value="Ação de Concessão de Benefício por Incapacidade / BPC" class="w-full text-xs rounded-lg border border-slate-300 p-2">
-+      </div>
-+
-+      <button onclick="gerarVisualizacaoTermoAtermacao()" class="w-full bg-brand-700 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-xs shadow transition">
-+        Atualizar Termo de Ciência
-+      </button>
-+
-+      <!-- Checklist de Atermação PSA TRF3 -->
-+      <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-[11px] text-slate-700 space-y-2 mt-4">
-+        <strong class="text-slate-900 block font-sans">Checklist de Protocolo no PSA (TRF3):</strong>
-+        <p>1. Acesse o portal oficial <em>Partes sem Advogado TRF3 / MS</em>;</p>
-+        <p>2. Cadastre o e-mail ou WhatsApp do <strong>próprio assistido</strong> para recebimento de comunicações do PJe;</p>
-+        <p>3. Anexe os arquivos em PDF (tamanho individual inferior a 5MB): RG/CPF, Comprovante de Residência, Indeferimento do INSS, Laudos Médicos e a Petição Inicial;</p>
-+        <p>4. Imprima o comprovante de distribuição com o número do processo (202...JEF/MS) e entregue ao cidadão junto com este termo assinado.</p>
-+      </div>
-+    </div>
-+
-+    <!-- Folha Impressa do Termo -->
-+    <div class="lg:col-span-2 bg-white p-8 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between" id="folha-atermacao">
-+      <div>
-+        <!-- Cabeçalho Timbrado LAPREVS -->
-+        <div class="flex items-center gap-4 pb-4 border-b-2 border-brand-700 mb-6">
-+          <div class="w-20 h-14 flex items-center justify-center p-0.5 border border-slate-200 rounded bg-slate-50">
-+            <svg class="w-full h-full object-contain" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-+              <circle cx="160" cy="46" r="18" fill="#1b5c98" />
-+              <path d="M 160 84 C 130 52 86 36 46 38 C 76 60 114 78 144 116 Z" fill="#1b5c98" />
-+              <path d="M 160 84 C 190 52 234 36 274 38 C 244 60 206 78 176 116 Z" fill="#1b5c98" />
-+              <path d="M 152 142 C 122 100 80 84 36 90 C 70 80 112 90 144 130 Z" fill="#7a9a3b" />
-+              <path d="M 168 142 C 198 100 240 84 284 90 C 250 80 208 90 176 130 Z" fill="#7a9a3b" />
-+              <polygon points="160,212 140,118 160,140 180,118" fill="#1b5c98" />
-+              <polygon points="160,212 148,154 160,172 172,154" fill="#7a9a3b" />
-+              <path d="M 52 88 L 7 148" stroke="#1b5c98" stroke-width="4.5" stroke-linecap="round" />
-+              <path d="M 52 88 L 97 148" stroke="#1b5c98" stroke-width="4.5" stroke-linecap="round" />
-+              <path d="M 7 148 Q 52 176 97 148 Z" fill="#1b5c98" />
-+              <path d="M 268 88 L 223 148" stroke="#1b5c98" stroke-width="4.5" stroke-linecap="round" />
-+              <path d="M 268 88 L 313 148" stroke="#1b5c98" stroke-width="4.5" stroke-linecap="round" />
-+              <path d="M 223 148 Q 268 176 313 148 Z" fill="#1b5c98" />
-+            </svg>
-+          </div>
-+          <div>
-+            <h4 class="text-base font-black tracking-tight text-brand-800">LIGA ACADÊMICA DE DIREITO PREVIDENCIÁRIO E SEGURIDADE SOCIAL (LAPREVS)</h4>
-+            <p class="text-xs font-semibold text-slate-600">Serviço de Apoio e Extensão Universitária em Atermação Judicial</p>
-+            <p class="text-[11px] text-slate-500">Juizado Especial Federal da 3ª Região • Subseção Judiciária de Campo Grande/MS</p>
-+          </div>
-+        </div>
-+
-+        <div class="text-center my-4">
-+          <h3 class="text-sm font-bold uppercase tracking-wide text-slate-900 border-b border-slate-200 pb-1.5 inline-block">
-+            TERMO DE CIÊNCIA DE ATERMAÇÃO DIRETA (JUS POSTULANDI) E RESPONSABILIDADE PROCESSUAL
-+          </h3>
-+        </div>
-+
-+        <div class="space-y-3 text-xs text-slate-800 leading-relaxed font-serif">
-+          <p>
-+            Eu, <strong id="print-aterm-nome" class="font-sans text-slate-900">___________________________________________________</strong>, 
-+            inscrito(a) sob o Documento/CPF nº <strong id="print-aterm-cpf" class="font-sans text-slate-900">________________________</strong>, 
-+            residente e domiciliado(a) em Campo Grande/MS, telefone <strong id="print-aterm-tel" class="font-sans text-slate-900">________________________</strong>, 
-+            declaro para todos os fins de direito e perante o Juizado Especial Federal da 3ª Região que:
-+          </p>
-+
-+          <ol class="list-decimal list-inside space-y-2 pl-2 text-justify">
-+            <li><strong>Exercício do Jus Postulandi:</strong> Tenho ciência de que a presente ação judicial tramita perante o Juizado Especial Federal sem a obrigatoriedade de representação por advogado em primeiro grau, atuando em <em>causa própria</em> com amparo nos artigos 3º e 10 da Lei Federal nº 10.259/2001 e no art. 9º da Lei nº 9.099/1995.</li>
-+            <li><strong>Natureza do Apoio Acadêmico:</strong> Reconheço expressamente que a <strong>LAPREVS</strong> e seus acadêmicos prestaram exclusivamente orientação técnica e auxílio operacional voluntário na redação e inserção dos documentos no sistema <em>Partes sem Advogado (PSA/TRF3)</em>, <u>não assumindo mandato procuratório, procuração judicial ou patrocínio advocatício da causa</u>.</li>
-+            <li><strong>Dever de Acompanhamento e Perícia:</strong> Comprometo-me a acompanhar as notificações que receber no número de telefone/WhatsApp ou e-mail cadastrado, especialmente o <strong>comparecimento pessoal e pontual à perícia médica judicial</strong> designada pelo Juiz Federal, munido de todos os exames, laudos e receitas atualizadas, ciente de que o não comparecimento injustificado poderá acarretar a extinção do processo sem julgamento do mérito.</li>
-+            <li><strong>Necessidade de Defensoria/Advogado em Grau Recursal:</strong> Declaro estar informado(a) de que, caso a sentença final seja total ou parcialmente desfavorável e haja interesse em recorrer para a Turma Recursal do TRF3, ou se o INSS apresentar recurso, a assistência de profissional habilitado será obrigatória (art. 41, § 2º da Lei nº 9.099/95), devendo eu procurar com antecedência a <strong>Defensoria Pública da União (DPU/MS)</strong> ou advogado particular de minha confiança.</li>
-+          </ol>
-+
-+          <p class="pt-2">Por ser a expressão da verdade, firmo o presente termo para que surta seus jurídicos e legais efeitos.</p>
-+
-+          <div class="pt-8 text-center text-xs font-sans">
-+            <p>Campo Grande - MS, <span id="print-aterm-data" class="font-semibold"></span>.</p>
-+            <div class="mt-8 pt-2 border-t border-slate-400 max-w-sm mx-auto">
-+              <p class="font-bold text-slate-900" id="print-aterm-assinatura">Assinatura do(a) Autor(a) em Jus Postulandi</p>
-+              <p class="text-[11px] text-slate-500">Cidadão(ã) Atermado(a)</p>
-+            </div>
-+          </div>
-+        </div>
-+      </div>
-+
-+      <div class="pt-6 border-t border-slate-200 flex justify-end no-print">
-+        <button onclick="imprimirTermoAtermacao()" class="bg-brand-700 hover:bg-brand-600 text-white font-bold py-2 px-5 rounded-lg text-xs shadow flex items-center gap-1.5 transition">
-+          <span>🖨️</span> Imprimir Termo de Ciência em A4
-+        </button>
-+      </div>
-+    </div>
-+  </div>
-+</section>
-+
- <!-- VIEW 8: REGISTRO & QUANTITATIVO DE ATENDIMENTOS -->
- <section id="view-registro" class="hidden space-y-6">
-@@ -1071,6 +1203,7 @@
-       'peticoes': document.getElementById('nav-btn-peticoes'),
-       'quesitos': document.getElementById('nav-btn-quesitos'),
-       'rural': document.getElementById('nav-btn-rural'),
-+      'atermacao': document.getElementById('nav-btn-atermacao'),
-       'encaminhamentos': document.getElementById('nav-btn-encaminhamentos'),
-       'registro': document.getElementById('nav-btn-registro'),
-       'orgaos': document.getElementById('nav-btn-orgaos'),
-@@ -1094,6 +1227,9 @@
-     if (nomeAba === 'encaminhamentos') {
-       carregarModeloEncaminhamento();
-     }
-+    if (nomeAba === 'atermacao') {
-+      gerarVisualizacaoTermoAtermacao();
-+    }
-   }
- 
-   function rolarAbas(direcao) {
-@@ -1249,6 +1385,15 @@
-       gerarAutodeclaracaoRural();
-       mostrarNotificacaoFeedback("Dados do produtor rural preenchidos!");
-     }
-+    if (destino === 'atermacao') {
-+      if (document.getElementById('aterm-nome')) document.getElementById('aterm-nome').value = ultimo.nome || '';
-+      if (document.getElementById('aterm-cpf')) document.getElementById('aterm-cpf').value = ultimo.cpf || '';
-+      if (document.getElementById('aterm-telefone')) document.getElementById('aterm-telefone').value = ultimo.telefone || '';
-+      if (ultimo.beneficio && document.getElementById('aterm-acao')) {
-+        document.getElementById('aterm-acao').value = `Ação de Concessão de ${ultimo.beneficio}`;
-+      }
-+      gerarVisualizacaoTermoAtermacao();
-+    }
-   }
- 
-   function preencherTodasAsAbasComUltimo() {
-@@ -1257,6 +1402,7 @@
-     puxarDadosUltimoAtendimento('quesitos');
-     puxarDadosUltimoAtendimento('rural');
-     puxarDadosUltimoAtendimento('encaminhamentos');
-+    puxarDadosUltimoAtendimento('atermacao');
-     mostrarNotificacaoFeedback("Todas as abas foram preenchidas com os dados deste assistido!");
-   }
- 
-@@ -1310,14 +1456,16 @@
-     const cid = document.getElementById('pet-cid').value.trim() || 'conforme laudos e exames anexados';
-     const profissao = document.getElementById('pet-profissao').value.trim() || 'trabalhador(a)';
-     const dataAtual = new Date().toLocaleDateString('pt-BR');
-+    const rotuloDoc = tipoDoc.toUpperCase();
- 
-     let texto = `EXCELENTÍSSIMO(A) SENHOR(A) JUIZ(A) FEDERAL DO JUIZADO ESPECIAL FEDERAL DA SUBSEÇÃO JUDICIÁRIA DE CAMPO GRANDE - MATO GROSSO DO SUL\n\n`;
-     
--    texto += `${nome.toUpperCase()}, brasileiro(a), estado civil: [ESTADO CIVIL], ${profissao}, portador(a) do ${tipoDoc.toUpperCase()} nº ${cpf}, residente e domiciliado(a) em Campo Grande/MS na ${endereco}, telefone/WhatsApp: ${telefone}, vem, respeitosamente, perante Vossa Excelência, por intermédio dos acadêmicos e orientadores da LAPREVS / Núcleo de Prática Jurídica, propor a presente:\n\n`;
-+    texto += `${nome.toUpperCase()}, brasileiro(a), ${profissao}, inscrito(a) no ${rotuloDoc} sob nº ${cpf}, residente e domiciliado(a) em Campo Grande/MS no endereço ${endereco}, telefone/WhatsApp: ${telefone}, vem, perante Vossa Excelência, EM CAUSA PRÓPRIA, NO EXERCÍCIO DO JUS POSTULANDI ASSEGURADO PELO ART. 3º C/C ART. 10 DA LEI Nº 10.259/2001 E ART. 9º DA LEI Nº 9.099/1995, com apoio técnico-operacional de atermação da Liga Acadêmica de Direito Previdenciário (LAPREVS), propor a presente:\n\n`;
- 
-     if (modelo === 'auxilio_incapacidade') {
--      texto += `AÇÃO DE CONCESSÃO / RESTABELECIMENTO DE BENEFÍCIO POR INCAPACIDADE TEMPORÁRIA (AUXÍLIO-DOENÇA) COM PEDIDO SUBSIDIÁRIO DE APOSENTADORIA POR INCAPACIDADE PERMANENTE\n\n`;
-+      texto += `AÇÃO PREVIDENCIÁRIA DE RESTABELECIMENTO / CONCESSÃO DE BENEFÍCIO POR INCAPACIDADE TEMPORÁRIA (AUXÍLIO-DOENÇA - B31/B91) C/C CONVERSÃO SUBSIDIÁRIA EM INCAPACIDADE PERMANENTE (B32)\n\n`;
-       texto += `em face do INSTITUTO NACIONAL DO SEGURO SOCIAL (INSS), Autarquia Federal, pelos fatos e fundamentos a seguir delineados:\n\n`;
-+      texto += `1. DO INTERESSE PROCESSUAL E PRÉVIO REQUERIMENTO ADMINISTRATIVO (TEMA 350/STF)\nO(A) Autor(a) submeteu seu pedido administrativamente junto à Autarquia Previdenciária sob o NB nº ${nb}, com DER/Cessação em ${dataDer}, restando indevidamente indeferido/cessado pela perícia administrativa, restando plenamente caracterizado o interesse de agir segundo a tese vinculante do Tema 350 do STF.\n\n`;
-       texto += `1. DOS FATOS\nA Parte Autora é segurada da Previdência Social e desempenha habitualmente as funções de ${profissao}. Encontra-se acometida de patologias graves (${cid}), que acarretam dor e limitação funcional severa e irreversível ao exercício de suas ocupações de subsistência.\n`;
-       texto += `Requereu o benefício sob NB nº ${nb}, o qual restou indevidamente indeferido/cessado pela autarquia ré em ${dataDer}, sob a alegação genérica de 'ausência de incapacidade laborativa'. Tal conclusão administrativa destoa frontalmente do quadro clínico atestado pelos laudos do SUS anexados.\n\n`;
-       texto += `2. DO DIREITO\nA Lei nº 8.213/91, em seus arts. 59 e 62, garante o benefício ao segurado incapacitado para seu trabalho habitual. Conforme Enunciado nº 47 da Turma Nacional de Uniformização (TNU), as condições biopsicossociais, a idade, a baixa escolaridade e o mercado de trabalho local devem ser sopesados no arbitramento da incapacidade.\n\n`;
-@@ -1355,8 +1503,8 @@
-     texto += `Nestes termos,\nPede e espera deferimento.\n\n`;
-     texto += `Campo Grande/MS, ${dataAtual}.\n\n`;
-     texto += `___________________________________________________\n`;
--    texto += `${nome.toUpperCase()}\n`;
--    texto += `Parte Autora / Assistido(a) pela LAPREVS\n`;
-+    texto += `${nome.toUpperCase()} - AUTOR(A) EM JUS POSTULANDI\n`;
-+    texto += `(Apoio técnico de atermação no portal PSA/TRF3: LAPREVS / MS)\n`;
- 
-     document.getElementById('pet-saida-texto').value = texto;
-   }
-@@ -1379,6 +1527,41 @@
-     janela.print();
-   }
- 
-+  // FUNÇÕES DA ABA DE ATERMAÇÃO (PSA / TRF3)
-+  function gerarVisualizacaoTermoAtermacao() {
-+    const nome = document.getElementById('aterm-nome')?.value.trim() || 'Maria Aparecida da Silva';
-+    const cpf = document.getElementById('aterm-cpf')?.value.trim() || '000.000.000-00';
-+    const tel = document.getElementById('aterm-telefone')?.value.trim() || '(67) 99999-9999';
-+    const dataHoje = new Date().toLocaleDateString('pt-BR');
-+
-+    if (document.getElementById('print-aterm-nome')) document.getElementById('print-aterm-nome').innerText = nome;
-+    if (document.getElementById('print-aterm-cpf')) document.getElementById('print-aterm-cpf').innerText = cpf;
-+    if (document.getElementById('print-aterm-tel')) document.getElementById('print-aterm-tel').innerText = tel;
-+    if (document.getElementById('print-aterm-data')) document.getElementById('print-aterm-data').innerText = dataHoje;
-+    if (document.getElementById('print-aterm-assinatura')) document.getElementById('print-aterm-assinatura').innerText = `${nome.toUpperCase()}`;
-+  }
-+
-+  function imprimirTermoAtermacao() {
-+    gerarVisualizacaoTermoAtermacao();
-+    const conteudo = document.getElementById('folha-atermacao').innerHTML;
-+    const janela = window.open('', '', 'width=900,height=900');
-+    janela.document.write(`
-+      <html>
-+        <head>
-+          <title>Termo de Ciência de Atermação - LAPREVS</title>
-+          <script src="https://cdn.tailwindcss.com"></script>
-+          <style>
-+            @media print { .no-print { display: none !important; } }
-+            body { font-family: ui-sans-serif, system-ui, sans-serif; background: #fff; padding: 24px; color: #1e293b; }
-+          </style>
-+        </head>
-+        <body>${conteudo}</body>
-+      </html>
-+    `);
-+    janela.document.close();
-+    janela.print();
-+  }
-+
-   // FUNÇÕES DA ABA DE QUESITOS
-   function atualizarPreviewQuesitos() {
-     // Apenas atualiza quando solicitado
+  <!-- LOGO E IDENTIDADE -->
+  <div class="flex items-center gap-3">
+    <label for="logo-file-input" class="cursor-pointer relative group flex items-center justify-center bg-white/10 hover:bg-white/20 p-1.5 rounded-lg border border-white/20 transition" title="Clique para alterar a Logo oficial">
+      <input type="file" id="logo-file-input" accept="image/*" class="hidden" onchange="carregarLogoCustomizada(event)">
+      
+      <img id="logo-header-img" src="logo.png" alt="Logo LAPREVS" class="hidden w-16 h-12 sm:w-20 sm:h-14 object-contain">
+      
+      <!-- SVG Vetorial Fiel ao Emblema da Balança e Asas da LAPREVS -->
+      <div id="logo-header-fallback" class="w-16 h-12 sm:w-20 sm:h-14 flex items-center justify-center">
+        <svg class="w-full h-full object-contain" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="160" cy="46" r="18" fill="#ffffff" />
+          <path d="M 160 84 C 130 52 86 36 46 38 C 76 60 114 78 144 116 Z" fill="#ffffff" />
+          <path d="M 160 84 C 190 52 234 36 274 38 C 244 60 206 78 176 116 Z" fill="#ffffff" />
+          <path d="M 152 142 C 122 100 80 84 36 90 C 70 80 112 90 144 130 Z" fill="#9ec449" />
+          <path d="M 168 142 C 198 100 240 84 284 90 C 250 80 208 90 176 130 Z" fill="#9ec449" />
+          <polygon points="160,212 140,118 160,140 180,118" fill="#ffffff" />
+          <polygon points="160,212 148,154 160,172 172,154" fill="#9ec449" />
+          <path d="M 52 88 L 7 148" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" />
+          <path d="M 52 88 L 97 148" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" />
+          <path d="M 7 148 Q 52 176 97 148 Z" fill="#ffffff" />
+          <path d="M 268 88 L 223 148" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" />
+          <path d="M 268 88 L 313 148" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" />
+          <path d="M 223 148 Q 268 176 313 148 Z" fill="#ffffff" />
+        </svg>
+      </div>
+      <span class="absolute inset-0 bg-black/60 text-[9px] uppercase tracking-wider font-bold rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition text-white">Alterar</span>
+    </label>
+
+    <div>
+      <div class="flex items-center gap-2">
+        <h1 class="text-base sm:text-lg font-black tracking-tight leading-tight uppercase">LAPREVS</h1>
+        <span class="bg-leaf-500 text-[10px] font-bold px-1.5 py-0.5 rounded text-white tracking-wide">PLANTÃO JEF/MS</span>
+      </div>
+      <p class="text-xs text-slate-300 font-medium hidden sm:block">Liga Acadêmica de Direito Previdenciário e Seguridade Social</p>
+      <p class="text-[11px] text-slate-300 sm:hidden">Guia de Atendimento e Triagem</p>
+    </div>
+  </div>
+
+  <!-- STATUS DA CONEXÃO & SINCRONIZAÇÃO EM NUVEM -->
+  <div class="flex items-center gap-3">
+    <div id="status-conexao-badge" class="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-full border border-white/15 text-xs text-slate-200" title="Status de conexão com a planilha do Google Drive">
+      <span id="status-conexao-dot" class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+      <span id="status-conexao-texto" class="font-medium text-[11px] hidden md:inline">Conectando...</span>
+    </div>
+  </div>
+</div>
+
+<!-- SUB-BARRA DE NAVEGAÇÃO ENTRE ABAS -->
+<div class="bg-brand-900/90 border-t border-brand-700/60 text-xs">
+  <div class="max-w-7xl mx-auto px-2 flex items-center">
+    <button onclick="rolarAbas(-200)" class="p-2 text-slate-300 hover:text-white transition" title="Rolar abas para a esquerda">❮</button>
+    <nav id="barra-abas-container" class="flex items-center gap-1 overflow-x-auto scrollbar-none py-2 px-1 flex-1 font-medium">
+      <button onclick="alternarAba('triagem')" id="nav-btn-triagem" class="tab-btn px-3 py-1.5 rounded-md transition whitespace-nowrap flex items-center gap-1.5 bg-leaf-500 text-white font-bold shadow-sm">
+        <span>🎯</span> Triagem & Acolhimento
+      </button>
+      <button onclick="alternarAba('beneficios')" id="nav-btn-beneficios" class="tab-btn px-3 py-1.5 rounded-md transition whitespace-nowrap flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-white/10">
+        <span>📚</span> Catálogo de Benefícios
+      </button>
+      <button onclick="alternarAba('calculadora')" id="nav-btn-calculadora" class="tab-btn px-3 py-1.5 rounded-md transition whitespace-nowrap flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-white/10">
+        <span>🧮</span> Calculadora & RMI
+      </button>
+      <button onclick="alternarAba('peticoes')" id="nav-btn-peticoes" class="tab-btn px-3 py-1.5 rounded-md transition whitespace-nowrap flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-white/10">
+        <span>📝</span> Gerador de Petições
+      </button>
+      <button onclick="alternarAba('quesitos')" id="nav-btn-quesitos" class="tab-btn px-3 py-1.5 rounded-md transition whitespace-nowrap flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-white/10">
+        <span>🩺</span> Quesitos Médicos
+      </button>
+      <button onclick="alternarAba('rural')" id="nav-btn-rural" class="tab-btn px-3 py-1.5 rounded-md transition whitespace-nowrap flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-white/10">
+        <span>🌾</span> Autodeclaração Rural
+      </button>
+      <button onclick="alternarAba('atermacao')" id="nav-btn-atermacao" class="tab-btn px-3 py-1.5 rounded-md transition whitespace-nowrap flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-white/10">
+        <span>⚖️</span> Atermação (PSA / TRF3)
+      </button>
+      <button onclick="alternarAba('encaminhamentos')" id="nav-btn-encaminhamentos" class="tab-btn px-3 py-1.5 rounded-md transition whitespace-nowrap flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-white/10">
+        <span>📄</span> Guia de Encaminhamento
+      </button>
+      <button onclick="alternarAba('registro')" id="nav-btn-registro" class="tab-btn px-3 py-1.5 rounded-md transition whitespace-nowrap flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-white/10">
+        <span>📊</span> Registro & Quantitativo
+      </button>
+      <button onclick="alternarAba('orgaos')" id="nav-btn-orgaos" class="tab-btn px-3 py-1.5 rounded-md transition whitespace-nowrap flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-white/10">
+        <span>🏛️</span> Órgãos & Contatos Úteis
+      </button>
+    </nav>
+    <button onclick="rolarAbas(200)" class="p-2 text-slate-300 hover:text-white transition" title="Rolar abas para a direita">❯</button>
+  </div>
+</div>
+
+
+<!-- VIEW 1: TRIAGEM & ACOLHIMENTO INTERATIVO (ÁRVORE DECISÓRIA) -->
+<section id="view-triagem" class="space-y-6">
+  <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div>
+      <div class="flex items-center gap-2 mb-1">
+        <span class="text-xs font-bold uppercase tracking-wider bg-leaf-100 text-leaf-800 px-2 py-0.5 rounded">Porta de Entrada</span>
+        <h2 class="text-xl font-bold text-brand-800">Árvore de Triagem Rápida & Acolhimento</h2>
+      </div>
+      <p class="text-sm text-slate-600">Guia de conduta para o acadêmico diagnosticar a situação jurídica em menos de 2 minutos.</p>
+    </div>
+    <button onclick="resetarTriagem()" class="text-xs font-bold text-slate-500 hover:text-brand-700 border border-slate-200 px-3 py-1.5 rounded-lg hover:bg-slate-50 transition self-start md:self-auto">
+      🔄 Reiniciar Perguntas
+    </button>
+  </div>
+
+  <!-- GRID INTERATIVO DA TRIAGEM -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    
+    <!-- CARD 1: PERGUNTAS E FILTROS -->
+    <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
+      <h3 class="font-bold text-slate-800 border-b pb-2 flex items-center justify-between">
+        <span>Perguntas Objetivas ao Cidadão</span>
+        <span class="text-xs font-normal text-slate-500">Responda para ver a conduta sugerida</span>
+      </h3>
+
+      <!-- PERGUNTA 1: PEDIDO NO INSS -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+          1. Já fez pedido prévio formal ao INSS? (Tema 350 / STF)
+        </label>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <button onclick="definirTriagem('inss', 'sim_indeferido')" id="btn-t-inss-sim" class="btn-t-inss text-left p-3 rounded-lg border border-slate-200 hover:border-brand-500 text-xs transition">
+            <span class="font-bold block text-slate-800">Sim, e foi Negado</span>
+            <span class="text-[11px] text-slate-500">Possui Carta de Indeferimento</span>
+          </button>
+          <button onclick="definirTriagem('inss', 'esperando')" id="btn-t-inss-esp" class="btn-t-inss text-left p-3 rounded-lg border border-slate-200 hover:border-brand-500 text-xs transition">
+            <span class="font-bold block text-slate-800">Sim, Sem Resposta</span>
+            <span class="text-[11px] text-slate-500">Aguardando análise há mais de 45/90 dias</span>
+          </button>
+          <button onclick="definirTriagem('inss', 'nao')" id="btn-t-inss-nao" class="btn-t-inss text-left p-3 rounded-lg border border-slate-200 hover:border-brand-500 text-xs transition">
+            <span class="font-bold block text-slate-800">Não, Nunca Pediu</span>
+            <span class="text-[11px] text-slate-500">Veio direto procurar a Defensoria/Juizado</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- PERGUNTA 2: ACESSO AO MEU INSS -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+          2. O assistido possui acesso ao "Meu INSS" (Conta Gov.br)?
+        </label>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <button onclick="definirTriagem('gov', 'tem_senha')" id="btn-t-gov-sim" class="btn-t-gov text-left p-3 rounded-lg border border-slate-200 hover:border-brand-500 text-xs transition">
+            <span class="font-bold block text-slate-800">Sim, Sabe a Senha</span>
+            <span class="text-[11px] text-slate-500">Consegue logar pelo celular agora</span>
+          </button>
+          <button onclick="definirTriagem('gov', 'esqueceu')" id="btn-t-gov-esq" class="btn-t-gov text-left p-3 rounded-lg border border-slate-200 hover:border-brand-500 text-xs transition">
+            <span class="font-bold block text-slate-800">Esqueceu ou Bloqueou</span>
+            <span class="text-[11px] text-slate-500">E-mail ou número antigo cadastrado</span>
+          </button>
+          <button onclick="definirTriagem('gov', 'nunca')" id="btn-t-gov-nun" class="btn-t-gov text-left p-3 rounded-lg border border-slate-200 hover:border-brand-500 text-xs transition">
+            <span class="font-bold block text-slate-800">Nunca Teve Cadastro</span>
+            <span class="text-[11px] text-slate-500">Cidadão sem exclusão digital</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- PERGUNTA 3: DOCUMENTAÇÃO -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+          3. Trouxe Documentos Mínimos Hoje?
+        </label>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <button onclick="definirTriagem('docs', 'completos')" id="btn-t-docs-comp" class="btn-t-docs text-left p-3 rounded-lg border border-slate-200 hover:border-brand-500 text-xs transition">
+            <span class="font-bold block text-slate-800">Completos</span>
+            <span class="text-[11px] text-slate-500">RG/CPF, comprovante residência e laudos</span>
+          </button>
+          <button onclick="definirTriagem('docs', 'incompletos')" id="btn-t-docs-inc" class="btn-t-docs text-left p-3 rounded-lg border border-slate-200 hover:border-brand-500 text-xs transition">
+            <span class="font-bold block text-slate-800">Apenas Pessoais</span>
+            <span class="text-[11px] text-slate-500">Faltam exames médicos ou laudo do SUS</span>
+          </button>
+          <button onclick="definirTriagem('docs', 'sem')" id="btn-t-docs-sem" class="btn-t-docs text-left p-3 rounded-lg border border-slate-200 hover:border-brand-500 text-xs transition">
+            <span class="font-bold block text-slate-800">Nenhum Documento</span>
+            <span class="text-[11px] text-slate-500">Perdeu documentos ou não trouxe</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2: DIAGNÓSTICO E CONDUTA RECOMENDADA -->
+    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+      <div>
+        <h3 class="font-bold text-brand-800 border-b pb-2 flex items-center gap-2">
+          <span>📋</span> Diagnóstico da Conduta
+        </h3>
+        <div id="resultado-triagem-box" class="mt-4 p-4 rounded-xl border space-y-3 bg-slate-50 border-slate-200">
+          <p class="text-xs text-slate-600 leading-relaxed" id="resultado-triagem-texto">
+            Selecione as opções ao lado para o sistema indicar o caminho correto: ajuizamento, emissão de senha provisória na agência 26 de Agosto, encaminhamento ao CRAS ou barramento por ausência de interesse de agir.
+          </p>
+        </div>
+      </div>
+
+      <div id="resultado-triagem-acoes" class="hidden space-y-2">
+        <button id="btn-acao-triagem-1" onclick="alternarAba('peticoes')" class="w-full text-xs font-bold py-2 px-3 rounded-lg bg-brand-700 text-white hover:bg-brand-600 transition">
+          Gerar Petição Inicial Agora ❯
+        </button>
+        <button id="btn-acao-triagem-2" onclick="alternarAba('encaminhamentos')" class="w-full text-xs font-semibold py-2 px-3 rounded-lg border border-brand-200 text-brand-800 hover:bg-brand-50 transition">
+          Emitir Guia de Encaminhamento ❯
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROTEIRO DAS 5 PERGUNTAS ORAIS INDISPENSÁVEIS -->
+  <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+    <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+      <span>🗣️</span> As 5 Perguntas Orais Indispensáveis na Mesa de Atendimento
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
+      <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+        <span class="font-bold text-brand-700 block mb-1">1. Qualidade de Segurado</span>
+        <p class="text-slate-600">Qual foi o último mês em que pagou carnê ou teve carteira assinada?</p>
+      </div>
+      <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+        <span class="font-bold text-brand-700 block mb-1">2. Composição Familiar</span>
+        <p class="text-slate-600">Para BPC: Quem mora na mesma casa? Alguém recebe aposentadoria ou BPC?</p>
+      </div>
+      <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+        <span class="font-bold text-brand-700 block mb-1">3. Origem da Incapacidade</span>
+        <p class="text-slate-600">A doença foi causada pelo trabalho/acidente na firma (B91) ou comum (B31)?</p>
+      </div>
+      <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+        <span class="font-bold text-brand-700 block mb-1">4. Histórico Rural</span>
+        <p class="text-slate-600">Já trabalhou em sítio ou roça na juventude? (Aposentadoria Híbrida / Rural)</p>
+      </div>
+      <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+        <span class="font-bold text-brand-700 block mb-1">5. Gastos Médicos Contínuos</span>
+        <p class="text-slate-600">Tem notas de remédios contínuos, fraldas ou alimentação especial não fornecidos pelo SUS?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIEW 2: CATÁLOGO DE BENEFÍCIOS -->
+<section id="view-beneficios" class="hidden space-y-6">
+  <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h2 class="text-xl font-bold text-brand-800">Catálogo de Benefícios Previdenciários & Assistenciais</h2>
+      <p class="text-sm text-slate-600">Critérios legais da Lei nº 8.213/91, LOAS e jurisprudência pacificada do JEF/TRF3.</p>
+    </div>
+    <input type="text" id="filtro-beneficios-busca" onkeyup="filtrarCatalogoBeneficios()" placeholder="🔍 Buscar benefício ou CID..." class="text-xs rounded-lg border border-slate-300 p-2.5 w-full sm:w-64">
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="catalogo-cards-container">
+    <!-- Card 1 -->
+    <div class="beneficio-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-brand-500 transition space-y-3" data-titulo="auxilio incapacidade temporaria doenca b31 b91">
+      <div class="flex items-start justify-between">
+        <span class="text-xs font-bold uppercase bg-brand-50 text-brand-700 px-2 py-0.5 rounded">Previdenciário</span>
+        <span class="text-xs font-mono font-bold text-slate-400">B31 / B91</span>
+      </div>
+      <h3 class="font-bold text-slate-900 text-sm">Benefício por Incapacidade Temporária (Auxílio-Doença)</h3>
+      <p class="text-xs text-slate-600 line-clamp-3">Incapacidade total e temporária para a atividade habitual. Carência de 12 contribuições mensais (dispensada em acidentes ou doenças do art. 151 da Lei 8.213/91).</p>
+      <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+        <span class="text-slate-500 font-medium">Carência: 12 meses</span>
+        <button onclick="abrirModalBeneficio('incapacidade')" class="text-brand-700 font-bold hover:underline">Ver Requisitos ❯</button>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="beneficio-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-brand-500 transition space-y-3" data-titulo="incapacidade permanente aposentadoria invalidez b32">
+      <div class="flex items-start justify-between">
+        <span class="text-xs font-bold uppercase bg-brand-50 text-brand-700 px-2 py-0.5 rounded">Previdenciário</span>
+        <span class="text-xs font-mono font-bold text-slate-400">B32</span>
+      </div>
+      <h3 class="font-bold text-slate-900 text-sm">Benefício por Incapacidade Permanente (Invalidez)</h3>
+      <p class="text-xs text-slate-600 line-clamp-3">Incapacidade total, definitiva e insuscetível de reabilitação profissional. Possibilidade de acréscimo de 25% para assistência permanente de terceiros.</p>
+      <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+        <span class="text-slate-500 font-medium">Adicional: +25%</span>
+        <button onclick="abrirModalBeneficio('invalidez')" class="text-brand-700 font-bold hover:underline">Ver Requisitos ❯</button>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="beneficio-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-brand-500 transition space-y-3" data-titulo="bpc loas idoso deficiencia pcd b87 b88">
+      <div class="flex items-start justify-between">
+        <span class="text-xs font-bold uppercase bg-amber-50 text-amber-800 px-2 py-0.5 rounded">Assistencial</span>
+        <span class="text-xs font-mono font-bold text-slate-400">B87 / B88</span>
+      </div>
+      <h3 class="font-bold text-slate-900 text-sm">BPC / LOAS (Idoso 65+ e Pessoa com Deficiência)</h3>
+      <p class="text-xs text-slate-600 line-clamp-3">Garantia de 1 salário mínimo sem exigência de contribuição ao INSS. Renda familiar per capita legal de até 1/4 SM ou até 1/2 SM flexibilizada na via judicial por gastos médicos.</p>
+      <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+        <span class="text-slate-500 font-medium">Não exige carência</span>
+        <button onclick="abrirModalBeneficio('bpc')" class="text-brand-700 font-bold hover:underline">Ver Requisitos ❯</button>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="beneficio-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-brand-500 transition space-y-3" data-titulo="salario maternidade rural urbano b80">
+      <div class="flex items-start justify-between">
+        <span class="text-xs font-bold uppercase bg-brand-50 text-brand-700 px-2 py-0.5 rounded">Previdenciário</span>
+        <span class="text-xs font-mono font-bold text-slate-400">B80</span>
+      </div>
+      <h3 class="font-bold text-slate-900 text-sm">Salário-Maternidade (Urbano e Segurada Especial)</h3>
+      <p class="text-xs text-slate-600 line-clamp-3">Devido pelo parto, adoção ou aborto não criminoso. Segurada especial rural exige comprovação de 10 meses de atividade campesina anterior ao parto.</p>
+      <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+        <span class="text-slate-500 font-medium">Prazo: 120 dias</span>
+        <button onclick="abrirModalBeneficio('maternidade')" class="text-brand-700 font-bold hover:underline">Ver Requisitos ❯</button>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="beneficio-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-brand-500 transition space-y-3" data-titulo="aposentadoria por idade rural hibrida b41">
+      <div class="flex items-start justify-between">
+        <span class="text-xs font-bold uppercase bg-brand-50 text-brand-700 px-2 py-0.5 rounded">Previdenciário</span>
+        <span class="text-xs font-mono font-bold text-slate-400">B41</span>
+      </div>
+      <h3 class="font-bold text-slate-900 text-sm">Aposentadoria Rural e Híbrida (Tema 1007/STJ)</h3>
+      <p class="text-xs text-slate-600 line-clamp-3">Idade reduzida (60 anos homem / 55 mulher) em regime de economia familiar. A aposentadoria híbrida permite somar tempo rural remoto com tempo urbano.</p>
+      <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+        <span class="text-slate-500 font-medium">Carência: 180 meses</span>
+        <button onclick="abrirModalBeneficio('rural')" class="text-brand-700 font-bold hover:underline">Ver Requisitos ❯</button>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="beneficio-card bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-brand-500 transition space-y-3" data-titulo="pensao por morte b21">
+      <div class="flex items-start justify-between">
+        <span class="text-xs font-bold uppercase bg-brand-50 text-brand-700 px-2 py-0.5 rounded">Previdenciário</span>
+        <span class="text-xs font-mono font-bold text-slate-400">B21</span>
+      </div>
+      <h3 class="font-bold text-slate-900 text-sm">Pensão por Morte (Urbana e Rural)</h3>
+      <p class="text-xs text-slate-600 line-clamp-3">Benefício pago aos dependentes do segurado falecido. Duração escalonada para cônjuges conforme idade do sobrevivente e tempo de união.</p>
+      <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+        <span class="text-slate-500 font-medium">Não exige carência</span>
+        <button onclick="abrirModalBeneficio('pensao')" class="text-brand-700 font-bold hover:underline">Ver Requisitos ❯</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIEW 3: CALCULADORA RMI & VALOR DA CAUSA JEF -->
+<section id="view-calculadora" class="hidden space-y-6">
+  <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+    <h2 class="text-xl font-bold text-brand-800">Calculadora de RMI & Valor da Causa (JEF/TRF3)</h2>
+    <p class="text-sm text-slate-600">Simulação de parcelas vencidas, vincendas e teto de alçada de 60 salários mínimos.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+      <h3 class="font-bold text-slate-800 border-b pb-2 text-sm">Parâmetros do Cálculo</h3>
+      
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Renda Mensal Inicial Estimada (R$)</label>
+        <input type="number" id="calc-rmi" value="1621.00" step="0.01" class="w-full text-sm rounded-lg border border-slate-300 p-2 font-mono">
+        <span class="text-[11px] text-slate-500">Piso Nacional Vigente: R$ 1.621,00</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Data de Início (DER / DII)</label>
+          <input type="date" id="calc-data-inicio" class="w-full text-xs rounded-lg border border-slate-300 p-2 font-mono">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Data de Ajuizamento</label>
+          <input type="date" id="calc-data-ajuizamento" class="w-full text-xs rounded-lg border border-slate-300 p-2 font-mono">
+        </div>
+      </div>
+
+      <button onclick="calcularValorCausaJEF()" class="w-full bg-brand-700 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-xs shadow transition">
+        Calcular Valor da Causa
+      </button>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+      <div>
+        <h3 class="font-bold text-slate-800 border-b pb-2 text-sm">Resumo da Alçada Processual</h3>
+        <div class="mt-4 space-y-3 text-xs">
+          <div class="flex justify-between py-1.5 border-b border-slate-100">
+            <span class="text-slate-600">Parcelas Vencidas (retroativos):</span>
+            <span id="calc-res-vencidas" class="font-mono font-bold text-slate-900">R$ 0,00</span>
+          </div>
+          <div class="flex justify-between py-1.5 border-b border-slate-100">
+            <span class="text-slate-600">12 Parcelas Vincendas (art. 292, § 2º CPC):</span>
+            <span id="calc-res-vincendas" class="font-mono font-bold text-slate-900">R$ 0,00</span>
+          </div>
+          <div class="flex justify-between py-2 border-b-2 border-slate-200 text-sm">
+            <span class="font-bold text-slate-800">VALOR TOTAL DA CAUSA:</span>
+            <span id="calc-res-total" class="font-mono font-black text-brand-700">R$ 0,00</span>
+          </div>
+          <div class="p-3 rounded-lg border text-xs" id="calc-res-alerta">
+            <p class="font-bold text-slate-700">Teto do JEF (60 Salários Mínimos): R$ 97.260,00</p>
+            <p class="text-slate-500 mt-0.5">Informe as datas e clique em calcular para conferir se há necessidade de renúncia do excedente.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIEW 4: GERADOR DE PETIÇÕES INICIAIS (JUS POSTULANDI / PSA TRF3) -->
+<section id="view-peticoes" class="hidden space-y-6">
+  <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h2 class="text-xl font-bold text-brand-800">Minutador de Petições Iniciais (Partes sem Advogado)</h2>
+      <p class="text-sm text-slate-600">Peças redigidas em nome do próprio assistido com base no art. 3º e 10 da Lei 10.259/2001.</p>
+    </div>
+    <button onclick="puxarDadosUltimoAtendimento('peticoes')" class="text-xs bg-brand-50 text-brand-700 font-bold px-3 py-2 rounded-lg border border-brand-200 hover:bg-brand-100 transition self-start sm:self-auto flex items-center gap-1">
+      <span>🔄</span> Puxar Dados do Atendimento
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-1 bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+      <h3 class="font-bold text-slate-800 border-b pb-2 text-sm">Dados da Ação</h3>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Modelo de Ação</label>
+        <select id="pet-modelo-select" onchange="gerarMinutaPeticao()" class="w-full text-xs rounded-lg border border-slate-300 p-2">
+          <option value="auxilio_incapacidade">Restabelecimento de Auxílio-Incapacidade (B31/B91)</option>
+          <option value="bpc_loas_idoso">Concessão de BPC/LOAS Idoso (B88)</option>
+          <option value="bpc_loas_deficiente">Concessão de BPC/LOAS Pessoa com Deficiência (B87)</option>
+          <option value="aposentadoria_rural">Aposentadoria por Idade Rural / Segurado Especial</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Nome Completo do Assistido</label>
+        <input type="text" id="pet-nome" placeholder="Nome Completo" class="w-full text-xs rounded-lg border border-slate-300 p-2" oninput="gerarMinutaPeticao()">
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-[11px] font-semibold text-slate-600">Doc. Identificação</label>
+            <select id="pet-tipo-doc" onchange="alternarTipoDocPeticionar()" class="text-[10px] border border-slate-300 rounded px-1 py-0.5 bg-slate-50">
+              <option value="cpf">CPF</option>
+              <option value="rnm">RNM / RNE</option>
+            </select>
+          </div>
+          <input type="text" id="pet-cpf" placeholder="000.000.000-00" class="w-full text-xs rounded-lg border border-slate-300 p-2 font-mono" oninput="gerarMinutaPeticao()">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Telefone WhatsApp</label>
+          <input type="text" id="pet-telefone" placeholder="(67) 99999-9999" class="w-full text-xs rounded-lg border border-slate-300 p-2 font-mono" oninput="gerarMinutaPeticao()">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Endereço Residencial</label>
+        <input type="text" id="pet-endereco" placeholder="Rua, Bairro, Campo Grande/MS" class="w-full text-xs rounded-lg border border-slate-300 p-2" oninput="gerarMinutaPeticao()">
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Número do Benefício (NB)</label>
+          <input type="text" id="pet-nb" placeholder="000.000.000-0" class="w-full text-xs rounded-lg border border-slate-300 p-2 font-mono" oninput="gerarMinutaPeticao()">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Data da DER / Cessação</label>
+          <input type="text" id="pet-der" placeholder="DD/MM/AAAA" class="w-full text-xs rounded-lg border border-slate-300 p-2 font-mono" oninput="gerarMinutaPeticao()">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Profissão Declarada</label>
+        <input type="text" id="pet-profissao" placeholder="Ex: Pedreiro, Diarista..." class="w-full text-xs rounded-lg border border-slate-300 p-2" oninput="gerarMinutaPeticao()">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">CID / Doenças Diagnosticadas</label>
+        <input type="text" id="pet-cid" placeholder="Ex: CID M54.5, M51, F32..." class="w-full text-xs rounded-lg border border-slate-300 p-2" oninput="gerarMinutaPeticao()">
+      </div>
+    </div>
+
+    <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between border-b pb-2 mb-3">
+          <h3 class="font-bold text-slate-800 text-sm">Minuta da Petição Pronta (Jus Postulandi)</h3>
+          <button onclick="copiarTextoPeticionado()" class="text-xs bg-leaf-500 hover:bg-leaf-600 text-white font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+            <span>📋</span> Copiar Texto Integral
+          </button>
+        </div>
+        <textarea id="pet-saida-texto" rows="18" class="w-full text-xs font-mono p-3 rounded-lg border border-slate-200 bg-slate-50 text-slate-800 leading-relaxed scrollbar-none"></textarea>
+      </div>
+      <div class="flex justify-end gap-2 pt-2 border-t">
+        <button onclick="imprimirPeticao()" class="text-xs font-bold text-brand-800 border border-brand-200 hover:bg-brand-50 px-4 py-2 rounded-lg transition">
+          🖨️ Imprimir Peça
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIEW 5: GERADOR DE QUESITOS MÉDICOS -->
+<section id="view-quesitos" class="hidden space-y-6">
+  <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h2 class="text-xl font-bold text-brand-800">Quesitos Estratégicos para Perícia Médica Judicial (JEF)</h2>
+      <p class="text-sm text-slate-600">Perguntas fundamentadas no art. 465 do CPC e Enunciados do FONAJEF.</p>
+    </div>
+    <button onclick="puxarDadosUltimoAtendimento('quesitos')" class="text-xs bg-brand-50 text-brand-700 font-bold px-3 py-2 rounded-lg border border-brand-200 hover:bg-brand-100 transition self-start sm:self-auto flex items-center gap-1">
+      <span>🔄</span> Puxar Dados do Atendimento
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-1 bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+      <h3 class="font-bold text-slate-800 border-b pb-2 text-sm">Especialidade Pericial</h3>
+      
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Ramo Clínico / Patologia</label>
+        <select id="ques-especialidade" onchange="gerarRolQuesitos()" class="w-full text-xs rounded-lg border border-slate-300 p-2">
+          <option value="ortopedia">Ortopedia / Coluna / LER-DORT</option>
+          <option value="psiquiatria">Psiquiatria / Transtornos Mentais / F32</option>
+          <option value="cardiologia">Cardiologia / Respiratório / Hipertensão Grave</option>
+          <option value="neurologia">Neurologia / Sequelas de AVC / Epilepsia</option>
+          <option value="oncologia">Oncologia / Art. 151 Lei 8.213</option>
+          <option value="pcd_infantil">BPC PcD Infantil / Critérios CIF</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Nome do Assistido</label>
+        <input type="text" id="ques-autor" placeholder="Nome Completo" class="w-full text-xs rounded-lg border border-slate-300 p-2" oninput="gerarRolQuesitos()">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Profissão Habitual Exercida</label>
+        <input type="text" id="ques-profissao" placeholder="Ex: Trabalhador da Construção Civil" class="w-full text-xs rounded-lg border border-slate-300 p-2" oninput="gerarRolQuesitos()">
+      </div>
+    </div>
+
+    <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between border-b pb-2 mb-3">
+          <h3 class="font-bold text-slate-800 text-sm">Rol de Quesitos Oficiais</h3>
+          <button onclick="copiarQuesitos()" class="text-xs bg-leaf-500 hover:bg-leaf-600 text-white font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+            <span>📋</span> Copiar Quesitos
+          </button>
+        </div>
+        <textarea id="ques-saida" rows="16" class="w-full text-xs font-mono p-3 rounded-lg border border-slate-200 bg-slate-50 text-slate-800 leading-relaxed scrollbar-none"></textarea>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIEW 6: AUTODECLARAÇÃO RURAL -->
+<section id="view-rural" class="hidden space-y-6">
+  <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h2 class="text-xl font-bold text-brand-800">Autodeclaração de Atividade Rural (Segurado Especial)</h2>
+      <p class="text-sm text-slate-600">Formulário oficial do INSS em substituição ao antigo sindicato (Ofício-Circular nº 46/DIRBEN).</p>
+    </div>
+    <button onclick="puxarDadosUltimoAtendimento('rural')" class="text-xs bg-brand-50 text-brand-700 font-bold px-3 py-2 rounded-lg border border-brand-200 hover:bg-brand-100 transition self-start sm:self-auto flex items-center gap-1">
+      <span>🔄</span> Puxar Dados do Atendimento
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-1 bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+      <h3 class="font-bold text-slate-800 border-b pb-2 text-sm">Dados do Imóvel e Atividade</h3>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Nome do Trabalhador(a)</label>
+        <input type="text" id="rural-nome" placeholder="Nome Completo" class="w-full text-xs rounded-lg border border-slate-300 p-2" oninput="gerarAutodeclaracaoRural()">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">CPF</label>
+        <input type="text" id="rural-cpf" placeholder="000.000.000-00" class="w-full text-xs rounded-lg border border-slate-300 p-2 font-mono" oninput="gerarAutodeclaracaoRural()">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Nome da Propriedade / Assentamento</label>
+        <input type="text" id="rural-imovel" placeholder="Ex: Fazenda Santa Maria / Assentamento Itamarati" class="w-full text-xs rounded-lg border border-slate-300 p-2" oninput="gerarAutodeclaracaoRural()">
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Município/UF</label>
+          <input type="text" id="rural-municipio" value="Campo Grande - MS" class="w-full text-xs rounded-lg border border-slate-300 p-2" oninput="gerarAutodeclaracaoRural()">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Área (Módulos/Hectares)</label>
+          <input type="text" id="rural-area" placeholder="Ex: 12 hectares" class="w-full text-xs rounded-lg border border-slate-300 p-2" oninput="gerarAutodeclaracaoRural()">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Principais Culturas / Criações</label>
+        <input type="text" id="rural-culturas" placeholder="Ex: Mandioca, milho, hortaliças e galinhas" class="w-full text-xs rounded-lg border border-slate-300 p-2" oninput="gerarAutodeclaracaoRural()">
+      </div>
+    </div>
+
+    <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between border-b pb-2 mb-3">
+          <h3 class="font-bold text-slate-800 text-sm">Declaração Formatada para Impressão</h3>
+          <button onclick="copiarAutodeclaracaoRural()" class="text-xs bg-leaf-500 hover:bg-leaf-600 text-white font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+            <span>📋</span> Copiar Declaração
+          </button>
+        </div>
+        <textarea id="rural-saida" rows="16" class="w-full text-xs font-mono p-3 rounded-lg border border-slate-200 bg-slate-50 text-slate-800 leading-relaxed scrollbar-none"></textarea>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIEW 7: ATERMAÇÃO & CIÊNCIA JUS POSTULANDI (PSA / TRF3) -->
+<section id="view-atermacao" class="hidden space-y-6">
+  <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <div class="flex items-center gap-2 mb-1">
+        <span class="text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-800 px-2 py-0.5 rounded">Rito Jus Postulandi</span>
+        <h2 class="text-xl font-bold text-brand-800">Atermação Partes sem Advogado (PSA / TRF3)</h2>
+      </div>
+      <p class="text-sm text-slate-600">Diretrizes operacionais e emissão do Termo de Ciência e Responsabilidade do Cidadão no JEF.</p>
+    </div>
+    <button onclick="puxarDadosUltimoAtendimento('atermacao')" class="text-xs bg-brand-50 text-brand-700 font-bold px-3 py-2 rounded-lg border border-brand-200 hover:bg-brand-100 transition self-start sm:self-auto flex items-center gap-1">
+      <span>🔄</span> Puxar Dados do Atendimento
+    </button>
+  </div>
+
+  <!-- Alerta Institucional da LAPREVS -->
+  <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl text-xs text-amber-900 space-y-1">
+    <p class="font-bold">⚠️ ATENÇÃO OBRIGATÓRIA AOS ACADÊMICOS DE PLANTÃO:</p>
+    <p>
+      A LAPREVS presta auxílio extensionista para viabilizar o acesso à Justiça através do <strong>Portal Partes sem Advogado (PSA/TRF3)</strong>. 
+      A petição corre exclusivamente no nome do próprio cidadão (art. 3º e 10 da Lei nº 10.259/2001). 
+      <strong>Não junte procuração ad judicia com poderes privativos de advocacia</strong>, e recolha a assinatura obrigatória do Termo de Ciência abaixo para que o assistido saiba que deve acompanhar pessoalmente as perícias e intimações.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Painel de Preenchimento -->
+    <div class="lg:col-span-1 bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+      <h3 class="font-bold text-slate-800 border-b pb-2 text-sm">Dados do Cidadão Atermado</h3>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Nome do Autor(a)</label>
+        <input type="text" id="aterm-nome" placeholder="Nome Completo" class="w-full text-xs rounded-lg border border-slate-300 p-2">
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">CPF / Documento</label>
+          <input type="text" id="aterm-cpf" placeholder="000.000.000-00" class="w-full text-xs rounded-lg border border-slate-300 p-2 font-mono">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Telefone WhatsApp</label>
+          <input type="text" id="aterm-telefone" placeholder="(67) 99999-9999" class="w-full text-xs rounded-lg border border-slate-300 p-2">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Ação Distribuída no PSA</label>
+        <input type="text" id="aterm-acao" value="Ação de Concessão de Benefício por Incapacidade / BPC" class="w-full text-xs rounded-lg border border-slate-300 p-2">
+      </div>
+
+      <button onclick="gerarVisualizacaoTermoAtermacao()" class="w-full bg-brand-700 hover:bg-brand-600 text-white font-bold py-2.5 rounded-lg text-xs shadow transition">
+        Atualizar Termo de Ciência
+      </button>
+
+      <!-- Checklist de Atermação PSA TRF3 -->
+      <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-[11px] text-slate-700 space-y-2 mt-4">
+        <strong class="text-slate-900 block font-sans">Checklist de Protocolo no PSA (TRF3):</strong>
+        <p>1. Acesse o portal oficial <em>Partes sem Advogado TRF3 / MS</em>;</p>
+        <p>2. Cadastre o e-mail ou WhatsApp do <strong>próprio assistido</strong> para recebimento de comunicações do PJe;</p>
+        <p>3. Anexe os arquivos em PDF (tamanho individual inferior a 5MB): RG/CPF, Comprovante de Residência, Indeferimento do INSS, Laudos Médicos e a Petição Inicial;</p>
+        <p>4. Imprima o comprovante de distribuição com o número do processo (202...JEF/MS) e entregue ao cidadão junto com este termo assinado.</p>
+      </div>
+    </div>
+
+    <!-- Folha Impressa do Termo -->
+    <div class="lg:col-span-2 bg-white p-8 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between" id="folha-atermacao">
+      <div>
+        <!-- Cabeçalho Timbrado LAPREVS -->
+        <div class="flex items-center gap-4 pb-4 border-b-2 border-brand-700 mb-6">
+          <div class="w-20 h-14 flex items-center justify-center p-0.5 border border-slate-200 rounded bg-slate-50">
+            <svg class="w-full h-full object-contain" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="160" cy="46" r="18" fill="#1b5c98" />
+              <path d="M 160 84 C 130 52 86 36 46 38 C 76 60 114 78 144 116 Z" fill="#1b5c98" />
+              <path d="M 160 84 C 190 52 234 36 274 38 C 244 60 206 78 176 116 Z" fill="#1b5c98" />
+              <path d="M 152 142 C 122 100 80 84 36 90 C 70 80 112 90 144 130 Z" fill="#7a9a3b" />
+              <path d="M 168 142 C 198 100 240 84 284 90 C 250 80 208 90 176 130 Z" fill="#7a9a3b" />
+              <polygon points="160,212 140,118 160,140 180,118" fill="#1b5c98" />
+              <polygon points="160,212 148,154 160,172 172,154" fill="#7a9a3b" />
+              <path d="M 52 88 L 7 148" stroke="#1b5c98" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M 52 88 L 97 148" stroke="#1b5c98" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M 7 148 Q 52 176 97 148 Z" fill="#1b5c98" />
+              <path d="M 268 88 L 223 148" stroke="#1b5c98" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M 268 88 L 313 148" stroke="#1b5c98" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M 223 148 Q 268 176 313 148 Z" fill="#1b5c98" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-base font-black tracking-tight text-brand-800">LIGA ACADÊMICA DE DIREITO PREVIDENCIÁRIO E SEGURIDADE SOCIAL (LAPREVS)</h4>
+            <p class="text-xs font-semibold text-slate-600">Serviço de Apoio e Extensão Universitária em Atermação Judicial</p>
+            <p class="text-[11px] text-slate-500">Juizado Especial Federal da 3ª Região • Subseção Judiciária de Campo Grande/MS</p>
+          </div>
+        </div>
+
+        <div class="text-center my-4">
+          <h3 class="text-sm font-bold uppercase tracking-wide text-slate-900 border-b border-slate-200 pb-1.5 inline-block">
+            TERMO DE CIÊNCIA DE ATERMAÇÃO DIRETA (JUS POSTULANDI) E RESPONSABILIDADE PROCESSUAL
+          </h3>
+        </div>
+
+        <div class="space-y-3 text-xs text-slate-800 leading-relaxed font-serif">
+          <p>
+            Eu, <strong id="print-aterm-nome" class="font-sans text-slate-900">___________________________________________________</strong>, 
+            inscrito(a) sob o Documento/CPF nº <strong id="print-aterm-cpf" class="font-sans text-slate-900">________________________</strong>, 
+            residente e domiciliado(a) em Campo Grande/MS, telefone <strong id="print-aterm-tel" class="font-sans text-slate-900">________________________</strong>, 
+            declaro para todos os fins de direito e perante o Juizado Especial Federal da 3ª Região que:
+          </p>
+
+          <ol class="list-decimal list-inside space-y-2 pl-2 text-justify">
+            <li><strong>Exercício do Jus Postulandi:</strong> Tenho ciência de que a presente ação judicial tramita perante o Juizado Especial Federal sem a obrigatoriedade de representação por advogado em primeiro grau, atuando em <em>causa própria</em> com amparo nos artigos 3º e 10 da Lei Federal nº 10.259/2001 e no art. 9º da Lei nº 9.099/1995.</li>
+            <li><strong>Natureza do Apoio Acadêmico:</strong> Reconheço expressamente que a <strong>LAPREVS</strong> e seus acadêmicos prestaram exclusivamente orientação técnica e auxílio operacional voluntário na redação e inserção dos documentos no sistema <em>Partes sem Advogado (PSA/TRF3)</em>, <u>não assumindo mandato procuratório, procuração judicial ou patrocínio advocatício da causa</u>.</li>
+            <li><strong>Dever de Acompanhamento e Perícia:</strong> Comprometo-me a acompanhar as notificações que receber no número de telefone/WhatsApp ou e-mail cadastrado, especialmente o <strong>comparecimento pessoal e pontual à perícia médica judicial</strong> designada pelo Juiz Federal, munido de todos os exames, laudos e receitas atualizadas, ciente de que o não comparecimento injustificado poderá acarretar a extinção do processo sem julgamento do mérito.</li>
+            <li><strong>Necessidade de Defensoria/Advogado em Grau Recursal:</strong> Declaro estar informado(a) de que, caso a sentença final seja total ou parcialmente desfavorável e haja interesse em recorrer para a Turma Recursal do TRF3, ou se o INSS apresentar recurso, a assistência de profissional habilitado será obrigatória (art. 41, § 2º da Lei nº 9.099/95), devendo eu procurar com antecedência a <strong>Defensoria Pública da União (DPU/MS)</strong> ou advogado particular de minha confiança.</li>
+          </ol>
+
+          <p class="pt-2">Por ser a expressão da verdade, firmo o presente termo para que surta seus jurídicos e legais efeitos.</p>
+
+          <div class="pt-8 text-center text-xs font-sans">
+            <p>Campo Grande - MS, <span id="print-aterm-data" class="font-semibold"></span>.</p>
+            <div class="mt-8 pt-2 border-t border-slate-400 max-w-sm mx-auto">
+              <p class="font-bold text-slate-900" id="print-aterm-assinatura">Assinatura do(a) Autor(a) em Jus Postulandi</p>
+              <p class="text-[11px] text-slate-500">Cidadão(ã) Atermado(a)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-200 flex justify-end no-print">
+        <button onclick="imprimirTermoAtermacao()" class="bg-brand-700 hover:bg-brand-600 text-white font-bold py-2 px-5 rounded-lg text-xs shadow flex items-center gap-1.5 transition">
+          <span>🖨️</span> Imprimir Termo de Ciência em A4
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIEW 8: GUIA DE ENCAMINHAMENTOS -->
+<section id="view-encaminhamentos" class="hidden space-y-6">
+  <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h2 class="text-xl font-bold text-brand-800">Emissão de Guias de Encaminhamento</h2>
+      <p class="text-sm text-slate-600">Orientações impressas entregues em mãos ao cidadão para busca de serviços públicos em Campo Grande.</p>
+    </div>
+    <button onclick="puxarDadosUltimoAtendimento('encaminhamentos')" class="text-xs bg-brand-50 text-brand-700 font-bold px-3 py-2 rounded-lg border border-brand-200 hover:bg-brand-100 transition self-start sm:self-auto flex items-center gap-1">
+      <span>🔄</span> Puxar Dados do Atendimento
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-1 bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+      <h3 class="font-bold text-slate-800 border-b pb-2 text-sm">Destino do Encaminhamento</h3>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Modelo Pré-formatado</label>
+        <select id="enc-modelo" onchange="carregarModeloEncaminhamento()" class="w-full text-xs rounded-lg border border-slate-300 p-2">
+          <option value="inss_senha">APS 26 de Agosto (Senha Provisória do Meu INSS)</option>
+          <option value="cras_cadunico">CRAS / SAS (Inscrição ou Atualização do CadÚnico - BPC)</option>
+          <option value="dpu_recurso">Defensoria Pública da União (Recurso no TRF3 ou Dano Moral)</option>
+          <option value="sus_laudo">UBS / CEM / SUS (Obtenção de Laudo Médico Detalhado)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Nome do Cidadão</label>
+        <input type="text" id="enc-nome" placeholder="Nome Completo" class="w-full text-xs rounded-lg border border-slate-300 p-2" oninput="atualizarPreviewEncaminhamento()">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">CPF / Documento</label>
+        <input type="text" id="enc-cpf" placeholder="000.000.000-00" class="w-full text-xs rounded-lg border border-slate-300 p-2 font-mono" oninput="atualizarPreviewEncaminhamento()">
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Instrução ao Cidadão</label>
+        <textarea id="enc-instrucao" rows="4" class="w-full text-xs rounded-lg border border-slate-300 p-2" oninput="atualizarPreviewEncaminhamento()"></textarea>
+      </div>
+    </div>
+
+    <div class="lg:col-span-2 bg-white p-8 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between" id="folha-encaminhamento">
+      <div>
+        <div class="flex items-center gap-4 pb-4 border-b-2 border-brand-700 mb-6">
+          <div class="w-16 h-12 flex items-center justify-center p-0.5 border border-slate-200 rounded bg-slate-50">
+            <svg class="w-full h-full object-contain" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="160" cy="46" r="18" fill="#1b5c98" />
+              <path d="M 160 84 C 130 52 86 36 46 38 C 76 60 114 78 144 116 Z" fill="#1b5c98" />
+              <path d="M 160 84 C 190 52 234 36 274 38 C 244 60 206 78 176 116 Z" fill="#1b5c98" />
+              <path d="M 152 142 C 122 100 80 84 36 90 C 70 80 112 90 144 130 Z" fill="#7a9a3b" />
+              <path d="M 168 142 C 198 100 240 84 284 90 C 250 80 208 90 176 130 Z" fill="#7a9a3b" />
+              <polygon points="160,212 140,118 160,140 180,118" fill="#1b5c98" />
+              <polygon points="160,212 148,154 160,172 172,154" fill="#7a9a3b" />
+              <path d="M 52 88 L 7 148" stroke="#1b5c98" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M 52 88 L 97 148" stroke="#1b5c98" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M 7 148 Q 52 176 97 148 Z" fill="#1b5c98" />
+              <path d="M 268 88 L 223 148" stroke="#1b5c98" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M 268 88 L 313 148" stroke="#1b5c98" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M 223 148 Q 268 176 313 148 Z" fill="#1b5c98" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-sm font-black tracking-tight text-brand-800 uppercase">GUIA DE ENCAMINHAMENTO E ORIENTAÇÃO AO CIDADÃO</h4>
+            <p class="text-[11px] text-slate-500">LAPREVS • Liga Acadêmica de Direito Previdenciário e Seguridade Social</p>
+          </div>
+        </div>
+
+        <div class="space-y-4 text-xs">
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+            <p><strong>Assistido(a):</strong> <span id="print-enc-nome">Nome do Cidadão</span></p>
+            <p><strong>CPF/Documento:</strong> <span id="print-enc-cpf" class="font-mono">000.000.000-00</span></p>
+            <p><strong>Data de Emissão:</strong> <span id="print-enc-data">--/--/----</span></p>
+          </div>
+
+          <div>
+            <h5 class="font-bold text-slate-800 uppercase text-[11px] mb-1">Órgão de Destino:</h5>
+            <p id="print-enc-destino" class="font-bold text-brand-800 text-sm">Agência da Previdência Social - Rua 26 de Agosto, 680</p>
+          </div>
+
+          <div>
+            <h5 class="font-bold text-slate-800 uppercase text-[11px] mb-1">Finalidade e O que Levar:</h5>
+            <p id="print-enc-instrucao" class="text-slate-700 leading-relaxed bg-white border border-slate-200 p-3 rounded-lg">Instruções detalhadas...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-200 flex justify-end no-print">
+        <button onclick="imprimirGuiaEncaminhamento()" class="bg-brand-700 hover:bg-brand-600 text-white font-bold py-2 px-5 rounded-lg text-xs shadow transition">
+          🖨️ Imprimir Guia
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIEW 9: REGISTRO & QUANTITATIVO DE ATENDIMENTOS -->
+<section id="view-registro" class="hidden space-y-6">
+  <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div>
+      <h2 class="text-xl font-bold text-brand-800">Registro & Quantitativo de Atendimentos</h2>
+      <p class="text-sm text-slate-600">Base de dados unificada com sincronização automática entre os computadores do plantão.</p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <button onclick="abrirModalGoogleSheets()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-2 rounded-lg border border-slate-300 transition flex items-center gap-1.5">
+        <span>⚙️</span> Configurar Planilha
+      </button>
+      <button onclick="sincronizarComPlanilhaGoogle(true)" class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-lg transition flex items-center gap-1.5 shadow">
+        <span>🔄</span> Sincronizar Agora
+      </button>
+      <button onclick="exportarAtendimentosCSV()" class="text-xs bg-brand-700 hover:bg-brand-600 text-white font-bold px-3 py-2 rounded-lg transition flex items-center gap-1.5 shadow">
+        <span>📥</span> Exportar Excel (CSV)
+      </button>
+    </div>
+  </div>
+
+  <!-- FORMULÁRIO DE CADASTRO DE NOVO ATENDIMENTO -->
+  <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+    <h3 class="font-bold text-slate-800 border-b pb-2 text-sm flex items-center justify-between">
+      <span>Cadastrar Atendimento do Plantão</span>
+      <span class="text-xs font-normal text-slate-500">Salva na memória e no Google Planilhas</span>
+    </h3>
+
+    <form id="form-novo-atendimento" onsubmit="salvarNovoAtendimento(event)" class="space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        
+        <div class="md:col-span-2">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Nome Completo do Assistido *</label>
+          <input type="text" id="reg-nome" required placeholder="Nome Completo do Assistido" class="w-full text-xs rounded-lg border border-slate-300 p-2.5">
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-xs font-semibold text-slate-600">Documento *</label>
+            <select id="reg-tipo-doc" onchange="alternarTipoDocRegistro()" class="text-[10px] border border-slate-300 rounded px-1.5 py-0.5 bg-slate-50">
+              <option value="cpf">CPF</option>
+              <option value="rnm">RNM / RNE</option>
+              <option value="protocolo">Protocolo Refúgio</option>
+            </select>
+          </div>
+          <input type="text" id="reg-cpf" required placeholder="000.000.000-00" class="w-full text-xs rounded-lg border border-slate-300 p-2.5 font-mono" oninput="aplicarMascaraValidacaoCPF(this)">
+          <span id="reg-cpf-feedback" class="text-[10px] block mt-0.5 font-semibold"></span>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Telefone WhatsApp *</label>
+          <input type="text" id="reg-telefone" required placeholder="(67) 99999-9999" class="w-full text-xs rounded-lg border border-slate-300 p-2.5 font-mono" oninput="aplicarMascaraTelefone(this)">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Matéria / Benefício Buscado *</label>
+          <select id="reg-beneficio" required onchange="verificarOutroRequerimento(this.value)" class="w-full text-xs rounded-lg border border-slate-300 p-2.5">
+            <option value="Consulta Jurídica">Consulta Jurídica (Orientação / Triagem)</option>
+            <option value="Benefício por Incapacidade Temporária (B31/B91)">Incapacidade Temporária (B31/B91)</option>
+            <option value="Benefício por Incapacidade Permanente (B32)">Incapacidade Permanente (B32)</option>
+            <option value="BPC / LOAS - Pessoa com Deficiência (B87)">BPC LOAS - PcD (B87)</option>
+            <option value="BPC / LOAS - Idoso (B88)">BPC LOAS - Idoso (B88)</option>
+            <option value="Aposentadoria por Idade Rural / Híbrida">Aposentadoria Rural / Híbrida</option>
+            <option value="Salário-Maternidade">Salário-Maternidade</option>
+            <option value="Pensão por Morte">Pensão por Morte</option>
+            <option value="Auxílio-Reclusão">Auxílio-Reclusão</option>
+            <option value="Outros">Outros Requerimentos (Especificar)</option>
+          </select>
+        </div>
+
+        <div id="reg-beneficio-outro-container" class="hidden">
+          <label class="block text-xs font-semibold text-amber-800 mb-1">Especificar Matéria / Pedido *</label>
+          <input type="text" id="reg-beneficio-outro" placeholder="Ex: CTC, Recurso da Junta..." class="w-full text-xs rounded-lg border border-amber-300 bg-amber-50/50 p-2.5">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Status do Atendimento *</label>
+          <select id="reg-status" required class="w-full text-xs rounded-lg border border-slate-300 p-2.5">
+            <option value="Ajuizado PSA">Ajuizado no PSA / TRF3</option>
+            <option value="Orientado / Consulta">Orientado / Consulta Concluída</option>
+            <option value="Encaminhado ao INSS">Encaminhado ao INSS (Senha / DER)</option>
+            <option value="Encaminhado ao CRAS">Encaminhado ao CRAS (CadÚnico)</option>
+            <option value="Aguardando Laudos">Pendente - Aguardando Documentos</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Acadêmico(s) Atendente(s) *</label>
+          <input type="text" id="reg-atendente" required placeholder="Nome do(a) Aluno(a)" class="w-full text-xs rounded-lg border border-slate-300 p-2.5">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Observações do Caso</label>
+          <input type="text" id="reg-obs" placeholder="Ex: Perícia marcada no JEF, prazo dia 15..." class="w-full text-xs rounded-lg border border-slate-300 p-2.5">
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t">
+        <button type="button" onclick="preencherTodasAsAbasComUltimo()" class="text-xs text-brand-700 font-bold hover:underline flex items-center gap-1">
+          <span>📋</span> Preencher Todas as Abas com este Assistido
+        </button>
+        <button type="submit" class="w-full sm:w-auto bg-brand-700 hover:bg-brand-600 text-white font-bold px-6 py-2.5 rounded-lg text-xs shadow transition">
+          Salvar Atendimento
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- TABELA DE ATENDIMENTOS -->
+  <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+    <div class="p-4 bg-slate-50 border-b flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <h3 class="font-bold text-slate-800 text-sm">Histórico de Atendimentos</h3>
+        <span id="reg-total-contador" class="bg-brand-100 text-brand-800 text-[11px] font-bold px-2 py-0.5 rounded-full">0 registros</span>
+      </div>
+      <input type="text" id="reg-busca-tabela" onkeyup="filtrarTabelaAtendimentos()" placeholder="🔍 Filtrar por nome ou documento..." class="text-xs rounded-lg border border-slate-300 p-2 w-full sm:w-64">
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse text-xs">
+        <thead>
+          <tr class="bg-slate-100/75 border-b border-slate-200 text-slate-600 font-bold uppercase tracking-wider text-[11px]">
+            <th class="p-3">Data</th>
+            <th class="p-3">Nome do Assistido</th>
+            <th class="p-3">Documento</th>
+            <th class="p-3">Telefone</th>
+            <th class="p-3">Matéria</th>
+            <th class="p-3">Status</th>
+            <th class="p-3">Atendente</th>
+            <th class="p-3 text-right">Ações</th>
+          </tr>
+        </thead>
+        <tbody id="reg-tabela-corpo" class="divide-y divide-slate-100 text-slate-700">
+          <!-- Linhas geradas via JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- VIEW 10: ÓRGÃOS & CONTATOS ÚTEIS -->
+<section id="view-orgaos" class="hidden space-y-6">
+  <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+    <h2 class="text-xl font-bold text-brand-800">Rede de Órgãos Públicos & Contatos Úteis (Campo Grande/MS)</h2>
+    <p class="text-sm text-slate-600">Endereços, telefones e canais de acesso rápido para encaminhamento do assistido.</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+      <h3 class="font-bold text-brand-800 text-sm">Juizado Especial Federal (JEF / TRF3)</h3>
+      <p class="text-xs text-slate-600">Subseção Judiciária de Campo Grande - Vara de Atermação</p>
+      <div class="text-xs space-y-1 text-slate-700 pt-2 border-t">
+        <p><strong>Endereço:</strong> Rua Delegado Carlos Roberto Bastos de Oliveira, 128 - Parque dos Poderes</p>
+        <p><strong>Balcão Virtual / WhatsApp:</strong> (67) 3320-1100</p>
+        <p><strong>Horário de Atendimento:</strong> 09h às 19h (Segunda a Sexta)</p>
+      </div>
+    </div>
+
+    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+      <h3 class="font-bold text-brand-800 text-sm">Defensoria Pública da União (DPU/MS)</h3>
+      <p class="text-xs text-slate-600">Atendimento a recursos na Turma Recursal e demandas de saúde</p>
+      <div class="text-xs space-y-1 text-slate-700 pt-2 border-t">
+        <p><strong>Endereço:</strong> Rua Abrão Júlio Rahe, 403 - Centro</p>
+        <p><strong>Telefone / Triagem:</strong> (67) 3313-4700 / (67) 99238-1662</p>
+        <p><strong>Atendimento:</strong> 08h às 14h</p>
+      </div>
+    </div>
+
+    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+      <h3 class="font-bold text-brand-800 text-sm">APS INSS - Agência 26 de Agosto</h3>
+      <p class="text-xs text-slate-600">Agência polo para emissão de senha provisória do Meu INSS</p>
+      <div class="text-xs space-y-1 text-slate-700 pt-2 border-t">
+        <p><strong>Endereço:</strong> Rua 26 de Agosto, 680 - Centro</p>
+        <p><strong>Central Telefônica:</strong> 135</p>
+        <p><strong>Horário:</strong> 07h às 13h</p>
+      </div>
+    </div>
+
+    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+      <h3 class="font-bold text-brand-800 text-sm">Secretaria de Assistência Social (SAS / CRAS)</h3>
+      <p class="text-xs text-slate-600">Cadastro Único (CadÚnico) para BPC/LOAS</p>
+      <div class="text-xs space-y-1 text-slate-700 pt-2 border-t">
+        <p><strong>Central do CadÚnico:</strong> Rua dos Barbosas, 321 - Amambaí</p>
+        <p><strong>Telefone:</strong> (67) 3314-4482 / 3314-4483</p>
+        <p><strong>Unidades:</strong> CRAS Guanandi, CRAS Aero Rancho, CRAS Moreninhas</p>
+      </div>
+    </div>
+
+    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+      <h3 class="font-bold text-brand-800 text-sm">Polícia Federal - Migrações (Delemig/MS)</h3>
+      <p class="text-xs text-slate-600">Emissão e regularização de RNM/RNE para estrangeiros</p>
+      <div class="text-xs space-y-1 text-slate-700 pt-2 border-t">
+        <p><strong>Endereço:</strong> Rua Fernando Luiz Trevisan, 611 - Vila Sobrinho</p>
+        <p><strong>Telefone:</strong> (67) 3368-1100</p>
+        <p><strong>Atendimento:</strong> Agendamento prévio pelo site da PF</p>
+      </div>
+    </div>
+
+    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+      <h3 class="font-bold text-brand-800 text-sm">Defensoria Pública Estadual (DPE/MS)</h3>
+      <p class="text-xs text-slate-600">Ações contra o Município e Estado (remédios não incorporados ao SUS)</p>
+      <div class="text-xs space-y-1 text-slate-700 pt-2 border-t">
+        <p><strong>Endereço:</strong> Rua Arthur Jorge, 260 - Centro</p>
+        <p><strong>Disque Defensoria:</strong> 129</p>
+        <p><strong>Horário:</strong> 07h30 às 11h30 e 13h30 às 17h30</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <div class="text-xs text-slate-700 space-y-3 leading-relaxed">
+    <p>Insira abaixo a <strong>URL do App da Web</strong> gerada no Google Apps Script da sua planilha no Google Drive para que todos os computadores compartilhem o mesmo banco de dados:</p>
+
+    <div>
+      <label class="block text-xs font-semibold text-slate-700 mb-1">URL do Apps Script (Web App URL)</label>
+      <input type="url" id="config-sheets-url" placeholder="https://script.google.com/macros/s/AKfycb.../exec" class="w-full text-xs rounded-lg border border-slate-300 p-2.5 font-mono">
+    </div>
+
+    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-2 text-[11px]">
+      <strong class="text-slate-900 block font-sans">Como criar a integração no Google Drive da Liga em 2 minutos:</strong>
+      <ol class="list-decimal list-inside space-y-1 text-slate-600">
+        <li>Crie uma nova planilha vazia no Google Sheets chamada <em>"Atendimentos LAPREVS"</em>;</li>
+        <li>No menu superior, vá em <strong>Extensões > Apps Script</strong>;</li>
+        <li>Cole o código abaixo substituindo tudo o que estiver lá e salve:</li>
+      </ol>
+      <pre class="bg-slate-900 text-slate-200 p-3 rounded text-[10px] font-mono overflow-x-auto select-all">
+
+
+function doGet() {
+var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+var data = sheet.getDataRange().getValues();
+var headers = data[0];
+var rows = [];
+for (var i = 1; i < data.length; i++) {
+var obj = {};
+for (var j = 0; j < headers.length; j++) {
+obj[headers[j]] = data[i][j];
+}
+rows.push(obj);
+}
+return ContentService.createTextOutput(JSON.stringify(rows)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+var p = JSON.parse(e.postData.contents);
+if (sheet.getLastRow() === 0) {
+sheet.appendRow(["id","data","nome","cpf","telefone","beneficio","status","atendente","obs"]);
+}
+sheet.appendRow([p.id, p.data, p.nome, p.cpf, p.telefone, p.beneficio, p.status, p.atendente, p.obs]);
+return ContentService.createTextOutput(JSON.stringify({status: "success"})).setMimeType(ContentService.MimeType.JSON);
+}
+
+
+Clique no botão azul Implantar > Nova implantação;
+Tipo: App da Web | Executar como: Eu | Acesso: Qualquer pessoa (Anyone);
+Copie a URL gerada e cole no campo acima!
+
+
+
+
+  <div class="pt-3 border-t flex justify-end gap-2">
+    <button onclick="fecharModalGoogleSheets()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-lg text-xs">Cancelar</button>
+    <button onclick="salvarConfiguracaoGoogleSheets()" class="bg-brand-700 hover:bg-brand-600 text-white font-bold px-5 py-2 rounded-lg text-xs shadow">Salvar e Conectar</button>
+  </div>
+</div>
+
+
+  janela.document.close();
+  janela.print();
+}
+
+// TERMO DE CIÊNCIA DE ATERMAÇÃO (PSA / TRF3)
+function gerarVisualizacaoTermoAtermacao() {
+  const nome = document.getElementById('aterm-nome')?.value.trim() || 'Maria Aparecida da Silva';
+  const cpf = document.getElementById('aterm-cpf')?.value.trim() || '000.000.000-00';
+  const tel = document.getElementById('aterm-telefone')?.value.trim() || '(67) 99999-9999';
+  const dataHoje = new Date().toLocaleDateString('pt-BR');
+
+  if (document.getElementById('print-aterm-nome')) document.getElementById('print-aterm-nome').innerText = nome;
+  if (document.getElementById('print-aterm-cpf')) document.getElementById('print-aterm-cpf').innerText = cpf;
+  if (document.getElementById('print-aterm-tel')) document.getElementById('print-aterm-tel').innerText = tel;
+  if (document.getElementById('print-aterm-data')) document.getElementById('print-aterm-data').innerText = dataHoje;
+  if (document.getElementById('print-aterm-assinatura')) document.getElementById('print-aterm-assinatura').innerText = `${nome.toUpperCase()}`;
+}
+
+function imprimirTermoAtermacao() {
+  gerarVisualizacaoTermoAtermacao();
+  const conteudo = document.getElementById('folha-atermacao').innerHTML;
+  const janela = window.open('', '', 'width=900,height=900');
+  janela.document.write(`
+    <html>
+      <head>
+        <title>Termo de Ciência de Atermação - LAPREVS</title>
+        <script src="https://cdn.tailwindcss.com"><\/script>
+        <style>
+          @media print { .no-print { display: none !important; } }
+          body { font-family: ui-sans-serif, system-ui, sans-serif; background: #fff; padding: 24px; color: #1e293b; }
+        </style>
+      </head>
+      <body>${conteudo}</body>
+    </html>
+  `);
+  janela.document.close();
+  janela.print();
+}
+
+// QUESITOS MÉDICOS
+function gerarRolQuesitos() {
+  const esp = document.getElementById('ques-especialidade').value;
+  const autor = document.getElementById('ques-autor').value.trim() || 'a Parte Autora';
+  const prof = document.getElementById('ques-profissao').value.trim() || 'trabalhador(a) braçal';
+
+  let q = `QUESITOS DO(A) AUTOR(A) PARA PERÍCIA MÉDICA JUDICIAL (ART. 465, CPC)\n`;
+  q += `Periciando(a): ${autor.toUpperCase()} | Ocupação Habitual: ${prof}\n\n`;
+  q += `1. Queira o Sr. Perito descrever detalhadamente as patologias diagnosticadas na Parte Autora e seus respectivos CIDs;\n`;
+  q += `2. Tendo em vista a profissão declarada de ${prof}, as patologias acarretam incapacidade para as atividades habituais?\n`;
+  q += `3. A incapacidade apurada é de natureza temporária ou definitiva? Há indicação ou viabilidade prática de reabilitação profissional considerando a idade e o histórico socioprofissional (Súmula 47 TNU)?\n`;
+  q += `4. É possível fixar com exatidão técnica a Data de Início da Incapacidade (DII) e a Data de Início da Doença (DID)? Indique os laudos que embasam tal marco temporal;\n`;
+  q += `5. A incapacidade remonta à data em que o benefício administrativo foi indevidamente cessado ou indeferido pelo INSS?\n`;
+
+  if (esp === 'ortopedia') {
+    q += `6. Há acometimento de membros com limitação articular, perda de força muscular ou sobrecarga ligamentar incompatível com levantamento de peso e postura em pé prolongada?\n`;
+  } else if (esp === 'psiquiatria') {
+    q += `6. A parte apresenta alterações do humor, afeto, ideação autolesiva ou prejuízo cognitivo incompatível com o convívio profissional sob cobrança de produtividade?\n`;
+  } else if (esp === 'pcd_infantil') {
+    q += `6. Sob os critérios da Classificação Internacional de Funcionalidade (CIF), o periciando apresenta barreiras que impedem sua participação plena e efetiva na sociedade em igualdade de condições?\n`;
+  }
+
+  q += `7. Queira o Sr. Perito prestar demais esclarecimentos que entender pertinentes ao deslinde da causa.`;
+
+  document.getElementById('ques-saida').value = q;
+}
+
+function copiarQuesitos() {
+  const ta = document.getElementById('ques-saida');
+  ta.select();
+  navigator.clipboard.writeText(ta.value);
+  mostrarNotificacaoFeedback("Quesitos copiados!");
+}
+
+// AUTODECLARAÇÃO RURAL
+function gerarAutodeclaracaoRural() {
+  const nome = document.getElementById('rural-nome').value.trim() || '[NOME DO TRABALHADOR RURAL]';
+  const cpf = document.getElementById('rural-cpf').value.trim() || '[000.000.000-00]';
+  const imovel = document.getElementById('rural-imovel').value.trim() || '[NOME DO IMÓVEL / LOTE / ASSENTAMENTO]';
+  const mun = document.getElementById('rural-municipio').value.trim() || 'Campo Grande - MS';
+  const area = document.getElementById('rural-area').value.trim() || '[ÁREA TOTAL]';
+  const cult = document.getElementById('rural-culturas').value.trim() || 'cultivos de subsistência e pequena criação animal';
+
+  let txt = `AUTODECLARAÇÃO DE ATIVIDADE RURAL - SEGURADO ESPECIAL (OFÍCIO-CIRCULAR DIRBEN/INSS)\n\n`;
+  txt += `1. DADOS DO DECLARANTE:\nNome: ${nome.toUpperCase()}\nCPF: ${cpf}\nCondição: Segurado Especial (Regime de Economia Familiar sem empregados permanentes)\n\n`;
+  txt += `2. DADOS DA TERRA / EXPLORAÇÃO:\nNome da Propriedade: ${imovel}\nMunicípio/UF: ${mun}\nExtensão da Área Explorada: ${area}\n`;
+  txt += `Atividades desenvolvidas: ${cult}.\n\n`;
+  txt += `Declaro sob as penas da lei (art. 299 do Código Penal) que exerci a atividade rural estritamente para a subsistência do grupo familiar, sem auxílio de empregados permanentes.\n\n`;
+  txt += `Campo Grande/MS, ${new Date().toLocaleDateString('pt-BR')}.\n\n`;
+  txt += `_____________________________________________________\nAssinatura do(a) Segurado(a) Especial`;
+
+  document.getElementById('rural-saida').value = txt;
+}
+
+function copiarAutodeclaracaoRural() {
+  const ta = document.getElementById('rural-saida');
+  ta.select();
+  navigator.clipboard.writeText(ta.value);
+  mostrarNotificacaoFeedback("Declaração Rural copiada!");
+}
+
+// ENCAMINHAMENTOS
+function carregarModeloEncaminhamento() {
+  const mod = document.getElementById('enc-modelo').value;
+  const instrucao = document.getElementById('enc-instrucao');
+  const destino = document.getElementById('print-enc-destino');
+
+  if (mod === 'inss_senha') {
+    destino.innerText = "Agência da Previdência Social (APS) - Rua 26 de Agosto, 680 - Centro";
+    instrucao.value = "Comparecer ao balcão de atendimento munido de documento oficial de identidade original com foto e CPF para emissão de SENHA PROVISÓRIA do portal Meu INSS / Gov.br para viabilizar requerimento administrativo.";
+  } else if (mod === 'cras_cadunico') {
+    destino.innerText = "Centro de Referência de Assistência Social (CRAS) do Bairro";
+    instrucao.value = "Procurar o setor do Cadastro Único com comprovante de residência atualizado, certidão de nascimento/casamento e documentos pessoais de TODOS os membros da família para inscrição/atualização do CadÚnico indispensável ao BPC/LOAS.";
+  } else if (mod === 'sus_laudo') {
+    destino.innerText = "Unidade Básica de Saúde (UBS) / Médico Assistente do SUS";
+    instrucao.value = "Solicitar ao médico assistente do SUS relatório médico circunstanciado contendo: 1. Diagnóstico por extenso e CID-10; 2. Data de Início da Incapacidade (DII); 3. Limitações funcionais específicas; 4. Previsão de tempo de repouso e receituário atualizado.";
+  } else {
+    destino.innerText = "Defensoria Pública da União (DPU/MS) - Rua Abrão Júlio Rahe, 403";
+    instrucao.value = "Comparecer munido de cópia do processo do JEF para atendimento recursal perante a Turma Recursal do TRF3.";
+  }
+  atualizarPreviewEncaminhamento();
+}
+
+function atualizarPreviewEncaminhamento() {
+  const nome = document.getElementById('enc-nome').value.trim() || 'Nome do Cidadão';
+  const cpf = document.getElementById('enc-cpf').value.trim() || '000.000.000-00';
+  const inst = document.getElementById('enc-instrucao').value.trim() || '...';
+
+  document.getElementById('print-enc-nome').innerText = nome;
+  document.getElementById('print-enc-cpf').innerText = cpf;
+  document.getElementById('print-enc-instrucao').innerText = inst;
+  document.getElementById('print-enc-data').innerText = new Date().toLocaleDateString('pt-BR');
+}
+
+function imprimirGuiaEncaminhamento() {
+  atualizarPreviewEncaminhamento();
+  const conteudo = document.getElementById('folha-encaminhamento').innerHTML;
+  const janela = window.open('', '', 'width=800,height=800');
+  janela.document.write(`
+    <html><head><title>Guia de Encaminhamento - LAPREVS</title><script src="https://cdn.tailwindcss.com"><\/script><style>@media print { .no-print { display: none !important; } } body { padding: 30px; font-family: sans-serif; background: #fff; }</style></head><body>${conteudo}</body></html>
+  `);
+  janela.document.close();
+  janela.print();
+}
+
+// MODAL DE DETALHES DE BENEFÍCIO
+function abrirModalBeneficio(tipo) {
+  const tit = document.getElementById('modalBeneficioTitulo');
+  const cont = document.getElementById('modalBeneficioConteudo');
+
+  if (tipo === 'incapacidade') {
+    tit.innerText = "Benefício por Incapacidade Temporária (Auxílio-Doença - B31/B91)";
+    cont.innerHTML = `
+      <p><strong>Requisitos Fundamentais (Art. 59 da Lei 8.213/91):</strong></p>
+      <ul class="list-disc list-inside space-y-1">
+        <li>Qualidade de segurado da Previdência Social no momento da eclosão da incapacidade;</li>
+        <li>Carência mínima de 12 contribuições mensais (dispensada em acidentes de trabalho, de qualquer natureza ou doenças graves expressas no art. 151);</li>
+        <li>Incapacidade total e temporária para a atividade profissional habitual por mais de 15 dias consecutivos.</li>
+      </ul>
+      <p class="pt-2"><strong>Dica de Prática LAPREVS:</strong> Sempre verifique o CNIS. Se o cidadão parou de contribuir, lembre-se do <em>período de graça</em> (12 meses base, prorrogável por mais 12 se tiver mais de 120 contribuições, e mais 12 se comprovada situação de desemprego involuntário no MTE).</p>
+    `;
+  } else if (tipo === 'bpc') {
+    tit.innerText = "BPC / LOAS (Art. 20 da Lei nº 8.742/93)";
+    cont.innerHTML = `
+      <p><strong>Requisitos Legais:</strong></p>
+      <ul class="list-disc list-inside space-y-1">
+        <li>Idoso (65 anos ou mais) OU Pessoa com Deficiência de qualquer idade com impedimento de longo prazo (mínimo de 2 anos);</li>
+        <li>Não exige carência nem contribuições prévias ao INSS;</li>
+        <li>Inscrição e atualização obrigatória no Cadastro Único (CadÚnico);</li>
+        <li>Critério legal de renda per capita de até 1/4 do salário mínimo (flexibilizada judicialmente para até 1/2 SM após dedução de medicamentos contínuos e fraldas geriátricas - Tema 187/TNU).</li>
+      </ul>
+    `;
+  } else {
+    tit.innerText = "Requisitos do Benefício";
+    cont.innerHTML = `<p>Consulte a Lei nº 8.213/91 e os enunciados do FONAJEF para a instrução probatória do caso concreto.</p>`;
+  }
+
+  document.getElementById('modalBeneficio').classList.remove('hidden');
+}
+
+function fecharModalBeneficio() {
+  document.getElementById('modalBeneficio').classList.add('hidden');
+}
+
+function filtrarCatalogoBeneficios() {
+  const termo = document.getElementById('filtro-beneficios-busca').value.toLowerCase();
+  document.querySelectorAll('.beneficio-card').forEach(card => {
+    const tit = card.getAttribute('data-titulo') || '';
+    card.classList.toggle('hidden', !tit.includes(termo));
+  });
+}
+
+// FEEDBACK VISUAL RÁPIDO (TOAST)
+function mostrarNotificacaoFeedback(msg) {
+  const toast = document.createElement('div');
+  toast.className = 'fixed bottom-5 right-5 bg-slate-900 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-2xl z-50 transition-opacity duration-300 flex items-center gap-2';
+  toast.innerHTML = `<span>ℹ️</span> <span>${msg}</span>`;
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
