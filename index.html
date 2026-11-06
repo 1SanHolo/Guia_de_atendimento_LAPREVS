@@ -84,8 +84,6 @@
     <button onclick="rolarAbas(200)" class="p-2 text-slate-300 hover:text-white transition" title="Rolar abas para a direita">❯</button>
   </div>
 </div>
-
-
 <!-- VIEW 1: TRIAGEM & ACOLHIMENTO INTERATIVO (ÁRVORE DECISÓRIA) -->
 <section id="view-triagem" class="space-y-6">
   <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -1036,8 +1034,6 @@
     </div>
   </div>
 </section>
-
-
   <div class="text-xs text-slate-700 space-y-3 leading-relaxed">
     <p>Insira abaixo a <strong>URL do App da Web</strong> gerada no Google Apps Script da sua planilha no Google Drive para que todos os computadores compartilhem o mesmo banco de dados:</p>
 
@@ -1054,48 +1050,11 @@
         <li>Cole o código abaixo substituindo tudo o que estiver lá e salve:</li>
       </ol>
       <pre class="bg-slate-900 text-slate-200 p-3 rounded text-[10px] font-mono overflow-x-auto select-all">
-
-
-function doGet() {
-var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-var data = sheet.getDataRange().getValues();
-var headers = data[0];
-var rows = [];
-for (var i = 1; i < data.length; i++) {
-var obj = {};
-for (var j = 0; j < headers.length; j++) {
-obj[headers[j]] = data[i][j];
-}
-rows.push(obj);
-}
-return ContentService.createTextOutput(JSON.stringify(rows)).setMimeType(ContentService.MimeType.JSON);
-}
-
-function doPost(e) {
-var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-var p = JSON.parse(e.postData.contents);
-if (sheet.getLastRow() === 0) {
-sheet.appendRow(["id","data","nome","cpf","telefone","beneficio","status","atendente","obs"]);
-}
-sheet.appendRow([p.id, p.data, p.nome, p.cpf, p.telefone, p.beneficio, p.status, p.atendente, p.obs]);
-return ContentService.createTextOutput(JSON.stringify({status: "success"})).setMimeType(ContentService.MimeType.JSON);
-}
-
-
-Clique no botão azul Implantar > Nova implantação;
-Tipo: App da Web | Executar como: Eu | Acesso: Qualquer pessoa (Anyone);
-Copie a URL gerada e cole no campo acima!
-
-
-
-
-  <div class="pt-3 border-t flex justify-end gap-2">
+function doGet() {var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();var data = sheet.getDataRange().getValues();var headers = data[0];var rows = [];for (var i = 1; i < data.length; i++) {var obj = {};for (var j = 0; j < headers.length; j++) {obj[headers[j]] = data[i][j];}rows.push(obj);}return ContentService.createTextOutput(JSON.stringify(rows)).setMimeType(ContentService.MimeType.JSON);}function doPost(e) {var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();var p = JSON.parse(e.postData.contents);if (sheet.getLastRow() === 0) {sheet.appendRow(["id","data","nome","cpf","telefone","beneficio","status","atendente","obs"]);}sheet.appendRow([p.id, p.data, p.nome, p.cpf, p.telefone, p.beneficio, p.status, p.atendente, p.obs]);return ContentService.createTextOutput(JSON.stringify({status: "success"})).setMimeType(ContentService.MimeType.JSON);}Clique no botão azul Implantar > Nova implantação;Tipo: App da Web | Executar como: Eu | Acesso: Qualquer pessoa (Anyone);Copie a URL gerada e cole no campo acima!  <div class="pt-3 border-t flex justify-end gap-2">
     <button onclick="fecharModalGoogleSheets()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-lg text-xs">Cancelar</button>
     <button onclick="salvarConfiguracaoGoogleSheets()" class="bg-brand-700 hover:bg-brand-600 text-white font-bold px-5 py-2 rounded-lg text-xs shadow">Salvar e Conectar</button>
   </div>
 </div>
-
-
   janela.document.close();
   janela.print();
 }
