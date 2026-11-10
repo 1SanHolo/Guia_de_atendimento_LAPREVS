@@ -408,6 +408,9 @@
           <button onclick="carregarCasoExemploSebastiana()" class="text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
             <span>✨</span> Carregar Caso Exemplo
           </button>
+          <button onclick="sincronizarTodosOsAtendimentosComPlanilha()" class="text-xs font-semibold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5" title="Enviar todos os atendimentos já salvos para o Google Sheets">
+            <span>🔄</span> Sincronizar Planilha
+          </button>
           <button onclick="abrirConfigPlanilhaModal()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
             <span>⚙️</span> Configurar Planilha
           </button>
@@ -2739,12 +2742,47 @@
 
     function sincronizarComPlanilhaGoogle(atendimento) {
       if (!estadoApp.urlPlanilha) return;
-      fetch(estadoApp.urlPlanilha, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(atendimento)
-      }).catch(err => console.log('Sincronização em nuvem offline ou aguardando reconexão.'));
+      try {
+        fetch(estadoApp.urlPlanilha, {
+          method: 'POST',
+          mode: 'no-cors',
+          cache: 'no-cache',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(atendimento)
+        }).then(() => {
+          console.log('Enviado para a planilha Google:', atendimento.nome);
+        }).catch(err => {
+          console.warn('Erro ao conectar com Google Planilhas:', err);
+        });
+      } catch (e) {
+        console.error('Falha no envio para o Apps Script:', e);
+      }
+    }
+
+    function sincronizarTodosOsAtendimentosComPlanilha() {
+      if (!estadoApp.urlPlanilha) {
+        mostrarNotificacao('⚠️ Configure a URL da planilha primeiro no botão ⚙️');
+        abrirConfigPlanilhaModal();
+        return;
+      }
+      if (estadoApp.atendimentos.length === 0) {
+        mostrarNotificacao('Nenhum atendimento para enviar.');
+        return;
+      }
+
+      mostrarNotificacao(`🔄 Enviando ${estadoApp.atendimentos.length} caso(s) para a planilha...`);
+      
+      // Envia os atendimentos com pequeno intervalo para respeitar o LockService do Apps Script
+      estadoApp.atendimentos.forEach((at, index) => {
+        setTimeout(() => {
+          sincronizarComPlanilhaGoogle(at);
+          if (index === estadoApp.atendimentos.length - 1) {
+            setTimeout(() => {
+              mostrarNotificacao('✓ Todos os casos foram enviados para a planilha!');
+            }, 1000);
+          }
+        }, index * 400);
+      });
     }
 
     function abrirConfigPlanilhaModal() {
@@ -2762,10 +2800,15 @@
       localStorage.setItem('laprevs_url_sheets', url);
       fecharConfigPlanilhaModal();
       mostrarNotificacao('✓ Conexão com Google Planilha salva!');
+      
+      // Pergunta ou envia automaticamente o que já estiver salvo
+      if (estadoApp.atendimentos.length > 0) {
+        sincronizarTodosOsAtendimentosComPlanilha();
+      }
     }
 
     /* ========================================================
-       7. CALCULADORA DE TEMPO DE CONTRIBUIÇÃO & ALÇADA DO JEF (60 SM)
+       7. CALCULADORA DE TEMPO DE CONTRIBUIÇÃO & ALÇADA DO JEF
        ======================================================== */
     function adicionarLinhaVinculo() {
       const novoId = Date.now();
@@ -2789,7 +2832,7 @@
       const corpo = document.getElementById('lista-vinculos-corpo');
       if (!corpo) return;
 
-      if (estadoApp.vinculosTempo.length === 0) {
+      if (!estadoApp.vinculosTempo || estadoApp.vinculosTempo.length === 0) {
         corpo.innerHTML = `
           <tr>
             <td colspan="6" class="text-center py-6 text-slate-400">Nenhum período de trabalho cadastrado. Clique em "+ Adicionar Vínculo".</td>
@@ -2798,16 +2841,16 @@
         return;
       }
 
-      corpo.innerHTML = estadoApp.vinculosTempo.map((v, idx) => `
+      corpo.innerHTML = estadoApp.vinculosTempo.map((v) => `
         <tr class="hover:bg-slate-50 border-b border-slate-100">
           <td class="p-2">
-            <input type="text" value="${v.desc}" onchange="atualizarDadosVinculo(${v.id}, 'desc', this.value)" placeholder="Nome da empresa ou Sítio/Assentamento" class="w-full text-xs p-1.5 rounded-lg border border-slate-300 focus:outline-none focus:border-indigo-600">
+            <input type="text" value="${v.desc || ''}" onchange="atualizarDadosVinculo(${v.id}, 'desc', this.value)" placeholder="Nome da empresa ou Sítio/Assentamento" class="w-full text-xs p-1.5 rounded-lg border border-slate-300 focus:outline-none focus:border-indigo-600">
           </td>
           <td class="p-2">
-            <input type="date" value="${v.inicio}" onchange="atualizarDadosVinculo(${v.id}, 'inicio', this.value)" class="text-xs p-1.5 rounded-lg border border-slate-300 focus:outline-none focus:border-indigo-600">
+            <input type="date" value="${v.inicio || ''}" onchange="atualizarDadosVinculo(${v.id}, 'inicio', this.value)" class="text-xs p-1.5 rounded-lg border border-slate-300 focus:outline-none focus:border-indigo-600">
           </td>
           <td class="p-2">
-            <input type="date" value="${v.fim}" onchange="atualizarDadosVinculo(${v.id}, 'fim', this.value)" class="text-xs p-1.5 rounded-lg border border-slate-300 focus:outline-none focus:border-indigo-600">
+            <input type="date" value="${v.fim || ''}" onchange="atualizarDadosVinculo(${v.id}, 'fim', this.value)" class="text-xs p-1.5 rounded-lg border border-slate-300 focus:outline-none focus:border-indigo-600">
           </td>
           <td class="p-2">
             <select onchange="atualizarDadosVinculo(${v.id}, 'tipo', this.value)" class="text-xs p-1.5 rounded-lg border border-slate-300 bg-white focus:outline-none focus:border-indigo-600">
