@@ -221,12 +221,8 @@
   <!-- ==================== ÁREA DE CONTEÚDO PRINCIPAL ==================== -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-    <!-- ========================================================
-         ABA 1: TRIAGEM & ACOLHIMENTO INTERATIVO (ÁRVORE DE DECISÃO)
-         ======================================================== -->
+    <!-- ABA 1: TRIAGEM & ACOLHIMENTO INTERATIVO -->
     <section id="view-triagem" class="secao-aba space-y-6">
-      
-      <!-- Cabeçalho da Seção -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Fase 1 • Balcão de Entrada</span>
@@ -235,3 +231,1952 @@
             Responda às perguntas objetivas abaixo para saber se o caso pode ir a Juízo no JEF/TRF3 ou se requer prévio requerimento administrativo no INSS.
           </p>
         </div>
+        <button onclick="reiniciarTriagem()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 self-start md:self-center">
+          <span>🔄</span> Reiniciar Triagem
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-6">
+          
+          <div id="step-1" class="space-y-3">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-sky-600 text-white font-bold text-xs flex items-center justify-center">1</span>
+              <h3 class="text-sm font-bold text-slate-900">O assistido já requereu o benefício no INSS e recebeu a recusa expressa?</h3>
+            </div>
+            <p class="text-xs text-slate-600 pl-8">
+              Conforme o <strong>Tema 350 do STF</strong> (RE 631.240/MG), a propositura de ação contra o INSS exige <em>prévio requerimento administrativo</em> (comunicado de indeferimento ou pedido pendente há mais de 90 dias sem resposta).
+            </p>
+            <div class="pl-8 flex flex-wrap gap-3 pt-1">
+              <button onclick="responderPasso1(true)" id="btn-p1-sim" class="text-xs font-semibold px-4 py-2 rounded-xl border border-slate-300 hover:border-sky-600 hover:bg-sky-50 transition">
+                ✓ Sim, tem indeferimento / mora excessiva
+              </button>
+              <button onclick="responderPasso1(false)" id="btn-p1-nao" class="text-xs font-semibold px-4 py-2 rounded-xl border border-slate-300 hover:border-rose-600 hover:bg-rose-50 transition">
+                ✕ Não, nunca pediu no INSS
+              </button>
+            </div>
+          </div>
+
+          <div id="step-2" class="space-y-3 opacity-40 pointer-events-none transition-opacity">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-slate-400 text-white font-bold text-xs flex items-center justify-center">2</span>
+              <h3 class="text-sm font-bold text-slate-900">Qual é o objeto principal da pretensão do assistido?</h3>
+            </div>
+            <div class="pl-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 pt-1">
+              <button onclick="responderPasso2('incapacidade', event)" id="btn-obj-incapacidade" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
+                <div>
+                  <span class="font-bold block text-slate-900">🩺 Incapacidade Laborativa</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Auxílio por Incapacidade Temporária ou Aposentadoria por Incapacidade Permanente</span>
+                </div>
+                <span class="text-[10px] font-semibold text-sky-700 mt-2 bg-sky-50/70 w-fit px-1.5 py-0.5 rounded">Perícia Médica</span>
+              </button>
+
+              <button onclick="responderPasso2('auxilio_acidente', event)" id="btn-obj-auxilio_acidente" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
+                <div>
+                  <span class="font-bold block text-slate-900">🩹 Auxílio-Acidente (50%)</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Sequela consolidada redutora da capacidade laborativa habitual (art. 86 da Lei 8.213)</span>
+                </div>
+                <span class="text-[10px] font-semibold text-indigo-700 mt-2 bg-indigo-50/70 w-fit px-1.5 py-0.5 rounded">Indenizatório</span>
+              </button>
+
+              <button onclick="responderPasso2('loas', event)" id="btn-obj-loas" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
+                <div>
+                  <span class="font-bold block text-slate-900">🤝 Benefício Assistencial (BPC / LOAS)</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Pessoa com Deficiência (biopsicossocial) ou Idoso 65+ anos em miserabilidade</span>
+                </div>
+                <span class="text-[10px] font-semibold text-emerald-700 mt-2 bg-emerald-50/70 w-fit px-1.5 py-0.5 rounded">CadÚnico • Assistencial</span>
+              </button>
+
+              <button onclick="responderPasso2('aposentadoria_urbana', event)" id="btn-obj-aposentadoria_urbana" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
+                <div>
+                  <span class="font-bold block text-slate-900">🏙️ Aposentadoria Urbana / Transição</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Por Idade Urbana, regras de transição da EC 103/19 ou Pessoa com Deficiência (LC 142/13)</span>
+                </div>
+                <span class="text-[10px] font-semibold text-blue-700 mt-2 bg-blue-50/70 w-fit px-1.5 py-0.5 rounded">180 meses carência</span>
+              </button>
+
+              <button onclick="responderPasso2('rural', event)" id="btn-obj-rural" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
+                <div>
+                  <span class="font-bold block text-slate-900">🌾 Aposentadoria Rural / Híbrida</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Economia familiar, assentados da reforma agrária ou união de tempos campo e cidade</span>
+                </div>
+                <span class="text-[10px] font-semibold text-amber-700 mt-2 bg-amber-50/70 w-fit px-1.5 py-0.5 rounded">60M / 55F • Prova Rural</span>
+              </button>
+
+              <button onclick="responderPasso2('tempo_especial', event)" id="btn-obj-tempo_especial" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
+                <div>
+                  <span class="font-bold block text-slate-900">🏭 Reconhecimento de Tempo Especial</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Atividade insalubre/perigosa (PPP / LTCAT) pré-reforma e conversão em tempo comum</span>
+                </div>
+                <span class="text-[10px] font-semibold text-purple-700 mt-2 bg-purple-50/70 w-fit px-1.5 py-0.5 rounded">PPP • Fator 1.4 / 1.2</span>
+              </button>
+
+              <button onclick="responderPasso2('pensao_morte', event)" id="btn-obj-pensao_morte" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
+                <div>
+                  <span class="font-bold block text-slate-900">🕊️ Pensão por Morte / Dependente</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Comprovação de união estável, dependência econômica ou filho menor/inválido</span>
+                </div>
+                <span class="text-[10px] font-semibold text-slate-700 mt-2 bg-slate-100 w-fit px-1.5 py-0.5 rounded">Qualidade instituidor</span>
+              </button>
+
+              <button onclick="responderPasso2('maternidade', event)" id="btn-obj-maternidade" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
+                <div>
+                  <span class="font-bold block text-slate-900">🍼 Salário-Maternidade</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Parto, adoção ou aborto não criminoso para segurada autônoma, facultativa ou rural</span>
+                </div>
+                <span class="text-[10px] font-semibold text-rose-700 mt-2 bg-rose-50/70 w-fit px-1.5 py-0.5 rounded">120 dias • Carência</span>
+              </button>
+
+              <button onclick="responderPasso2('revisao_restabelecimento', event)" id="btn-obj-revisao_restabelecimento" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
+                <div>
+                  <span class="font-bold block text-slate-900">🔄 Revisão / Restabelecimento</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Correção de cálculo da RMI, descarte de contribuições ou reativação de benefício cessado</span>
+                </div>
+                <span class="text-[10px] font-semibold text-teal-700 mt-2 bg-teal-50/70 w-fit px-1.5 py-0.5 rounded">Decadência 10 anos</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="step-3" class="space-y-3 opacity-40 pointer-events-none transition-opacity">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-slate-400 text-white font-bold text-xs flex items-center justify-center">3</span>
+              <h3 class="text-sm font-bold text-slate-900">O valor total da causa (atrasados + 12 vincendas) é de até 60 Salários Mínimos?</h3>
+            </div>
+            <p class="text-xs text-slate-600 pl-8">
+              Em 2026, com o salário mínimo de R$ 1.621,00, a alçada limite para atuação sem advogado via atermação direta no JEF é de <strong>R$ 97.260,00</strong>.
+            </p>
+            <div class="pl-8 flex flex-wrap gap-3 pt-1">
+              <button onclick="responderPasso3(true)" class="text-xs font-semibold px-4 py-2 rounded-xl border border-slate-300 hover:border-sky-600 hover:bg-sky-50 transition">
+                ✓ Sim, valor inferior a 60 salários mínimos
+              </button>
+              <button onclick="responderPasso3(false)" class="text-xs font-semibold px-4 py-2 rounded-xl border border-slate-300 hover:border-amber-600 hover:bg-amber-50 transition">
+                ⚠️ Excede 60 SM (ou aceita termo de renúncia ao excedente)
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Resultado da Triagem</span>
+            <h3 id="titulo-parecer-triagem" class="text-base font-bold text-slate-900 mt-1">Aguardando respostas...</h3>
+            <div id="corpo-parecer-triagem" class="text-xs text-slate-600 mt-3 space-y-2 leading-relaxed">
+              <p>Selecione as respostas ao lado para que o sistema emita a recomendação técnica de acolhimento.</p>
+            </div>
+          </div>
+
+          <div id="acoes-triagem" class="pt-4 border-t border-slate-200 hidden space-y-2">
+            <button onclick="iniciarAtendimentoComDados()" class="w-full text-xs font-bold text-white bg-sky-700 hover:bg-sky-800 py-2.5 rounded-xl transition shadow-xs flex items-center justify-center gap-1.5">
+              <span>📋</span> Cadastrar no Registro
+            </button>
+            <button onclick="mudarAba('view-atermacao')" class="w-full text-xs font-semibold text-sky-800 bg-sky-100 hover:bg-sky-200 py-2 rounded-xl transition flex items-center justify-center gap-1.5">
+              <span>⚖️</span> Ir para Atermação (PSA / TRF3)
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABA 2: REGISTRO & QUANTITATIVO -->
+    <section id="view-registro" class="secao-aba hidden space-y-6">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900">Registro & Quantitativo</h2>
+          <p class="text-xs sm:text-sm text-slate-600">
+            Cadastre os atendimentos do plantão. Os dados salvos sincronizam com os computadores e com a planilha via Sheet Best API.
+          </p>
+          <div class="flex items-center gap-2 mt-2">
+            <div id="indicador-status-planilha" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-colors bg-emerald-50 text-emerald-800 border-emerald-200">
+              <span id="ponto-status-planilha" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span id="texto-status-planilha">Planilha Conectada (Sheet Best)</span>
+            </div>
+            <span class="text-[10px] text-slate-400">| Sincronização direta em nuvem</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="carregarCasoExemploSebastiana()" class="text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
+            <span>✨</span> Carregar Exemplo
+          </button>
+          <button id="btn-sync-planilha" onclick="sincronizarComSheetBest()" class="text-xs font-semibold text-sky-800 bg-sky-50 hover:bg-sky-100 px-3.5 py-2 rounded-xl border border-sky-200 transition flex items-center gap-1.5 shadow-xs">
+            <span>🔄</span> Sincronizar Planilha
+          </button>
+          <button onclick="abrirConfigPlanilhaModal()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
+            <span>⚙️</span> Configurar API
+          </button>
+          <button onclick="exportarAtendimentosCsv()" class="text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
+            <span>📊</span> Exportar CSV
+          </button>
+        </div>
+      </div>
+
+      <!-- Formulário de Novo Atendimento -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+        <h3 class="text-sm font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-sky-600"></span> Novo Atendimento
+        </h3>
+
+        <form id="form-novo-atendimento" onsubmit="salvarNovoAtendimento(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="lg:col-span-2 space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Nome Completo do Assistido *</label>
+            <input type="text" id="reg-nome" required placeholder="Ex.: Maria de Fátima dos Santos" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+          </div>
+
+          <div class="space-y-1">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-semibold text-slate-700">Documento *</label>
+              <select id="reg-tipo-doc" onchange="alternarTipoDocumento('reg')" class="text-[10px] font-bold text-sky-800 bg-sky-50 border border-sky-200 rounded px-1.5 py-0.5">
+                <option value="CPF">CPF (Nacional)</option>
+                <option value="RNM">RNM / RNE (Migrante)</option>
+                <option value="REFUGIO">Protocolo de Refúgio</option>
+              </select>
+            </div>
+            <div class="relative">
+              <input type="text" id="reg-cpf" required placeholder="000.000.000-00" oninput="formatarDocumentoDinamico(this, 'reg')" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+              <span id="badge-cpf-reg" class="hidden absolute right-2.5 top-2.5 text-[10px] font-bold"></span>
+            </div>
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Telefone / WhatsApp *</label>
+            <input type="text" id="reg-telefone" required placeholder="(67) 99999-9999" oninput="formatarTelefone(this)" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Benefício / Objeto *</label>
+            <select id="reg-objeto" required onchange="verificarObjetoOutro()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+              <option value="">Selecione...</option>
+              <option value="BPC / LOAS (Deficiência)">BPC / LOAS (Pessoa com Deficiência)</option>
+              <option value="BPC / LOAS (Idoso)">BPC / LOAS (Idoso 65+)</option>
+              <option value="Auxílio por Incapacidade Temporária">Auxílio por Incapacidade Temporária</option>
+              <option value="Aposentadoria por Incapacidade Permanente">Aposentadoria por Incapacidade Permanente</option>
+              <option value="Aposentadoria Rural / Segurado Especial">Aposentadoria Rural / Segurado Especial</option>
+              <option value="Salário-Maternidade">Salário-Maternidade (Urbano/Rural)</option>
+              <option value="Pensão por Morte">Pensão por Morte</option>
+              <option value="Auxílio-Reclusão">Auxílio-Reclusão</option>
+              <option value="Orientação Administrativa / Senha Meu INSS">Orientação Administrativa / Meu INSS</option>
+              <option value="Outros">Outros (Descrever Demanda Externa / Personalizada)</option>
+            </select>
+          </div>
+
+          <div id="container-reg-objeto-outro" class="space-y-1 hidden sm:col-span-2">
+            <label class="text-xs font-semibold text-sky-800">Especificar Demanda (Fora do INSS / Outro Objeto) *</label>
+            <input type="text" id="reg-objeto-especifico" placeholder="Ex.: Ação de Saúde SUS (Cirurgia/Medicamento), Interdição/Curatela..." class="w-full text-xs p-2.5 rounded-xl border border-sky-300 bg-sky-50/40 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Situação no INSS *</label>
+            <select id="reg-status-inss" required class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+              <option value="Indeferido">Indeferido (Recusa expressa)</option>
+              <option value="Pendente > 90 dias">Pendente há mais de 90 dias</option>
+              <option value="Cessado / Cancelado">Cessado / Cancelado</option>
+              <option value="Nunca requereu">Sem prévio requerimento</option>
+              <option value="Não se aplica (Fora do INSS)">Não se aplica (Demanda Externa / Não-Previdenciária)</option>
+            </select>
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Providência Adotada *</label>
+            <select id="reg-providencia" required class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+              <option value="Atermação JEF (Partes sem Advogado)">Atermação JEF (Partes sem Advogado)</option>
+              <option value="Encaminhado ao Meu INSS">Encaminhado ao Meu INSS (Fazer Pedido)</option>
+              <option value="Encaminhado ao CRAS (CadÚnico)">Encaminhado ao CRAS (CadÚnico)</option>
+              <option value="Encaminhado à DPU/MS">Encaminhado à DPU/MS (Recurso/Complexo)</option>
+              <option value="Encaminhado à DPE/MS (Saúde/Curatela)">Encaminhado à DPE/MS (Saúde/Curatela)</option>
+              <option value="Orientação Jurídica Pura">Orientação Jurídica Pura</option>
+            </select>
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Acadêmico(a) Atendente *</label>
+            <input type="text" id="reg-atendente" required placeholder="Ex.: Lucas e Gabriela" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+          </div>
+
+          <div class="sm:col-span-2 lg:col-span-4 space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Síntese dos Fatos / Relato Inicial do Assistido</label>
+            <input type="text" id="reg-observacoes" placeholder="Resumo dos fatos e orientações para os acadêmicos dos próximos plantões..." class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+          </div>
+
+          <div class="sm:col-span-2 lg:col-span-4 flex justify-end gap-3 pt-2">
+            <button type="submit" class="text-xs font-bold text-white bg-sky-700 hover:bg-sky-800 px-6 py-2.5 rounded-xl transition shadow-xs flex items-center gap-1.5">
+              <span>💾</span> Salvar Atendimento
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Tabela com Filtros de Atendimentos -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <h3 class="text-sm font-bold text-slate-900">Histórico de Atendimentos</h3>
+            <span id="contador-atendimentos" class="text-[11px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">0 registros</span>
+          </div>
+
+          <div class="w-full sm:w-72">
+            <input type="text" id="filtro-busca-atendimentos" oninput="filtrarTabelaAtendimentos()" placeholder="Buscar por Nome ou Documento..." class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-200 bg-slate-50 text-slate-700 font-semibold">
+                <th class="p-3">Data</th>
+                <th class="p-3">Assistido</th>
+                <th class="p-3">Doc</th>
+                <th class="p-3">Benefício</th>
+                <th class="p-3">Situação INSS</th>
+                <th class="p-3">Providência</th>
+                <th class="p-3">Atendente</th>
+                <th class="p-3 text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="corpo-tabela-atendimentos" class="divide-y divide-slate-100 text-slate-700">
+              <!-- Renderizado via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 2.1: CASOS & ACOMPANHAMENTO PROCESSUAL -->
+    <section id="view-casos" class="secao-aba hidden space-y-6">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Prática Jurídica & Gestão de Retornos</span>
+          <h2 class="text-xl font-bold text-slate-900 mt-1">Fichas de Acompanhamento Processual</h2>
+          <p class="text-xs sm:text-sm text-slate-600">
+            Consulte o histórico de assistidos atendidos em semanas anteriores, acesse diligências e registre novos andamentos no caso.
+          </p>
+        </div>
+
+        <div class="w-full md:w-80">
+          <input type="text" id="filtro-busca-casos" oninput="filtrarFichasCasos()" placeholder="Buscar por Nome, CPF ou Benefício..." class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+        </div>
+      </div>
+
+      <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-1.5">
+          <span class="text-xs font-semibold text-slate-500 mr-1">Exibição:</span>
+          <button onclick="alternarFiltroStatusCasos('ativos')" id="btn-filtro-casos-ativos" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-700 text-white transition shadow-2xs">
+            Casos Ativos (<span id="cont-casos-ativos">0</span>)
+          </button>
+          <button onclick="alternarFiltroStatusCasos('arquivados')" id="btn-filtro-casos-arquivados" class="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">
+            📁 Arquivados (<span id="cont-casos-arquivados">0</span>)
+          </button>
+          <button onclick="alternarFiltroStatusCasos('todos')" id="btn-filtro-casos-todos" class="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">
+            Todos (<span id="cont-casos-todos">0</span>)
+          </button>
+        </div>
+        <p class="text-[11px] text-slate-400 italic">Casos arquivados continuam salvos e podem ser reativados a qualquer momento.</p>
+      </div>
+
+      <div id="grid-fichas-casos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Injetado dinamicamente via JS -->
+      </div>
+    </section>
+
+    <!-- ABA 3: CATÁLOGO DE BENEFÍCIOS -->
+    <section id="view-catalogo" class="secao-aba hidden space-y-6">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+        <h2 class="text-xl font-bold text-slate-900">Catálogo de Benefícios Previdenciários & Assistenciais</h2>
+        <p class="text-xs sm:text-sm text-slate-600">
+          Consulte rapidamente os requisitos legais (carência, qualidade de segurado, idade e critérios de renda) de cada benefício.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded uppercase">Assistencial</span>
+          <h3 class="text-sm font-bold text-slate-900">BPC / LOAS – Pessoa com Deficiência</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Garante 1 salário mínimo mensal (R$ 1.621,00) à pessoa com impedimento de longo prazo (mínimo de 2 anos).
+          </p>
+          <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+            <p>• <strong>Carência:</strong> Não exige contribuição.</p>
+            <p>• <strong>Critério Socioeconômico:</strong> Renda per capita de até 1/4 SM (R$ 405,25) mitigada pelas despesas com saúde.</p>
+            <p>• <strong>CadÚnico:</strong> Inscrição e atualização obrigatória nos últimos 24 meses.</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded uppercase">Assistencial</span>
+          <h3 class="text-sm font-bold text-slate-900">BPC / LOAS – Idoso (65+ anos)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Garante 1 salário mínimo mensal (R$ 1.621,00) ao idoso a partir de 65 anos sem meios de prover a própria subsistência.
+          </p>
+          <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+            <p>• <strong>Idade Mínima:</strong> 65 anos completos.</p>
+            <p>• <strong>Carência:</strong> Não exige contribuição.</p>
+            <p>• <strong>Estatuto do Idoso:</strong> Benefício de até 1 SM de outro idoso não entra na renda familiar (art. 34).</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <span class="text-[10px] font-bold text-sky-800 bg-sky-100 px-2 py-0.5 rounded uppercase">Previdenciário</span>
+          <h3 class="text-sm font-bold text-slate-900">Auxílio por Incapacidade Temporária</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Antigo auxílio-doença. Devido ao segurado incapacitado para seu trabalho habitual por mais de 15 dias consecutivos.
+          </p>
+          <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+            <p>• <strong>Carência:</strong> 12 contribuições mensais (isenta em acidente ou doença grave).</p>
+            <p>• <strong>Qualidade de Segurado:</strong> Deve existir na DII.</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <span class="text-[10px] font-bold text-sky-800 bg-sky-100 px-2 py-0.5 rounded uppercase">Previdenciário</span>
+          <h3 class="text-sm font-bold text-slate-900">Aposentadoria por Incapacidade Permanente</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Antiga aposentadoria por invalidez. Devida ao segurado total e definitivamente incapaz para o trabalho.
+          </p>
+          <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+            <p>• <strong>Carência:</strong> 12 contribuições mensais.</p>
+            <p>• <strong>Adicional de 25%:</strong> Devido se necessitar de acompanhante permanente (art. 45 da Lei 8.213/91).</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded uppercase">Segurado Especial</span>
+          <h3 class="text-sm font-bold text-slate-900">Aposentadoria por Idade Rural</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Devida ao trabalhador rural em regime de economia familiar sem empregados permanentes.
+          </p>
+          <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+            <p>• <strong>Idade:</strong> 60 anos (homens) e 55 anos (mulheres).</p>
+            <p>• <strong>Período Rural:</strong> 180 meses (15 anos) de atividade comprovada.</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <span class="text-[10px] font-bold text-purple-800 bg-purple-100 px-2 py-0.5 rounded uppercase">Maternidade</span>
+          <h3 class="text-sm font-bold text-slate-900">Salário-Maternidade</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Devido à segurada por 120 dias em decorrência de parto, adoção ou guarda judicial.
+          </p>
+          <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+            <p>• <strong>Empregada/Avulsa:</strong> Sem carência.</p>
+            <p>• <strong>Contribuinte Individual / MEI:</strong> 10 contribuições mensais.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 4: ATERMAÇÃO (PSA / TRF3) -->
+    <section id="view-atermacao" class="secao-aba hidden space-y-6">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Jus Postulandi • Art. 3º e 10 da Lei 10.259/2001</span>
+          <h2 class="text-xl font-bold text-slate-900 mt-1">Atermação – Partes sem Advogado (PSA / TRF3)</h2>
+          <p class="text-xs sm:text-sm text-slate-600">
+            Apoio técnico-operacional ao cidadão para ajuizamento direto em nome próprio no Juizado Especial Federal.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="https://pje1g.trf3.jus.br/" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-white bg-sky-700 hover:bg-sky-800 px-4 py-2 rounded-xl transition shadow-xs flex items-center gap-1.5">
+            <span>🌐</span> Acessar PJe TRF3
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 flex items-start gap-3 text-amber-900">
+        <span class="text-xl">⚠️</span>
+        <div class="text-xs space-y-1">
+          <p class="font-bold">Atenção Acadêmica e Deontológica (LAPREVS):</p>
+          <p>
+            A petição inicial e a atermação no TRF3 são distribuídas <strong>em nome próprio do assistido (Jus Postulandi)</strong>. A Liga Acadêmica de Prática Jurídica em Seguridade Social presta estritamente <em>apoio de redação e atermação</em>.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+          <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+            <span>📄</span> Termo de Ciência de Atermação & Responsabilidade Processual
+          </h3>
+          <button onclick="imprimirTermoAtermacao()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 rounded-lg transition flex items-center gap-1">
+            <span>🖨️</span> Imprimir Folha A4
+          </button>
+        </div>
+
+        <div id="folha-termo-atermacao" class="p-6 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-800 space-y-4 font-serif leading-relaxed printable-card">
+          <div class="text-center space-y-1 border-b border-slate-300 pb-3 font-sans">
+            <h4 class="font-bold text-sm text-slate-900 uppercase">Juizado Especial Federal de Campo Grande – MS (TRF3)</h4>
+            <p class="text-[11px] text-slate-600">Apoio de Atermação Direta: <strong>Liga Acadêmica de Prática Jurídica em Seguridade Social (LAPREVS)</strong></p>
+          </div>
+
+          <p class="text-justify indent-6">
+            Eu, <strong id="termo-nome-assistido">[NOME DO ASSISTIDO]</strong>, portador(a) do <strong id="termo-doc-assistido">CPF/RNM nº [DOCUMENTO]</strong>, residente e domiciliado(a) em Campo Grande/MS, declaro para os devidos fins de ajuizamento de ação perante o Juizado Especial Federal da 3ª Região:
+          </p>
+
+          <ol class="list-decimal pl-6 space-y-2 text-justify">
+            <li><strong>Exercício do Jus Postulandi:</strong> A ação é proposta em meu próprio nome com base no art. 3º da Lei 10.259/2001 e art. 9º da Lei 9.099/1995.</li>
+            <li><strong>Apoio Acadêmico da LAPREVS:</strong> A LAPREVS prestou apoio técnico de redação, sem vínculo de mandato ou procuração advocatícia.</li>
+            <li><strong>Dever de Comparecimento às Perícias:</strong> Comprometo-me a comparecer pessoalmente à perícia médica com meus laudos e exames originais.</li>
+            <li><strong>Fase Recursal:</strong> Tenho ciência de que eventual recurso à Turma Recursal exigirá representação da Defensoria Pública da União (DPU/MS) ou advogado.</li>
+          </ol>
+
+          <div class="pt-8 text-center space-y-8 font-sans">
+            <p>Campo Grande – MS, <span id="termo-data-atual">[DATA]</span>.</p>
+            <div class="inline-block border-t border-slate-700 w-72 pt-1">
+              <p class="font-bold text-xs" id="termo-assinatura-nome">[NOME DO ASSISTIDO]</p>
+              <p class="text-[10px] text-slate-500">Autor(a) em Jus Postulandi</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 5: CALCULADORA DE RMI & ALÇADA (60 SM) -->
+    <section id="view-calculadoras" class="secao-aba hidden space-y-6">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+        <h2 class="text-xl font-bold text-slate-900">Calculadoras: Tempo de Contribuição & Alçada do JEF</h2>
+        <p class="text-xs sm:text-sm text-slate-600">
+          Contagem de vínculos e apuração de parcelas vencidas + 12 vincendas para alçada do JEF (art. 3º da Lei 10.259/2001).
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+          <div>
+            <span class="text-xs font-bold text-indigo-700 uppercase tracking-wider bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">CNIS & Carteira de Trabalho</span>
+            <h3 class="text-base font-bold text-slate-900 mt-1 flex items-center gap-2">
+              <span>⏱️</span> Contagem de Tempo de Contribuição e Carência
+            </h3>
+          </div>
+          <button onclick="adicionarLinhaVinculo()" class="text-xs font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 self-start sm:self-center">
+            <span>➕</span> Adicionar Vínculo
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-200 bg-slate-50 text-slate-700 font-semibold">
+                <th class="p-2.5">Descrição do Vínculo</th>
+                <th class="p-2.5">Data Início</th>
+                <th class="p-2.5">Data Fim</th>
+                <th class="p-2.5">Natureza do Labor</th>
+                <th class="p-2.5">Tempo Apurado</th>
+                <th class="p-2.5 text-center">Remover</th>
+              </tr>
+            </thead>
+            <tbody id="lista-vinculos-corpo" class="divide-y divide-slate-100">
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-indigo-50/60 p-5 rounded-xl border border-indigo-200 grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+          <div class="space-y-1">
+            <span class="text-[10px] font-bold text-indigo-900 uppercase">Tempo Total de Contribuição</span>
+            <p id="res-tempo-total-extenso" class="text-sm font-black text-indigo-950">0 anos, 0 meses e 0 dias</p>
+            <span id="res-total-dias" class="text-[11px] text-indigo-700 font-medium">(0 dias totais)</span>
+          </div>
+          <div class="space-y-1">
+            <span class="text-[10px] font-bold text-indigo-900 uppercase">Carência Estimada</span>
+            <p id="res-carencia-meses" class="text-sm font-black text-indigo-950">0 competências</p>
+          </div>
+          <div class="md:col-span-2 space-y-2">
+            <span class="text-[10px] font-bold text-indigo-900 uppercase">Enquadramento Rápido</span>
+            <div id="res-enquadramento-regras" class="text-xs text-slate-700 space-y-1">
+              <p>• <strong>Aposentadoria Rural (180 meses):</strong> <span id="tag-req-rural" class="font-bold text-slate-500">Pendente</span></p>
+              <p>• <strong>Carência Urbana Geral (15 anos):</strong> <span id="tag-req-urbana" class="font-bold text-slate-500">Pendente</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alçada JEF -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <h3 class="text-base font-bold text-slate-900">Parâmetros do Valor da Causa (Alçada 60 SM)</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="text-xs font-semibold text-slate-700">RMI Estimada / Salário Mínimo (R$)</label>
+              <input type="number" id="calc-valor-beneficio" value="1621.00" step="0.01" oninput="calcularAlcadaJef()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+            </div>
+            <div class="space-y-1">
+              <label class="text-xs font-semibold text-slate-700">Data da DER (INSS)</label>
+              <input type="date" id="calc-data-der" onchange="calcularAlcadaJef()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+            </div>
+            <div class="space-y-1 sm:col-span-2">
+              <label class="text-xs font-semibold text-slate-700">Data Prevista de Ajuizamento</label>
+              <input type="date" id="calc-data-ajuizamento" onchange="calcularAlcadaJef()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Demonstrativo da Causa (SM 2026 = R$ 1.621,00)</span>
+            <div class="mt-3 space-y-2 text-xs">
+              <div class="flex justify-between py-1.5 border-b border-slate-200">
+                <span class="text-slate-600">Meses em Atraso (Vencidas):</span>
+                <strong id="res-meses-atrasados" class="text-slate-900 font-bold">0 mês(es)</strong>
+              </div>
+              <div class="flex justify-between py-1.5 border-b border-slate-200">
+                <span class="text-slate-600">Total de Parcelas Vencidas:</span>
+                <strong id="res-total-vencidas" class="text-slate-900 font-bold">R$ 0,00</strong>
+              </div>
+              <div class="flex justify-between py-1.5 border-b border-slate-200">
+                <span class="text-slate-600">Total de 12 Parcelas Vincendas:</span>
+                <strong id="res-total-vincendas" class="text-slate-900 font-bold">R$ 19.452,00</strong>
+              </div>
+              <div class="flex justify-between py-2 border-b border-slate-300 text-sm">
+                <span class="font-bold text-slate-800">Valor Total da Causa:</span>
+                <strong id="res-valor-causa" class="font-black text-sky-800 text-base">R$ 19.452,00</strong>
+              </div>
+            </div>
+            <div id="alerta-limite-60sm" class="mt-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs flex items-center gap-2">
+              <span>✓</span> <span><strong>Dentro da Alçada do JEF:</strong> Não ultrapassa 60 SM (Limite 2026: R$ 97.260,00).</span>
+            </div>
+          </div>
+          <div class="flex justify-end pt-2">
+            <button onclick="aplicarValorNaPeticao()" class="text-xs font-bold text-white bg-sky-700 hover:bg-sky-800 px-4 py-2 rounded-xl transition shadow-xs flex items-center gap-1.5">
+              <span>➡️</span> Importar para Petição Inicial
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 6: MINUTAS DE PETIÇÕES EM JUS POSTULANDI -->
+    <section id="view-peticoes" class="secao-aba hidden space-y-6">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Jus Postulandi • JEF / TRF3</span>
+          <h2 class="text-xl font-bold text-slate-900 mt-1">Gerador de Minutas em Jus Postulandi</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copiarMinutaPeticao()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
+            <span>📋</span> Copiar Minuta
+          </button>
+          <button onclick="imprimirPeticaoA4()" class="text-xs font-semibold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
+            <span>🖨️</span> Imprimir A4
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <h3 class="text-sm font-bold text-slate-900 border-b border-slate-200 pb-2">Dados do(a) Autor(a)</h3>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Tipo de Ação</label>
+            <select id="pet-tipo-acao" onchange="atualizarMinutaPeticao()" class="w-full text-xs p-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-sky-600">
+              <option value="bpc_pcd">Concessão de BPC / LOAS à Pessoa com Deficiência</option>
+              <option value="bpc_idoso">Concessão de BPC / LOAS ao Idoso (65+)</option>
+              <option value="incapacidade_temp">Concessão / Restabelecimento de Auxílio-Incapacidade Temporária</option>
+              <option value="aposentadoria_rural">Concessão de Aposentadoria por Idade Rural</option>
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Nome do Autor</label>
+            <input type="text" id="pet-nome" placeholder="Nome Completo" oninput="atualizarMinutaPeticao()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Documento (CPF ou RNM)</label>
+            <input type="text" id="pet-cpf" placeholder="000.000.000-00" oninput="atualizarMinutaPeticao()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Endereço Residencial</label>
+            <input type="text" id="pet-endereco" placeholder="Rua, Número, Bairro, Campo Grande/MS" oninput="atualizarMinutaPeticao()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Número do Benefício (NB)</label>
+            <input type="text" id="pet-nb" placeholder="000.000.000-0" oninput="atualizarMinutaPeticao()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Data DER</label>
+            <input type="date" id="pet-der" oninput="atualizarMinutaPeticao()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">CID-10 / Patologia</label>
+            <input type="text" id="pet-cid" placeholder="Ex.: M54.5" oninput="atualizarMinutaPeticao()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Valor da Causa (R$)</label>
+            <input type="text" id="pet-valor-causa" value="19.452,00" oninput="atualizarMinutaPeticao()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-4">
+          <div id="box-minuta-peticao" class="bg-white p-6 rounded-xl border border-slate-200 text-xs text-slate-800 font-serif leading-relaxed h-[520px] overflow-y-auto whitespace-pre-wrap select-text shadow-inner">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 7: QUESITOS MÉDICOS -->
+    <section id="view-quesitos" class="secao-aba hidden space-y-6">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Perícia Médica Judicial</span>
+          <h2 class="text-xl font-bold text-slate-900 mt-1">Quesitos Médicos e Biopsicossociais</h2>
+        </div>
+        <button onclick="copiarQuesitos()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
+          <span>📋</span> Copiar Quesitos
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2">
+          <button onclick="selecionarGrupoQuesitos('ortopedia', event)" id="btn-quesito-ortopedia" class="btn-quesito w-full text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition">
+            <strong class="block text-slate-900">🦴 Ortopedia & Coluna</strong>
+          </button>
+          <button onclick="selecionarGrupoQuesitos('psiquiatria', event)" id="btn-quesito-psiquiatria" class="btn-quesito w-full text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition">
+            <strong class="block text-slate-900">🧠 Psiquiatria & Saúde Mental</strong>
+          </button>
+          <button onclick="selecionarGrupoQuesitos('cardiologia', event)" id="btn-quesito-cardiologia" class="btn-quesito w-full text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition">
+            <strong class="block text-slate-900">❤️ Cardiologia & Circulatório</strong>
+          </button>
+          <button onclick="selecionarGrupoQuesitos('loas_biopsicossocial', event)" id="btn-quesito-loas_biopsicossocial" class="btn-quesito w-full text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition">
+            <strong class="block text-slate-900">🤝 BPC / LOAS (Biopsicossocial)</strong>
+          </button>
+        </div>
+
+        <div class="lg:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+            <h3 id="titulo-quesitos-exibidos" class="text-sm font-bold text-slate-900">Quesitos Ortopédicos do Autor</h3>
+          </div>
+          <div id="box-quesitos-medicos" class="bg-white p-5 rounded-xl border border-slate-200 text-xs text-slate-800 space-y-3 leading-relaxed shadow-inner h-[380px] overflow-y-auto">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 8: AUTODECLARAÇÃO RURAL -->
+    <section id="view-rural" class="secao-aba hidden space-y-6">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold text-amber-800 uppercase tracking-wider bg-amber-50 px-2 py-0.5 rounded border border-amber-100">Art. 19-D Decreto 3.048/99</span>
+          <h2 class="text-xl font-bold text-slate-900 mt-1">Autodeclaração de Atividade Rural</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copiarAutodeclaracaoRural()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
+            <span>📋</span> Copiar Texto
+          </button>
+          <button onclick="imprimirAutodeclaracaoRural()" class="text-xs font-semibold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
+            <span>🖨️</span> Imprimir Folha A4
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Nome do Produtor</label>
+            <input type="text" id="rural-nome" placeholder="Nome Completo" oninput="atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">CPF do Produtor</label>
+            <input type="text" id="rural-cpf" placeholder="000.000.000-00" oninput="formatarDocumentoDinamico(this, 'rural'); atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Denominação do Imóvel / Assentamento</label>
+            <input type="text" id="rural-imovel" placeholder="Ex.: Assentamento Patagônia" oninput="atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Condição na Terra</label>
+            <select id="rural-condicao" onchange="atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 bg-white">
+              <option value="Proprietário / Posseiro">Proprietário / Posseiro</option>
+              <option value="Assentado da Reforma Agrária">Assentado da Reforma Agrária (INCRA)</option>
+              <option value="Meeiro / Parceiro / Comodatário">Meeiro / Parceiro / Comodatário</option>
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Período de Atividade</label>
+            <input type="text" id="rural-periodo" placeholder="Ex.: 01/01/2005 até os dias atuais" oninput="atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+          <div id="box-autodeclaracao-rural" class="bg-white p-6 rounded-xl border border-slate-200 text-xs text-slate-800 font-serif leading-relaxed h-[500px] overflow-y-auto whitespace-pre-wrap select-text shadow-inner">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 9: ENCAMINHAMENTOS -->
+    <section id="view-encaminhamentos" class="secao-aba hidden space-y-6">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Orientação ao Cidadão & Rede Externa</span>
+          <h2 class="text-xl font-bold text-slate-900 mt-1">Guia de Encaminhamento do Assistido</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="copiarEncaminhamento()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
+            <span>📋</span> Copiar Guia
+          </button>
+          <button onclick="imprimirEncaminhamentoA4()" class="text-xs font-semibold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
+            <span>🖨️</span> Imprimir Folha A4
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Órgão / Local</label>
+            <select id="enc-destino" onchange="alternarModeloDestinoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-slate-300 bg-white">
+              <option value="CRAS">CRAS / SAS – Inscrição/Atualização do CadÚnico</option>
+              <option value="INSS">INSS Agência Centro – Senha Meu INSS / Cópia de PA</option>
+              <option value="DPU">DPU – Defensoria da União (Recurso ao TRF3)</option>
+              <option value="DPE_SAUDE">DPE/MS – Saúde Pública (Remédios e Cirurgias SUS)</option>
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Nome do Assistido</label>
+            <input type="text" id="enc-nome" placeholder="Nome Completo" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-slate-300">
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Documento (CPF ou RNM)</label>
+            <input type="text" id="enc-cpf" placeholder="000.000.000-00" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-slate-300">
+          </div>
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">O que solicitar no balcão?</label>
+            <textarea id="enc-motivo" rows="3" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300"></textarea>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+          <div id="box-texto-encaminhamento" class="bg-white p-6 rounded-xl border border-slate-200 text-xs text-slate-800 font-sans leading-relaxed h-[520px] overflow-y-auto whitespace-pre-wrap select-text shadow-inner">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 10: CONTATOS ÚTEIS -->
+    <section id="view-orgaos" class="secao-aba hidden space-y-6">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Guia Institucional de Campo Grande / MS</span>
+          <h2 class="text-xl font-bold text-slate-900 mt-1">Contatos Úteis & Balcões Virtuais</h2>
+        </div>
+        <div class="w-full md:w-72">
+          <input type="text" id="filtro-busca-orgaos" oninput="filtrarCartoesOrgaos()" placeholder="Buscar por órgão, serviço ou bairro..." class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+        </div>
+      </div>
+
+      <div id="grid-contatos-orgaos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- 1. DPU Campo Grande/MS -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-sky-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <span class="text-[10px] font-bold text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded uppercase">Defensoria da União</span>
+            <h3 class="text-sm font-bold text-slate-900">1. DPU – Defensoria Pública da União (Campo Grande/MS)</h3>
+            <p class="text-xs text-slate-600">Abertura de PAJ, recursos à Turma Recursal do TRF3 e causas federais.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Rua Eduardo Santos Pereira, 1186 – Centro</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta, das 12h às 17h</p>
+              <p>📞 <strong>Telefone:</strong> (67) 3311-9850 | Plantão: (67) 98114-1615</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200">
+            <a href="https://www.dpu.def.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-indigo-700 hover:bg-indigo-800 px-3 py-1.5 rounded-lg inline-flex items-center gap-1 transition">
+              <span>⚖️</span> Portal DPU
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. INSS Central -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-blue-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <span class="text-[10px] font-bold text-blue-800 bg-blue-100 px-2 py-0.5 rounded uppercase">Previdência Social</span>
+            <h3 class="text-sm font-bold text-slate-900">2. INSS – Agência Central (Rua 26 de Agosto)</h3>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Rua 26 de Agosto, 347 – Centro</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta, das 07h às 17h</p>
+              <p>📞 <strong>Telefones:</strong> Central 135 | (67) 4009-7605</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200">
+            <a href="https://meu.inss.gov.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded-lg inline-flex items-center gap-1 transition">
+              <span>🌐</span> Meu INSS
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. JFMS / JEF TRF3 -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-sky-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <span class="text-[10px] font-bold text-sky-800 bg-sky-100 px-2 py-0.5 rounded uppercase">Justiça Federal</span>
+            <h3 class="text-sm font-bold text-slate-900">3. Justiça Federal de MS (JFMS / JEF - TRF3)</h3>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Rua Del. Carlos Roberto Bastos de Oliveira, 128 – Parque dos Poderes</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta, das 12h às 19h</p>
+              <p>📞 <strong>Telefone:</strong> (67) 3320-1100 | Secretaria JEF: 3320-1119</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200">
+            <a href="https://web.trf3.jus.br/balcaovirtual/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-sky-700 hover:bg-sky-800 px-3 py-1.5 rounded-lg inline-flex items-center gap-1 transition">
+              <span>🖥️</span> Balcão Virtual
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL DE FICHA DE CASO & ANDAMENTOS -->
+  <div id="modal-ficha-caso" class="fixed inset-0 bg-slate-900/60 z-50 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white max-w-2xl w-full rounded-2xl p-6 shadow-2xl border border-slate-200 space-y-5 max-h-[92vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div>
+          <span class="text-[10px] font-bold text-sky-800 bg-sky-50 px-2 py-0.5 rounded border border-sky-100 uppercase">Ficha Processual</span>
+          <h3 id="modal-caso-nome" class="text-base font-bold text-slate-900 mt-0.5">Nome do Assistido</h3>
+          <p id="modal-caso-sub" class="text-xs text-slate-500">CPF: -- | Benefício: --</p>
+        </div>
+        <button onclick="fecharFichaCasoModal()" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+      </div>
+
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs space-y-2">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <div><span class="text-slate-500 block">Data Abertura:</span><strong id="modal-caso-data">--</strong></div>
+          <div><span class="text-slate-500 block">Telefone:</span><strong id="modal-caso-tel">--</strong></div>
+          <div><span class="text-slate-500 block">Situação INSS:</span><strong id="modal-caso-inss">--</strong></div>
+          <div><span class="text-slate-500 block">Atendente:</span><strong id="modal-caso-atendente">--</strong></div>
+        </div>
+        <div class="pt-2 border-t border-slate-200">
+          <span class="text-slate-500 font-semibold block">Relato Inicial dos Fatos:</span>
+          <p id="modal-caso-relato" class="text-slate-700 italic mt-0.5">Sem anotações preliminares.</p>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Histórico de Andamentos & Diligências</h4>
+        <div id="modal-caso-lista-andamentos" class="space-y-2.5 max-h-48 overflow-y-auto pr-1"></div>
+      </div>
+
+      <div class="bg-sky-50/50 p-4 rounded-xl border border-sky-100 space-y-3">
+        <h4 class="text-xs font-bold text-sky-950">Registrar Novo Andamento (Plantão Atual)</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <input type="date" id="input-novo-andamento-data" class="text-xs p-2 rounded-lg border border-slate-300 bg-white">
+          <input type="text" id="input-novo-andamento-autor" placeholder="Acadêmico(a) Atendente" class="text-xs p-2 rounded-lg border border-slate-300 bg-white sm:col-span-2">
+        </div>
+        <textarea id="input-novo-andamento-texto" rows="2" placeholder="Descreva a diligência ou providência adotada..." class="w-full text-xs p-2.5 rounded-lg border border-slate-300 bg-white"></textarea>
+        <div class="flex justify-end">
+          <button onclick="salvarNovoAndamentoNoCaso()" class="text-xs font-bold text-white bg-sky-700 hover:bg-sky-800 px-4 py-2 rounded-lg transition shadow-xs">
+            ➕ Adicionar Andamento
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200">
+        <div class="flex items-center gap-2">
+          <button onclick="fecharFichaCasoModal()" class="text-xs font-semibold text-slate-600 px-4 py-2 rounded-xl hover:bg-slate-100 transition">Fechar</button>
+          <button id="modal-btn-arquivar" onclick="confirmarAlternanciaArquivamentoModal()" class="text-xs font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-3 py-2 rounded-xl transition">
+            📦 <span id="modal-txt-arquivar">Arquivar Caso</span>
+          </button>
+        </div>
+        <button onclick="carregarAssistidoDoModalNasAbas()" class="text-xs font-bold text-white bg-sky-700 hover:bg-sky-800 px-4 py-2 rounded-xl transition shadow-xs">
+          📋 Carregar Dados nas Demais Ferramentas
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIRMAÇÃO DE ARQUIVAMENTO -->
+  <div id="modal-confirmar-arquivamento" class="fixed inset-0 bg-slate-900/60 z-60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white max-w-sm w-full rounded-2xl p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center gap-3 text-amber-700">
+        <div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-xl shrink-0">⚠️</div>
+        <div>
+          <h3 id="modal-confirma-titulo" class="text-sm font-bold text-slate-900">Você tem certeza?</h3>
+          <p id="modal-confirma-sub" class="text-[11px] text-slate-500">Confirmação de alteração do caso</p>
+        </div>
+      </div>
+      <p id="modal-confirma-msg" class="text-xs text-slate-600 leading-relaxed"></p>
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+        <button onclick="fecharModalConfirmarArquivamento()" class="text-xs font-semibold text-slate-600 px-4 py-2 rounded-xl hover:bg-slate-100 transition">Cancelar</button>
+        <button id="btn-executar-arquivamento" onclick="executarAcaoArquivamento()" class="text-xs font-bold text-white bg-amber-600 hover:bg-amber-700 px-4 py-2 rounded-xl transition shadow-xs">Sim, Tenho Certeza</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIGURAÇÃO DO GOOGLE SHEETS / SHEET BEST -->
+  <div id="modal-planilha" class="fixed inset-0 bg-slate-900/60 z-50 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white max-w-md w-full rounded-2xl p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+          <span>⚙️</span> Configurar API do Google Sheets (Sheet Best)
+        </h3>
+        <button onclick="fecharConfigPlanilhaModal()" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+      </div>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Endpoint conectado diretamente à planilha do Google Sheets via API REST.
+      </p>
+
+      <div class="space-y-1">
+        <label class="text-xs font-semibold text-slate-700">URL da API Sheet Best:</label>
+        <input type="url" id="input-url-script-planilha" value="https://api.sheetbest.com/sheets/fe51f0f0-d3fe-4349-82fa-e4554ecdf9a2" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="fecharConfigPlanilhaModal()" class="text-xs font-semibold text-slate-600 px-4 py-2 rounded-xl hover:bg-slate-100 transition">Cancelar</button>
+        <button onclick="salvarConfigPlanilha()" class="text-xs font-bold text-white bg-sky-700 hover:bg-sky-800 px-4 py-2 rounded-xl transition shadow-xs">Salvar e Conectar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RODAPÉ -->
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-500 no-print">
+    <div class="max-w-7xl mx-auto px-4 space-y-1">
+      <p class="font-bold text-slate-700">LAPREVS – Liga Acadêmica de Prática Jurídica em Seguridade Social</p>
+      <p>Desenvolvido para apoio técnico-operacional ao Jus Postulandi (Lei nº 10.259/2001) • Campo Grande/MS</p>
+    </div>
+  </footer>
+
+  <!-- ==================== CÓDIGO JAVASCRIPT INTEGRADO ==================== -->
+  <script>
+    const SALARIO_MINIMO_2026 = 1621.00;
+    const LIMITE_ALCADA_60SM_2026 = 60 * SALARIO_MINIMO_2026; // R$ 97.260,00
+
+    // Endpoint fixo da API Sheet Best
+    const SHEET_BEST_ENDPOINT = 'https://api.sheetbest.com/sheets/fe51f0f0-d3fe-4349-82fa-e4554ecdf9a2';
+
+    let estadoApp = {
+      abaAtiva: 'view-triagem',
+      filtroStatusCasos: 'ativos',
+      triagem: { passo1_indeferimento: null, passo2_objeto: null, passo3_alcada: null },
+      atendimentos: [],
+      casoSelecionadoModalId: null,
+      casoPendenteArquivamentoId: null,
+      vinculosTempo: [
+        { id: 1, desc: 'Empresa / Empregador 1', inicio: '2015-01-01', fim: '2018-06-30', tipo: 'urbano' }
+      ],
+      urlPlanilha: localStorage.getItem('laprevs_url_sheets') || SHEET_BEST_ENDPOINT,
+      logoCustomizada: localStorage.getItem('laprevs_logo_custom') || ''
+    };
+
+    window.onload = function() {
+      carregarLogoArmazenada();
+      carregarAtendimentosLocais();
+      inicializarDatas();
+      mudarAba('view-triagem');
+      selecionarGrupoQuesitos('ortopedia');
+      atualizarMinutaPeticao();
+      atualizarAutodeclaracaoRural();
+      atualizarTextoEncaminhamento();
+      renderizarLinhasVinculos();
+      calcularTempoContribuicao();
+      calcularAlcadaJef();
+    };
+
+    function mudarAba(idAba) {
+      document.querySelectorAll('.secao-aba').forEach(secao => secao.classList.add('hidden'));
+      const secaoAlvo = document.getElementById(idAba);
+      if (secaoAlvo) secaoAlvo.classList.remove('hidden');
+
+      document.querySelectorAll('.aba-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-700', 'text-white', 'shadow-xs');
+        btn.classList.add('text-slate-600', 'hover:bg-slate-100');
+      });
+
+      const btnAtivo = document.getElementById('tab-btn-' + idAba);
+      if (btnAtivo) {
+        btnAtivo.classList.remove('text-slate-600', 'hover:bg-slate-100');
+        btnAtivo.classList.add('bg-sky-700', 'text-white', 'shadow-xs');
+      }
+
+      estadoApp.abaAtiva = idAba;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function acionarUploadLogo() { document.getElementById('input-upload-logo').click(); }
+    function processarArquivoLogo(input) {
+      if (input.files && input.files[0]) {
+        const leitor = new FileReader();
+        leitor.onload = function(e) {
+          const b64 = e.target.result;
+          localStorage.setItem('laprevs_logo_custom', b64);
+          estadoApp.logoCustomizada = b64;
+          aplicarLogoImg(b64);
+          mostrarNotificacao('✓ Imagem da logo atualizada!');
+        };
+        leitor.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function carregarLogoArmazenada() {
+      if (estadoApp.logoCustomizada) aplicarLogoImg(estadoApp.logoCustomizada);
+    }
+
+    function aplicarLogoImg(src) {
+      const imgTopo = document.getElementById('img-logo-topo');
+      const svgFallback = document.getElementById('svg-logo-fallback');
+      if (imgTopo && svgFallback) {
+        imgTopo.src = src;
+        imgTopo.classList.remove('hidden');
+        svgFallback.classList.add('hidden');
+      }
+    }
+
+    function responderPasso1(temIndeferimento) {
+      estadoApp.triagem.passo1_indeferimento = temIndeferimento;
+      const btnSim = document.getElementById('btn-p1-sim');
+      const btnNao = document.getElementById('btn-p1-nao');
+      const step2 = document.getElementById('step-2');
+
+      if (temIndeferimento) {
+        btnSim.classList.add('bg-sky-50', 'border-sky-600', 'text-sky-800');
+        btnNao.classList.remove('bg-rose-50', 'border-rose-600', 'text-rose-800');
+        step2.classList.remove('opacity-40', 'pointer-events-none');
+        atualizarParecerTriagem('preliminar_valida');
+      } else {
+        btnNao.classList.add('bg-rose-50', 'border-rose-600', 'text-rose-800');
+        btnSim.classList.remove('bg-sky-50', 'border-sky-600', 'text-sky-800');
+        step2.classList.add('opacity-40', 'pointer-events-none');
+        atualizarParecerTriagem('bloqueio_tema_350');
+      }
+    }
+
+    function responderPasso2(tipoObjeto, evt) {
+      estadoApp.triagem.passo2_objeto = tipoObjeto;
+      document.querySelectorAll('.btn-objeto').forEach(btn => btn.classList.remove('border-sky-600', 'bg-sky-50', 'ring-1', 'ring-sky-600'));
+      const alvo = (evt && evt.currentTarget) ? evt.currentTarget : document.getElementById('btn-obj-' + tipoObjeto);
+      if (alvo) alvo.classList.add('border-sky-600', 'bg-sky-50', 'ring-1', 'ring-sky-600');
+      document.getElementById('step-3').classList.remove('opacity-40', 'pointer-events-none');
+      atualizarParecerTriagem('objeto_definido');
+    }
+
+    function responderPasso3(dentroAlcada) {
+      estadoApp.triagem.passo3_alcada = dentroAlcada;
+      atualizarParecerTriagem('final');
+    }
+
+    function atualizarParecerTriagem(fase) {
+      const tit = document.getElementById('titulo-parecer-triagem');
+      const corpo = document.getElementById('corpo-parecer-triagem');
+      const acoes = document.getElementById('acoes-triagem');
+
+      if (fase === 'bloqueio_tema_350') {
+        tit.textContent = '⛔ Prévio Requerimento Ausente (Tema 350 STF)';
+        corpo.innerHTML = `
+          <div class="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 space-y-2">
+            <p><strong>Não é possível ingressar no Juizado Federal no momento.</strong></p>
+            <p>Conforme o Tema 350 do STF, o processo seria extinto por ausência de interesse de agir.</p>
+            <p><strong>Conduta:</strong> Efetuar o pedido administrativo prévio no Meu INSS.</p>
+          </div>
+        `;
+        acoes.classList.remove('hidden');
+        return;
+      }
+
+      if (fase === 'final') {
+        tit.textContent = '✓ Atermação Viável no JEF (TRF3)';
+        corpo.innerHTML = `
+          <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 space-y-2">
+            <p><strong>Caso Apto para o Juizado Especial Federal!</strong></p>
+            <p>• <strong>Alçada 2026:</strong> Limite de R$ 97.260,00 (60 SM).</p>
+            <p>• <strong>Rito:</strong> Jus Postulandi com apoio da LAPREVS.</p>
+          </div>
+        `;
+        acoes.classList.remove('hidden');
+      }
+    }
+
+    function reiniciarTriagem() {
+      estadoApp.triagem = { passo1_indeferimento: null, passo2_objeto: null, passo3_alcada: null };
+      document.getElementById('btn-p1-sim').classList.remove('bg-sky-50', 'border-sky-600', 'text-sky-800');
+      document.getElementById('btn-p1-nao').classList.remove('bg-rose-50', 'border-rose-600', 'text-rose-800');
+      document.getElementById('step-2').classList.add('opacity-40', 'pointer-events-none');
+      document.getElementById('step-3').classList.add('opacity-40', 'pointer-events-none');
+      document.querySelectorAll('.btn-objeto').forEach(btn => btn.classList.remove('border-sky-600', 'bg-sky-50', 'ring-1', 'ring-sky-600'));
+      document.getElementById('titulo-parecer-triagem').textContent = 'Aguardando respostas...';
+      document.getElementById('corpo-parecer-triagem').innerHTML = '<p>Selecione as respostas para emissão do parecer.</p>';
+      document.getElementById('acoes-triagem').classList.add('hidden');
+    }
+
+    function iniciarAtendimentoComDados() {
+      mudarAba('view-registro');
+      const objMap = {
+        incapacidade: 'Auxílio por Incapacidade Temporária',
+        loas: 'BPC / LOAS (Deficiência)',
+        rural: 'Aposentadoria Rural / Segurado Especial',
+        pensao_morte: 'Pensão por Morte',
+        maternidade: 'Salário-Maternidade'
+      };
+      if (estadoApp.triagem.passo2_objeto) {
+        document.getElementById('reg-objeto').value = objMap[estadoApp.triagem.passo2_objeto] || 'Outros';
+      }
+    }
+
+    function alternarTipoDocumento(prefixo) {
+      const tipo = document.getElementById(prefixo + '-tipo-doc').value;
+      const inputDoc = document.getElementById(prefixo + '-cpf');
+      const badge = document.getElementById('badge-cpf-' + prefixo);
+      if (tipo === 'CPF') {
+        inputDoc.placeholder = '000.000.000-00';
+        inputDoc.maxLength = 14;
+      } else {
+        inputDoc.placeholder = 'G123456-A ou Protocolo';
+        inputDoc.maxLength = 20;
+      }
+      inputDoc.value = '';
+      if (badge) badge.classList.add('hidden');
+    }
+
+    function formatarDocumentoDinamico(input, prefixo) {
+      const selectTipo = document.getElementById(prefixo + '-tipo-doc');
+      const tipo = selectTipo ? selectTipo.value : 'CPF';
+      const badge = document.getElementById('badge-cpf-' + prefixo);
+
+      if (tipo === 'CPF') {
+        let v = input.value.replace(/\D/g, '');
+        if (v.length > 11) v = v.substring(0, 11);
+        if (v.length > 9) v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+        else if (v.length > 6) v = v.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+        else if (v.length > 3) v = v.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+        input.value = v;
+
+        if (v.replace(/\D/g, '').length === 11) {
+          const valido = validarDigitosCpf(v);
+          if (badge) {
+            badge.classList.remove('hidden');
+            badge.textContent = valido ? '✓ Válido' : '✕ Inválido';
+            badge.className = valido ? 'absolute right-2.5 top-2.5 text-[10px] font-bold text-emerald-600' : 'absolute right-2.5 top-2.5 text-[10px] font-bold text-rose-600';
+          }
+        } else if (badge) badge.classList.add('hidden');
+      } else {
+        input.value = input.value.toUpperCase();
+        if (badge) badge.classList.add('hidden');
+      }
+    }
+
+    function validarDigitosCpf(cpfTexto) {
+      const num = cpfTexto.replace(/\D/g, '');
+      if (num.length !== 11 || /^(\d)\1{10}$/.test(num)) return false;
+      let soma = 0, resto;
+      for (let i = 1; i <= 9; i++) soma += parseInt(num.substring(i - 1, i)) * (11 - i);
+      resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      if (resto !== parseInt(num.substring(9, 10))) return false;
+      soma = 0;
+      for (let i = 1; i <= 10; i++) soma += parseInt(num.substring(i - 1, i)) * (12 - i);
+      resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      return resto === parseInt(num.substring(10, 11));
+    }
+
+    function formatarTelefone(input) {
+      let v = input.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.substring(0, 11);
+      if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+      else if (v.length > 5) v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+      else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,5})$/, '($1) $2');
+      input.value = v;
+    }
+
+    function verificarObjetoOutro() {
+      const select = document.getElementById('reg-objeto');
+      const containerOutro = document.getElementById('container-reg-objeto-outro');
+      const inputOutro = document.getElementById('reg-objeto-especifico');
+      if (select.value === 'Outros') {
+        containerOutro.classList.remove('hidden');
+        inputOutro.setAttribute('required', 'required');
+      } else {
+        containerOutro.classList.add('hidden');
+        inputOutro.removeAttribute('required');
+        inputOutro.value = '';
+      }
+    }
+
+    // ==========================================
+    // FUNÇÕES DE ENVIO E SINCRONIZAÇÃO SHEET BEST
+    // ==========================================
+    async function enviarCasoParaSheetBest(caso) {
+      const urlApi = estadoApp.urlPlanilha || SHEET_BEST_ENDPOINT;
+      const payload = {
+        data: caso.data || new Date().toLocaleDateString('pt-BR'),
+        nome: caso.nome || '',
+        tipoDoc: caso.tipoDoc || 'CPF',
+        doc: caso.doc || '',
+        telefone: caso.telefone || '',
+        objeto: caso.objeto || '',
+        statusInss: caso.statusInss || '',
+        providencia: caso.providencia || '',
+        atendente: caso.atendente || '',
+        observacoes: caso.observacoes || ''
+      };
+
+      try {
+        const resp = await fetch(urlApi, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        return resp.ok;
+      } catch (e) {
+        console.error('Falha de envio Sheet Best:', e);
+        return false;
+      }
+    }
+
+    async function sincronizarComSheetBest() {
+      const casos = estadoApp.atendimentos || [];
+      if (casos.length === 0) {
+        mostrarNotificacao('Nenhum atendimento para sincronizar.');
+        return;
+      }
+
+      const btn = document.getElementById('btn-sync-planilha');
+      if (btn) btn.innerHTML = '<span>⏳</span> Enviando...';
+
+      let sucessos = 0;
+      for (const caso of casos) {
+        const ok = await enviarCasoParaSheetBest(caso);
+        if (ok) sucessos++;
+      }
+
+      if (btn) btn.innerHTML = '<span>🔄</span> Sincronizar Planilha';
+      mostrarNotificacao(`✓ ${sucessos} de ${casos.length} atendimento(s) enviados para a planilha!`);
+    }
+
+    function salvarNovoAtendimento(e) {
+      e.preventDefault();
+      const objSel = document.getElementById('reg-objeto').value;
+      const objEsp = document.getElementById('reg-objeto-especifico').value.trim();
+      const objFinal = (objSel === 'Outros' && objEsp) ? `Outros: ${objEsp}` : objSel;
+
+      const novo = {
+        id: Date.now(),
+        data: new Date().toLocaleDateString('pt-BR'),
+        nome: document.getElementById('reg-nome').value.trim(),
+        tipoDoc: document.getElementById('reg-tipo-doc').value,
+        doc: document.getElementById('reg-cpf').value.trim(),
+        telefone: document.getElementById('reg-telefone').value.trim(),
+        objeto: objFinal,
+        statusInss: document.getElementById('reg-status-inss').value,
+        providencia: document.getElementById('reg-providencia').value,
+        atendente: document.getElementById('reg-atendente').value.trim(),
+        observacoes: document.getElementById('reg-observacoes').value.trim() || 'Atendimento inicial registrado.',
+        arquivado: false,
+        andamentos: [
+          {
+            data: new Date().toLocaleDateString('pt-BR'),
+            atendente: document.getElementById('reg-atendente').value.trim(),
+            descricao: `Abertura de atendimento: ${document.getElementById('reg-providencia').value}.`
+          }
+        ]
+      };
+
+      estadoApp.atendimentos.unshift(novo);
+      salvarAtendimentosLocais();
+      renderizarTabelaAtendimentos();
+      renderizarGridCasos();
+      atualizarContadoresFiltrosCasos();
+      enviarCasoParaSheetBest(novo);
+      propagarDadosAssistido(novo);
+
+      document.getElementById('form-novo-atendimento').reset();
+      verificarObjetoOutro();
+      mostrarNotificacao('✓ Atendimento salvo e enviado à planilha!');
+    }
+
+    function renderizarGridCasos(listaCasos = null) {
+      const container = document.getElementById('grid-fichas-casos');
+      if (!container) return;
+
+      let casosParaExibir = listaCasos;
+      if (!casosParaExibir) {
+        if (estadoApp.filtroStatusCasos === 'ativos') casosParaExibir = estadoApp.atendimentos.filter(c => !c.arquivado);
+        else if (estadoApp.filtroStatusCasos === 'arquivados') casosParaExibir = estadoApp.atendimentos.filter(c => !!c.arquivado);
+        else casosParaExibir = estadoApp.atendimentos;
+      }
+
+      atualizarContadoresFiltrosCasos();
+
+      if (casosParaExibir.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12 bg-white rounded-2xl border border-slate-200">
+            <span class="text-3xl block mb-2">📁</span>
+            <p class="text-sm font-bold text-slate-700">Nenhuma ficha de caso encontrada.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = casosParaExibir.map(caso => `
+        <div class="bg-white p-5 rounded-2xl border ${caso.arquivado ? 'border-dashed border-slate-300 opacity-80' : 'border-slate-200'} shadow-xs hover:shadow-md transition flex flex-col justify-between space-y-4">
+          <div class="space-y-2">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <h3 class="text-sm font-bold text-slate-900 leading-tight">${caso.nome}</h3>
+                <span class="text-[11px] text-slate-500 font-mono">${caso.tipoDoc || 'CPF'}: ${caso.doc}</span>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${caso.arquivado ? 'bg-slate-100 text-slate-600' : 'bg-sky-50 text-sky-800'}">${caso.arquivado ? 'Arquivado' : caso.statusInss}</span>
+            </div>
+            <div class="text-xs text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
+              <p>• <strong>Objeto:</strong> ${caso.objeto}</p>
+              <p>• <strong>Data:</strong> ${caso.data} (por ${caso.atendente})</p>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-1.5">
+              <button onclick="abrirFichaCasoModal(${caso.id})" class="text-xs font-semibold text-slate-800 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-xl transition">📜 Ficha (${caso.andamentos ? caso.andamentos.length : 0})</button>
+              <button onclick="solicitarConfirmacaoArquivamento(${caso.id})" class="text-xs font-semibold ${caso.arquivado ? 'text-sky-700 bg-sky-50 border border-sky-200' : 'text-amber-700 bg-amber-50 border border-amber-200'} px-2.5 py-1.5 rounded-xl transition">${caso.arquivado ? '↩️ Reativar' : '📁 Arquivar'}</button>
+            </div>
+            <button onclick="carregarAssistidoNasAbas(${caso.id})" class="text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 px-3 py-1.5 rounded-xl border border-sky-200 transition">➡️ Usar</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderizarTabelaAtendimentos(itens = estadoApp.atendimentos) {
+      const corpo = document.getElementById('corpo-tabela-atendimentos');
+      const contador = document.getElementById('contador-atendimentos');
+      if (contador) contador.textContent = `${itens.length} registro(s)`;
+      const badgeCasos = document.getElementById('badge-nav-casos');
+      if (badgeCasos) badgeCasos.textContent = itens.length;
+      if (!corpo) return;
+
+      if (itens.length === 0) {
+        corpo.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-slate-400">Nenhum atendimento cadastrado ainda.</td></tr>`;
+        return;
+      }
+
+      corpo.innerHTML = itens.map(at => `
+        <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+          <td class="p-3 text-slate-500">${at.data}</td>
+          <td class="p-3 font-bold text-slate-900">${at.nome}</td>
+          <td class="p-3"><span class="bg-slate-100 px-1.5 py-0.5 rounded text-[11px] font-mono">${at.doc}</span></td>
+          <td class="p-3 font-medium text-slate-800">${at.objeto}</td>
+          <td class="p-3"><span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-700">${at.statusInss}</span></td>
+          <td class="p-3 text-sky-800 font-semibold">${at.providencia}</td>
+          <td class="p-3 text-slate-600">${at.atendente}</td>
+          <td class="p-3 text-right">
+            <div class="flex items-center justify-end gap-1.5">
+              <button onclick="abrirFichaCasoModal(${at.id})" class="text-[11px] font-semibold bg-slate-100 px-2 py-1 rounded border border-slate-200">Ficha</button>
+              <button onclick="carregarAssistidoNasAbas(${at.id})" class="text-[11px] font-semibold text-sky-700 bg-sky-50 px-2 py-1 rounded border border-sky-200">Usar Dados</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function atualizarContadoresFiltrosCasos() {
+      const ativos = estadoApp.atendimentos.filter(c => !c.arquivado).length;
+      const arquivados = estadoApp.atendimentos.filter(c => !!c.arquivado).length;
+      const elAtivos = document.getElementById('cont-casos-ativos');
+      const elArq = document.getElementById('cont-casos-arquivados');
+      const elTodos = document.getElementById('cont-casos-todos');
+      if (elAtivos) elAtivos.textContent = ativos;
+      if (elArq) elArq.textContent = arquivados;
+      if (elTodos) elTodos.textContent = estadoApp.atendimentos.length;
+      const badgeNav = document.getElementById('badge-nav-casos');
+      if (badgeNav) badgeNav.textContent = ativos;
+    }
+
+    function alternarFiltroStatusCasos(novoFiltro) {
+      estadoApp.filtroStatusCasos = novoFiltro;
+      ['ativos', 'arquivados', 'todos'].forEach(tipo => {
+        const btn = document.getElementById(`btn-filtro-casos-${tipo}`);
+        if (!btn) return;
+        btn.className = (tipo === novoFiltro) ? 'px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-700 text-white transition' : 'px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition';
+      });
+      filtrarFichasCasos();
+    }
+
+    function solicitarConfirmacaoArquivamento(id) {
+      const caso = estadoApp.atendimentos.find(c => c.id === id);
+      if (!caso) return;
+      estadoApp.casoPendenteArquivamentoId = id;
+      document.getElementById('modal-confirma-titulo').textContent = caso.arquivado ? 'Desarquivar este caso?' : 'Arquivar este caso?';
+      document.getElementById('modal-confirma-msg').textContent = caso.arquivado ? `Reativar o caso de ${caso.nome}?` : `Arquivar o atendimento de ${caso.nome}?`;
+      document.getElementById('modal-confirmar-arquivamento').classList.remove('hidden');
+    }
+
+    function fecharModalConfirmarArquivamento() {
+      document.getElementById('modal-confirmar-arquivamento').classList.add('hidden');
+      estadoApp.casoPendenteArquivamentoId = null;
+    }
+
+    function confirmarAlternanciaArquivamentoModal() {
+      if (estadoApp.casoSelecionadoModalId) solicitarConfirmacaoArquivamento(estadoApp.casoSelecionadoModalId);
+    }
+
+    function executarAcaoArquivamento() {
+      const id = estadoApp.casoPendenteArquivamentoId;
+      const caso = estadoApp.atendimentos.find(c => c.id === id);
+      if (!caso) return;
+      caso.arquivado = !caso.arquivado;
+      if (!caso.andamentos) caso.andamentos = [];
+      caso.andamentos.push({
+        data: new Date().toLocaleDateString('pt-BR'),
+        atendente: 'Sistema LAPREVS',
+        descricao: caso.arquivado ? 'Caso arquivado pelo plantão.' : 'Caso desarquivado e ativo.'
+      });
+      salvarAtendimentosLocais();
+      renderizarTabelaAtendimentos();
+      renderizarGridCasos();
+      fecharModalConfirmarArquivamento();
+      if (estadoApp.casoSelecionadoModalId === id) abrirFichaCasoModal(id);
+      mostrarNotificacao(caso.arquivado ? '📁 Caso arquivado!' : '✓ Caso ativo!');
+    }
+
+    function filtrarFichasCasos() {
+      const termo = document.getElementById('filtro-busca-casos').value.toLowerCase().trim();
+      if (!termo) { renderizarGridCasos(); return; }
+      const filtrados = estadoApp.atendimentos.filter(c => c.nome.toLowerCase().includes(termo) || c.doc.includes(termo) || c.objeto.toLowerCase().includes(termo));
+      renderizarGridCasos(filtrados);
+    }
+
+    function abrirFichaCasoModal(id) {
+      const caso = estadoApp.atendimentos.find(c => c.id === id);
+      if (!caso) return;
+      estadoApp.casoSelecionadoModalId = id;
+      document.getElementById('modal-caso-nome').textContent = caso.nome;
+      document.getElementById('modal-caso-sub').textContent = `${caso.tipoDoc || 'CPF'}: ${caso.doc} | ${caso.objeto}`;
+      document.getElementById('modal-caso-data').textContent = caso.data;
+      document.getElementById('modal-caso-tel').textContent = caso.telefone;
+      document.getElementById('modal-caso-inss').textContent = caso.statusInss;
+      document.getElementById('modal-caso-atendente').textContent = caso.atendente;
+      document.getElementById('modal-caso-relato').textContent = caso.observacoes || 'Sem anotações.';
+
+      const containerAndamentos = document.getElementById('modal-caso-lista-andamentos');
+      containerAndamentos.innerHTML = (caso.andamentos && caso.andamentos.length > 0)
+        ? caso.andamentos.map((and, idx) => `
+            <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs space-y-0.5">
+              <div class="flex items-center justify-between text-[10px] text-slate-500 font-semibold">
+                <span>#${idx + 1} • ${and.data}</span><span>Por: ${and.atendente}</span>
+              </div>
+              <p class="text-slate-800">${and.descricao}</p>
+            </div>
+          `).join('')
+        : '<p class="text-xs text-slate-400 italic">Nenhum andamento adicional.</p>';
+
+      document.getElementById('input-novo-andamento-data').value = new Date().toISOString().slice(0, 10);
+      document.getElementById('input-novo-andamento-autor').value = '';
+      document.getElementById('input-novo-andamento-texto').value = '';
+      document.getElementById('modal-ficha-caso').classList.remove('hidden');
+    }
+
+    function fecharFichaCasoModal() {
+      document.getElementById('modal-ficha-caso').classList.add('hidden');
+      estadoApp.casoSelecionadoModalId = null;
+    }
+
+    function salvarNovoAndamentoNoCaso() {
+      const id = estadoApp.casoSelecionadoModalId;
+      const caso = estadoApp.atendimentos.find(c => c.id === id);
+      if (!caso) return;
+      const texto = document.getElementById('input-novo-andamento-texto').value.trim();
+      if (!texto) { mostrarNotificacao('Informe a descrição do andamento.'); return; }
+      if (!caso.andamentos) caso.andamentos = [];
+      caso.andamentos.push({
+        data: formatarDataBr(document.getElementById('input-novo-andamento-data').value) || new Date().toLocaleDateString('pt-BR'),
+        atendente: document.getElementById('input-novo-andamento-autor').value.trim() || 'Acadêmico(a)',
+        descricao: texto
+      });
+      salvarAtendimentosLocais();
+      renderizarTabelaAtendimentos();
+      renderizarGridCasos();
+      abrirFichaCasoModal(id);
+      mostrarNotificacao('✓ Andamento adicionado com sucesso!');
+    }
+
+    function carregarAssistidoDoModalNasAbas() {
+      if (estadoApp.casoSelecionadoModalId) {
+        carregarAssistidoNasAbas(estadoApp.casoSelecionadoModalId);
+        fecharFichaCasoModal();
+      }
+    }
+
+    function carregarCasoExemploSebastiana() {
+      const casoExemplo = {
+        id: 1709280000000,
+        data: '15/03/2026',
+        nome: 'Sebastiana Pereira de Alencar',
+        tipoDoc: 'CPF',
+        doc: '529.982.247-25',
+        telefone: '(67) 99245-1102',
+        objeto: 'BPC / LOAS (Deficiência)',
+        statusInss: 'Indeferido',
+        providencia: 'Atermação JEF (Partes sem Advogado)',
+        atendente: 'Guilherme e Mariana (LAPREVS)',
+        observacoes: 'Assistida de 58 anos com sequela ortopédica (CID M54.5).',
+        arquivado: false,
+        andamentos: [
+          { data: '15/03/2026', atendente: 'Guilherme e Mariana', descricao: 'Abertura do atendimento.' }
+        ]
+      };
+      estadoApp.atendimentos = estadoApp.atendimentos.filter(a => a.doc !== casoExemplo.doc);
+      estadoApp.atendimentos.unshift(casoExemplo);
+      salvarAtendimentosLocais();
+      renderizarTabelaAtendimentos();
+      renderizarGridCasos();
+      atualizarContadoresFiltrosCasos();
+      propagarDadosAssistido(casoExemplo);
+      mostrarNotificacao('✓ Caso de teste carregado!');
+    }
+
+    function filtrarTabelaAtendimentos() {
+      const termo = document.getElementById('filtro-busca-atendimentos').value.toLowerCase().trim();
+      if (!termo) { renderizarTabelaAtendimentos(); return; }
+      renderizarTabelaAtendimentos(estadoApp.atendimentos.filter(at => at.nome.toLowerCase().includes(termo) || at.doc.includes(termo)));
+    }
+
+    function propagarDadosAssistido(at) {
+      document.getElementById('termo-nome-assistido').textContent = at.nome;
+      document.getElementById('termo-doc-assistido').textContent = `${at.tipoDoc || 'CPF'} nº ${at.doc}`;
+      document.getElementById('termo-assinatura-nome').textContent = at.nome;
+      document.getElementById('pet-nome').value = at.nome;
+      document.getElementById('pet-cpf').value = at.doc;
+      atualizarMinutaPeticao();
+      document.getElementById('rural-nome').value = at.nome;
+      document.getElementById('rural-cpf').value = at.doc;
+      atualizarAutodeclaracaoRural();
+      document.getElementById('enc-nome').value = at.nome;
+      document.getElementById('enc-cpf').value = at.doc;
+      atualizarTextoEncaminhamento();
+    }
+
+    function carregarAssistidoNasAbas(id) {
+      const at = estadoApp.atendimentos.find(a => a.id === id);
+      if (at) {
+        propagarDadosAssistido(at);
+        mudarAba('view-atermacao');
+        mostrarNotificacao(`✓ Dados de ${at.nome} carregados.`);
+      }
+    }
+
+    function salvarAtendimentosLocais() {
+      localStorage.setItem('laprevs_atendimentos_banco', JSON.stringify(estadoApp.atendimentos));
+    }
+
+    function carregarAtendimentosLocais() {
+      const dados = localStorage.getItem('laprevs_atendimentos_banco');
+      if (dados) {
+        try { estadoApp.atendimentos = JSON.parse(dados); } catch (e) { estadoApp.atendimentos = []; }
+      }
+      if (estadoApp.atendimentos.length === 0) {
+        carregarCasoExemploSebastiana();
+      } else {
+        renderizarTabelaAtendimentos();
+        renderizarGridCasos();
+      }
+    }
+
+    function exportarAtendimentosCsv() {
+      if (estadoApp.atendimentos.length === 0) { mostrarNotificacao('Sem dados para exportar.'); return; }
+      let csv = 'Data;Nome;TipoDoc;Documento;Telefone;Beneficio;SituacaoINSS;Providencia;Atendente\n';
+      estadoApp.atendimentos.forEach(a => {
+        csv += `"${a.data}";"${a.nome}";"${a.tipoDoc || 'CPF'}";"${a.doc}";"${a.telefone}";"${a.objeto}";"${a.statusInss}";"${a.providencia}";"${a.atendente}"\n`;
+      });
+      const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `LAPREVS_Atendimentos_${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+    }
+
+    function abrirConfigPlanilhaModal() {
+      document.getElementById('input-url-script-planilha').value = estadoApp.urlPlanilha;
+      document.getElementById('modal-planilha').classList.remove('hidden');
+    }
+
+    function fecharConfigPlanilhaModal() {
+      document.getElementById('modal-planilha').classList.add('hidden');
+    }
+
+    function salvarConfigPlanilha() {
+      const url = document.getElementById('input-url-script-planilha').value.trim() || SHEET_BEST_ENDPOINT;
+      estadoApp.urlPlanilha = url;
+      localStorage.setItem('laprevs_url_sheets', url);
+      fecharConfigPlanilhaModal();
+      mostrarNotificacao('✓ Conexão Sheet Best atualizada!');
+    }
+
+    function adicionarLinhaVinculo() {
+      estadoApp.vinculosTempo.push({ id: Date.now(), desc: `Vínculo ${estadoApp.vinculosTempo.length + 1}`, inicio: '', fim: '', tipo: 'urbano' });
+      renderizarLinhasVinculos();
+    }
+
+    function removerLinhaVinculo(id) {
+      estadoApp.vinculosTempo = estadoApp.vinculosTempo.filter(v => v.id !== id);
+      renderizarLinhasVinculos();
+      calcularTempoContribuicao();
+    }
+
+    function renderizarLinhasVinculos() {
+      const corpo = document.getElementById('lista-vinculos-corpo');
+      if (!corpo) return;
+      corpo.innerHTML = estadoApp.vinculosTempo.map((v) => `
+        <tr class="hover:bg-slate-50 border-b border-slate-100">
+          <td class="p-2"><input type="text" value="${v.desc || ''}" onchange="atualizarDadosVinculo(${v.id}, 'desc', this.value)" class="w-full text-xs p-1.5 rounded-lg border border-slate-300"></td>
+          <td class="p-2"><input type="date" value="${v.inicio || ''}" onchange="atualizarDadosVinculo(${v.id}, 'inicio', this.value)" class="text-xs p-1.5 rounded-lg border border-slate-300"></td>
+          <td class="p-2"><input type="date" value="${v.fim || ''}" onchange="atualizarDadosVinculo(${v.id}, 'fim', this.value)" class="text-xs p-1.5 rounded-lg border border-slate-300"></td>
+          <td class="p-2">
+            <select onchange="atualizarDadosVinculo(${v.id}, 'tipo', this.value)" class="text-xs p-1.5 rounded-lg border border-slate-300 bg-white">
+              <option value="urbano" ${v.tipo === 'urbano' ? 'selected' : ''}>Comum Urbano</option>
+              <option value="rural" ${v.tipo === 'rural' ? 'selected' : ''}>Rural / Segurado Especial</option>
+              <option value="especial" ${v.tipo === 'especial' ? 'selected' : ''}>Especial (1.4)</option>
+            </select>
+          </td>
+          <td class="p-2 font-medium text-slate-800" id="tempo-periodo-${v.id}">--</td>
+          <td class="p-2 text-center"><button onclick="removerLinhaVinculo(${v.id})" class="text-rose-500 font-bold">✕</button></td>
+        </tr>
+      `).join('');
+      calcularTempoContribuicao();
+    }
+
+    function atualizarDadosVinculo(id, campo, valor) {
+      const v = estadoApp.vinculosTempo.find(item => item.id === id);
+      if (v) { v[campo] = valor; calcularTempoContribuicao(); }
+    }
+
+    function calcularTempoContribuicao() {
+      let totalDias = 0;
+      let totalMeses = 0;
+      estadoApp.vinculosTempo.forEach(v => {
+        const celula = document.getElementById(`tempo-periodo-${v.id}`);
+        if (!v.inicio || !v.fim) { if (celula) celula.textContent = '--'; return; }
+        const dI = new Date(v.inicio + 'T00:00:00');
+        const dF = new Date(v.fim + 'T00:00:00');
+        if (dF < dI) { if (celula) celula.textContent = 'Data inválida'; return; }
+        let dias = Math.floor((dF.getTime() - dI.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+        if (v.tipo === 'especial') dias = Math.floor(dias * 1.4);
+        totalDias += dias;
+        totalMeses += (dF.getFullYear() - dI.getFullYear()) * 12 + (dF.getMonth() - dI.getMonth()) + 1;
+        const a = Math.floor(dias / 365.25), m = Math.floor((dias % 365.25) / 30.4375);
+        if (celula) celula.textContent = `${a}a ${m}m (${dias}d)`;
+      });
+      const anosTotal = Math.floor(totalDias / 365.25);
+      const mesesTotal = Math.floor((totalDias % 365.25) / 30.4375);
+      document.getElementById('res-tempo-total-extenso').textContent = `${anosTotal} anos e ${mesesTotal} meses`;
+      document.getElementById('res-total-dias').textContent = `(${totalDias} dias)`;
+      document.getElementById('res-carencia-meses').textContent = `${totalMeses} competências`;
+    }
+
+    function calcularAlcadaJef() {
+      const vBeneficio = parseFloat(document.getElementById('calc-valor-beneficio').value) || SALARIO_MINIMO_2026;
+      const dDer = document.getElementById('calc-data-der').value;
+      const dAjuiz = document.getElementById('calc-data-ajuizamento').value;
+      let meses = 0;
+      if (dDer && dAjuiz) {
+        const d1 = new Date(dDer + 'T00:00:00'), d2 = new Date(dAjuiz + 'T00:00:00');
+        if (d2 > d1) meses = Math.max(0, (d2.getFullYear() - d1.getFullYear()) * 12 + (d2.getMonth() - d1.getMonth()));
+      }
+      const vencidas = meses * vBeneficio;
+      const vincendas = 12 * vBeneficio;
+      const total = vencidas + vincendas;
+      document.getElementById('res-meses-atrasados').textContent = `${meses} mês(es)`;
+      document.getElementById('res-total-vencidas').textContent = vencidas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      document.getElementById('res-total-vincendas').textContent = vincendas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      document.getElementById('res-valor-causa').textContent = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function aplicarValorNaPeticao() {
+      const v = document.getElementById('res-valor-causa').textContent.replace('R$', '').trim();
+      document.getElementById('pet-valor-causa').value = v;
+      mudarAba('view-peticoes');
+      atualizarMinutaPeticao();
+      mostrarNotificacao('✓ Valor importado para a petição!');
+    }
+
+    function atualizarMinutaPeticao() {
+      const tipo = document.getElementById('pet-tipo-acao').value;
+      const nome = document.getElementById('pet-nome').value.trim() || '[NOME COMPLETO DO AUTOR]';
+      const cpf = document.getElementById('pet-cpf').value.trim() || '[CPF/RNM]';
+      const endereco = document.getElementById('pet-endereco').value.trim() || '[ENDEREÇO COMPLETO, CAMPO GRANDE/MS]';
+      const nb = document.getElementById('pet-nb').value.trim() || '[NB]';
+      const der = formatarDataBr(document.getElementById('pet-der').value) || '[DATA DER]';
+      const cid = document.getElementById('pet-cid').value.trim() || 'quadro clínico incapacitante';
+      const valorCausa = document.getElementById('pet-valor-causa').value.trim() || '19.452,00';
+
+      const titulos = {
+        bpc_pcd: 'AÇÃO DE CONCESSÃO DE BENEFÍCIO DE PRESTAÇÃO CONTINUADA À PESSOA COM DEFICIÊNCIA (BPC/LOAS)',
+        bpc_idoso: 'AÇÃO DE CONCESSÃO DE BENEFÍCIO DE PRESTAÇÃO CONTINUADA AO IDOSO (BPC/LOAS)',
+        incapacidade_temp: 'AÇÃO DE CONCESSÃO / RESTABELECIMENTO DE BENEFÍCIO POR INCAPACIDADE TEMPORÁRIA',
+        aposentadoria_rural: 'AÇÃO DE CONCESSÃO DE APOSENTADORIA POR IDADE RURAL'
+      };
+
+      document.getElementById('box-minuta-peticao').textContent = `EXCELENTÍSSIMO(A) SENHOR(A) DOUTOR(A) JUIZ(A) FEDERAL DO JUIZADO ESPECIAL FEDERAL DA SUBSEÇÃO JUDICIÁRIA DE CAMPO GRANDE – SEÇÃO JUDICIÁRIA DE MATO GROSSO DO SUL (TRF3)
+
+${nome}, portador(a) do Documento nº ${cpf}, residente e domiciliado(a) em ${endereco}, no exercício do JUS POSTULANDI (art. 3º e 10 da Lei 10.259/2001), propõe:
+
+${titulos[tipo]}
+
+em face do INSTITUTO NACIONAL DO SEGURO SOCIAL (INSS).
+
+I – DO PRÉVIO REQUERIMENTO ADMINISTRATIVO (TEMA 350 DO STF)
+Cumpriu-se o prévio requerimento administrativo (NB ${nb}, DER ${der}), restando indeferido.
+
+II – DOS FATOS E DO DIREITO
+Quadro clínico: ${cid}. Requer-se a realização de perícia médica e socioeconômica judicial.
+
+III – DOS PEDIDOS
+a) Gratuidade de Justiça;
+b) Designação de perícia judicial;
+c) Procedência total com pagamento desde a DER (${der}).
+
+Dá-se à causa o valor de R$ ${valorCausa}.
+
+Campo Grande – MS, ${new Date().toLocaleDateString('pt-BR')}.
+
+__________________________________________________
+${nome} (Jus Postulandi - Apoio LAPREVS)`;
+    }
+
+    function copiarMinutaPeticao() {
+      copiarParaClipboard(document.getElementById('box-minuta-peticao').textContent, '✓ Minuta copiada!');
+    }
+
+    function imprimirPeticaoA4() { window.print(); }
+    function imprimirTermoAtermacao() { window.print(); }
+
+    const bancoQuesitos = {
+      ortopedia: {
+        titulo: 'Quesitos Ortopédicos do Autor (Coluna & Articulações)',
+        itens: [
+          '1. O periciando apresenta limitação em coluna ou membros?',
+          '2. Há incapacidade para as funções habituais?',
+          '3. A incapacidade é temporária ou permanente?'
+        ]
+      },
+      psiquiatria: {
+        titulo: 'Quesitos Psiquiátricos do Autor',
+        itens: [
+          '1. O periciando apresenta transtorno mental crônico?',
+          '2. Há prejuízo do juízo crítico ou cognição?'
+        ]
+      },
+      cardiologia: {
+        titulo: 'Quesitos Cardiológicos do Autor',
+        itens: [
+          '1. Há cardiopatia grave ou limitação a esforço físico?'
+        ]
+      },
+      loas_biopsicossocial: {
+        titulo: 'Quesitos Biopsicossociais (BPC/LOAS)',
+        itens: [
+          '1. Há impedimento de longo prazo (mínimo de 2 anos)?',
+          '2. Há barreiras que impedem a participação comunitária plena?'
+        ]
+      }
+    };
+
+    function selecionarGrupoQuesitos(chave, evt) {
+      document.querySelectorAll('.btn-quesito').forEach(b => b.classList.remove('border-sky-600', 'bg-sky-50'));
+      const btn = (evt && evt.currentTarget) ? evt.currentTarget : document.getElementById('btn-quesito-' + chave);
+      if (btn) btn.classList.add('border-sky-600', 'bg-sky-50');
+      const g = bancoQuesitos[chave];
+      if (g) {
+        document.getElementById('titulo-quesitos-exibidos').textContent = g.titulo;
+        document.getElementById('box-quesitos-medicos').innerHTML = g.itens.map(q => `<div class="p-3 bg-slate-50 rounded-lg border border-slate-200"><p class="font-medium text-slate-800">${q}</p></div>`).join('');
+      }
+    }
+
+    function copiarQuesitos() {
+      let txt = document.getElementById('titulo-quesitos-exibidos').textContent + '\n\n';
+      document.querySelectorAll('#box-quesitos-medicos p').forEach(p => txt += p.textContent + '\n');
+      copiarParaClipboard(txt, '✓ Quesitos copiados!');
+    }
+
+    function atualizarAutodeclaracaoRural() {
+      const nome = document.getElementById('rural-nome').value.trim() || '[NOME]';
+      const cpf = document.getElementById('rural-cpf').value.trim() || '[CPF]';
+      const imovel = document.getElementById('rural-imovel').value.trim() || '[IMÓVEL]';
+      const cond = document.getElementById('rural-condicao').value;
+      const per = document.getElementById('rural-periodo').value.trim() || '[PERÍODO]';
+      document.getElementById('box-autodeclaracao-rural').textContent = `AUTODECLARAÇÃO RURAL (SEGURADO ESPECIAL)\n\nNome: ${nome}\nCPF: ${cpf}\nImóvel: ${imovel} | Condição: ${cond}\nPeríodo: ${per}\n\nDeclaro regime de economia familiar sob as penas do art. 299 do CP.\n\nCampo Grande/MS, ${new Date().toLocaleDateString('pt-BR')}.`;
+    }
+
+    function copiarAutodeclaracaoRural() {
+      copiarParaClipboard(document.getElementById('box-autodeclaracao-rural').textContent, '✓ Autodeclaração copiada!');
+    }
+
+    function imprimirAutodeclaracaoRural() { window.print(); }
+
+    const dadosModelosEncaminhamento = {
+      CRAS: {
+        orgao: 'CENTRO DE REFERÊNCIA DE ASSISTÊNCIA SOCIAL (CRAS / SAS)',
+        endereco: 'Rua Cândido Mariano, 2655 – Centro, Campo Grande/MS (Tel: 67 3314-4482)',
+        horario: 'Segunda a sexta-feira, das 07h30 às 17h00',
+        motivo: 'Inscrição ou atualização do CadÚnico para fins de BPC/LOAS.'
+      },
+      INSS: {
+        orgao: 'INSTITUTO NACIONAL DO SEGURO SOCIAL (INSS – AGÊNCIA CENTRO)',
+        endereco: 'Rua 26 de Agosto, 347 – Centro (Tel: 135)',
+        horario: 'Segunda a sexta-feira, das 07h00 às 17h00',
+        motivo: 'Senha do Meu INSS / Cópia de Processo Administrativo.'
+      },
+      DPU: {
+        orgao: 'DEFENSORIA PÚBLICA DA UNIÃO (DPU – CAMPO GRANDE/MS)',
+        endereco: 'Rua Eduardo Santos Pereira, 1186 – Centro (Tel: 67 3311-9850)',
+        horario: 'Segunda a sexta-feira, das 12h00 às 17h00',
+        motivo: 'Abertura de PAJ para recurso à Turma Recursal do TRF3.'
+      },
+      DPE_SAUDE: {
+        orgao: 'DEFENSORIA PÚBLICA DO ESTADO (DPE/MS – SAÚDE PÚBLICA)',
+        endereco: 'Rua Barão de Melgaço, 128 – Centro (Tel: 67 3317-8757)',
+        horario: 'Segunda a sexta-feira, das 12h00 às 19h00',
+        motivo: 'Fornecimento de medicamento ou cirurgia SUS.'
+      }
+    };
+
+    function alternarModeloDestinoEncaminhamento() {
+      const ch = document.getElementById('enc-destino').value;
+      const m = dadosModelosEncaminhamento[ch] || dadosModelosEncaminhamento.CRAS;
+      document.getElementById('enc-motivo').value = m.motivo;
+      atualizarTextoEncaminhamento();
+    }
+
+    function atualizarTextoEncaminhamento() {
+      const ch = document.getElementById('enc-destino').value;
+      const m = dadosModelosEncaminhamento[ch] || dadosModelosEncaminhamento.CRAS;
+      const nome = document.getElementById('enc-nome').value.trim() || '[ASSISTIDO]';
+      const cpf = document.getElementById('enc-cpf').value.trim() || '[CPF/RNM]';
+      const mot = document.getElementById('enc-motivo').value.trim();
+      document.getElementById('box-texto-encaminhamento').textContent = `GUIA DE ENCAMINHAMENTO - LAPREVS / UFMS\n\nAssistido: ${nome}\nDocumento: ${cpf}\nDestino: ${m.orgao}\nEndereço: ${m.endereco}\nHorário: ${m.horario}\n\nFinalidade:\n${mot}\n\nCampo Grande/MS, ${new Date().toLocaleDateString('pt-BR')}.`;
+    }
+
+    function copiarEncaminhamento() {
+      copiarParaClipboard(document.getElementById('box-texto-encaminhamento').textContent, '✓ Guia copiada!');
+    }
+
+    function imprimirEncaminhamentoA4() { window.print(); }
+
+    function filtrarCartoesOrgaos() {
+      const termo = document.getElementById('filtro-busca-orgaos').value.toLowerCase().trim();
+      document.querySelectorAll('#grid-contatos-orgaos .card-orgao').forEach(card => {
+        card.classList.toggle('hidden', !card.innerText.toLowerCase().includes(termo));
+      });
+    }
+
+    function formatarDataBr(dIso) {
+      if (!dIso) return '';
+      const p = dIso.split('-');
+      return p.length === 3 ? `${p[2]}/${p[1]}/${p[0]}` : dIso;
+    }
+
+    function inicializarDatas() {
+      const hoje = new Date().toISOString().slice(0, 10);
+      if (document.getElementById('calc-data-ajuizamento')) document.getElementById('calc-data-ajuizamento').value = hoje;
+      if (document.getElementById('termo-data-atual')) document.getElementById('termo-data-atual').textContent = new Date().toLocaleDateString('pt-BR');
+    }
+
+    function copiarParaClipboard(texto, msg) {
+      const el = document.createElement('textarea');
+      el.value = texto;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      mostrarNotificacao(msg);
+    }
+
+    function mostrarNotificacao(msg) {
+      const toast = document.getElementById('notificacao-toast');
+      const toastMsg = document.getElementById('toast-mensagem');
+      if (toast && toastMsg) {
+        toastMsg.textContent = msg;
+        toast.classList.remove('translate-y-24', 'opacity-0');
+        setTimeout(() => toast.classList.add('translate-y-24', 'opacity-0'), 3000);
+      }
+    }
+  </script>
+</body>
+</html>
