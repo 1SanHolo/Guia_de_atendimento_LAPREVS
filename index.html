@@ -175,6 +175,12 @@
         <span id="badge-nav-casos" class="text-[10px] bg-sky-100 text-sky-800 font-bold px-1.5 py-0.2 rounded-full">0</span>
       </button>
 
+      <!-- 2.2 Agendamento de Retorno -->
+      <button onclick="mudarAba('view-agendamentos')" id="tab-btn-view-agendamentos" class="aba-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
+        <span>📅</span> Agendamento de Retorno
+        <span id="badge-nav-agendamentos" class="text-[10px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.2 rounded-full">0</span>
+      </button>
+
       <!-- 3. Catálogo de Benefícios -->
       <button onclick="mudarAba('view-catalogo')" id="tab-btn-view-catalogo" class="aba-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
         <span>📚</span> Benefícios Previdenciários
@@ -290,7 +296,7 @@
               <button onclick="responderPasso2('aposentadoria_urbana', event)" id="btn-obj-aposentadoria_urbana" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
                 <div>
                   <span class="font-bold block text-slate-900">🏙️ Aposentadoria Urbana / Transição</span>
-                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Por Idade Urbana, regras de transição da EC 103/19 ou Pessoa com Deficiência (LC 142/13)</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Por Idade Urbana, regras de transição da EC 103/19 ou PCD (LC 142/13)</span>
                 </div>
                 <span class="text-[10px] font-semibold text-blue-700 mt-2 bg-blue-50/70 w-fit px-1.5 py-0.5 rounded">180 meses carência</span>
               </button>
@@ -298,7 +304,7 @@
               <button onclick="responderPasso2('rural', event)" id="btn-obj-rural" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
                 <div>
                   <span class="font-bold block text-slate-900">🌾 Aposentadoria Rural / Híbrida</span>
-                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Economia familiar, assentados da reforma agrária ou união de tempos campo e cidade</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Economia familiar, assentados ou união de tempos de campo e cidade</span>
                 </div>
                 <span class="text-[10px] font-semibold text-amber-700 mt-2 bg-amber-50/70 w-fit px-1.5 py-0.5 rounded">60M / 55F • Prova Rural</span>
               </button>
@@ -306,7 +312,7 @@
               <button onclick="responderPasso2('tempo_especial', event)" id="btn-obj-tempo_especial" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
                 <div>
                   <span class="font-bold block text-slate-900">🏭 Reconhecimento de Tempo Especial</span>
-                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Atividade insalubre/perigosa (PPP / LTCAT) pré-reforma e conversão em tempo comum</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Atividade insalubre/perigosa (PPP / LTCAT) e conversão em comum</span>
                 </div>
                 <span class="text-[10px] font-semibold text-purple-700 mt-2 bg-purple-50/70 w-fit px-1.5 py-0.5 rounded">PPP • Fator 1.4 / 1.2</span>
               </button>
@@ -322,7 +328,7 @@
               <button onclick="responderPasso2('maternidade', event)" id="btn-obj-maternidade" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
                 <div>
                   <span class="font-bold block text-slate-900">🍼 Salário-Maternidade</span>
-                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Parto, adoção ou aborto não criminoso para segurada autônoma, facultativa ou rural</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Parto, adoção ou guarda para autônoma, facultativa ou rural</span>
                 </div>
                 <span class="text-[10px] font-semibold text-rose-700 mt-2 bg-rose-50/70 w-fit px-1.5 py-0.5 rounded">120 dias • Carência</span>
               </button>
@@ -330,7 +336,7 @@
               <button onclick="responderPasso2('revisao_restabelecimento', event)" id="btn-obj-revisao_restabelecimento" class="btn-objeto text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition flex flex-col justify-between">
                 <div>
                   <span class="font-bold block text-slate-900">🔄 Revisão / Restabelecimento</span>
-                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Correção de cálculo da RMI, descarte de contribuições ou reativação de benefício cessado</span>
+                  <span class="text-[11px] text-slate-500 leading-tight block mt-0.5">Correção de RMI, exclusão de contribuições ou reativação de benefício</span>
                 </div>
                 <span class="text-[10px] font-semibold text-teal-700 mt-2 bg-teal-50/70 w-fit px-1.5 py-0.5 rounded">Decadência 10 anos</span>
               </button>
@@ -385,14 +391,14 @@
         <div>
           <h2 class="text-xl font-bold text-slate-900">Registro & Quantitativo</h2>
           <p class="text-xs sm:text-sm text-slate-600">
-            Cadastre os atendimentos do plantão. Os dados salvos sincronizam com os computadores e com a planilha via Sheet Best API.
+            Cadastre os atendimentos do plantão. Os dados salvos sincronizam com os computadores e com o Google Sheets.
           </p>
           <div class="flex items-center gap-2 mt-2">
             <div id="indicador-status-planilha" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-colors bg-emerald-50 text-emerald-800 border-emerald-200">
               <span id="ponto-status-planilha" class="w-2 h-2 rounded-full bg-emerald-500"></span>
-              <span id="texto-status-planilha">Planilha Conectada (Sheet Best)</span>
+              <span id="texto-status-planilha">Planilha Conectada (Nuvem Ativa)</span>
             </div>
-            <span class="text-[10px] text-slate-400">| Sincronização direta em nuvem</span>
+            <span class="text-[10px] text-slate-400">| Sincronização em tempo real</span>
           </div>
         </div>
         <div class="flex items-center gap-2">
@@ -403,7 +409,7 @@
             <span>🔄</span> Sincronizar Planilha
           </button>
           <button onclick="abrirConfigPlanilhaModal()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
-            <span>⚙️</span> Configurar API
+            <span>⚙️</span> Configurar Planilha
           </button>
           <button onclick="exportarAtendimentosCsv()" class="text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
             <span>📊</span> Exportar CSV
@@ -541,8 +547,11 @@
       </div>
     </section>
 
-    <!-- ABA 2.1: CASOS & ACOMPANHAMENTO PROCESSUAL -->
+    <!-- ========================================================
+         ABA 2.1: CASOS & ACOMPANHAMENTO PROCESSUAL (FICHA DO ASSISTIDO)
+         ======================================================== -->
     <section id="view-casos" class="secao-aba hidden space-y-6">
+      
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Prática Jurídica & Gestão de Retornos</span>
@@ -552,11 +561,13 @@
           </p>
         </div>
 
+        <!-- Busca Rápida de Casos -->
         <div class="w-full md:w-80">
           <input type="text" id="filtro-busca-casos" oninput="filtrarFichasCasos()" placeholder="Buscar por Nome, CPF ou Benefício..." class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
         </div>
       </div>
 
+      <!-- Barra de Filtros de Visualização (Ativos vs Arquivados) -->
       <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-1.5">
           <span class="text-xs font-semibold text-slate-500 mr-1">Exibição:</span>
@@ -573,9 +584,205 @@
         <p class="text-[11px] text-slate-400 italic">Casos arquivados continuam salvos e podem ser reativados a qualquer momento.</p>
       </div>
 
+      <!-- Grid de Fichas dos Casos -->
       <div id="grid-fichas-casos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <!-- Injetado dinamicamente via JS -->
       </div>
+
+    </section>
+
+    <!-- ========================================================
+         ABA 2.2: AGENDAMENTO DE RETORNO & PLANTÕES DA LAPREVS
+         ======================================================== -->
+    <section id="view-agendamentos" class="secao-aba hidden space-y-6">
+      
+      <!-- Cabeçalho -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold text-amber-700 uppercase tracking-wider bg-amber-50 px-2 py-0.5 rounded border border-amber-100">Controle de Fluxo • Próximos Plantões</span>
+          <h2 class="text-xl font-bold text-slate-900 mt-1">Agendamento de Retorno do Assistido</h2>
+          <p class="text-xs sm:text-sm text-slate-600">
+            Cadastre retornos programados para entrega de documentos, conferência de laudos ou protocolo de atermação no TRF3.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="imprimirPautaPlantaoA4()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow-2xs">
+            <span>🖨️</span> Imprimir Pauta do Plantão
+          </button>
+          <button onclick="exportarAgendaCsv()" class="text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
+            <span>📊</span> Exportar Agenda
+          </button>
+        </div>
+      </div>
+
+      <!-- Formulário de Novo Agendamento -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Novo Agendamento de Retorno
+        </h3>
+
+        <form id="form-novo-agendamento" onsubmit="salvarNovoAgendamento(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Vincular a Caso Cadastrado (Opcional)</label>
+            <select id="agend-vinc-caso" onchange="preencherDadosPorCasoSelecionado(this.value)" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-amber-600">
+              <option value="">Selecione um caso existente...</option>
+              <!-- Populado via JS -->
+            </select>
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Nome do Assistido *</label>
+            <input type="text" id="agend-nome" required placeholder="Nome Completo" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Telefone / WhatsApp *</label>
+            <input type="text" id="agend-tel" required placeholder="(67) 99999-9999" oninput="formatarTelefone(this)" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Data do Retorno *</label>
+            <input type="date" id="agend-data" required class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Horário / Turno *</label>
+            <select id="agend-hora" required class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-amber-600">
+              <option value="08:00">08h00 (Manhã)</option>
+              <option value="09:00">09h00 (Manhã)</option>
+              <option value="10:00">10h00 (Manhã)</option>
+              <option value="11:00">11h00 (Manhã)</option>
+              <option value="13:30">13h30 (Tarde)</option>
+              <option value="14:30">14h30 (Tarde)</option>
+              <option value="15:30">15h30 (Tarde)</option>
+              <option value="16:30">16h30 (Tarde)</option>
+            </select>
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Objetivo do Retorno *</label>
+            <select id="agend-motivo" required class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-amber-600">
+              <option value="Apresentação de Laudos / Receituários">Apresentação de Laudos / Receituários</option>
+              <option value="Entrega de CadÚnico Atualizado (CRAS)">Entrega de CadÚnico Atualizado (CRAS)</option>
+              <option value="Assinatura de Termo e Petição Inicial">Assinatura de Termo e Petição Inicial</option>
+              <option value="Acompanhamento de Perícia Judicial Designada">Acompanhamento de Perícia Designada</option>
+              <option value="Apresentação de Documentos Rurais">Apresentação de Documentos Rurais</option>
+              <option value="Outro Motivo">Outro Motivo / Esclarecimento</option>
+            </select>
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Acadêmico(a) Solicitante</label>
+            <input type="text" id="agend-responsavel" placeholder="Ex.: Mariana e Lucas" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Documentos Pendentes Exigidos</label>
+            <input type="text" id="agend-pendencias" placeholder="Ex.: Trazer laudo ortopédico com CID M54 e folha resumo do CRAS" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
+          </div>
+
+          <div class="sm:col-span-2 lg:col-span-4 flex justify-end gap-3 pt-2">
+            <button type="submit" class="text-xs font-bold text-white bg-amber-600 hover:bg-amber-700 px-6 py-2.5 rounded-xl transition shadow-xs flex items-center gap-1.5">
+              <span>📅</span> Agendar Retorno
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Tabela & Filtros da Agenda -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <h3 class="text-sm font-bold text-slate-900">Agenda de Retornos Programados</h3>
+            <span id="contador-agendamentos" class="text-[11px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">0 agendados</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <select id="filtro-status-agenda" onchange="renderizarTabelaAgendamentos()" class="text-xs p-2 rounded-xl border border-slate-300 bg-white">
+              <option value="pendentes">Exibir: Apenas Pendentes</option>
+              <option value="todos">Exibir: Todos os Retornos</option>
+              <option value="concluidos">Exibir: Concluídos / Atendidos</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-200 bg-slate-50 text-slate-700 font-semibold">
+                <th class="p-3">Data / Hora</th>
+                <th class="p-3">Assistido</th>
+                <th class="p-3">Telefone</th>
+                <th class="p-3">Finalidade do Retorno</th>
+                <th class="p-3">Documentos Pendentes</th>
+                <th class="p-3">Status</th>
+                <th class="p-3 text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="corpo-tabela-agendamentos" class="divide-y divide-slate-100 text-slate-700">
+              <!-- Renderizado via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Canhoto / Comprovante Individual de Agendamento para Impressão A4 (Oculto em tela normal) -->
+      <div id="recibo-impressao-agendamento" class="hidden printable-card p-8 bg-white border border-slate-300 rounded-2xl text-xs space-y-6 font-sans">
+        <div class="text-center border-b border-slate-300 pb-4 space-y-1">
+          <h3 class="text-sm font-black text-slate-900 uppercase">LAPREVS – Liga Acadêmica de Prática Jurídica em Seguridade Social</h3>
+          <p class="text-xs text-slate-700">Faculdade de Direito • Universidade Federal de Mato Grosso do Sul (UFMS)</p>
+          <p class="text-[11px] font-bold text-sky-800 uppercase tracking-wider">COMPROVANTE DE AGENDAMENTO DE RETORNO DO ASSISTIDO</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs">
+          <div>
+            <span class="text-slate-500 font-semibold block">Nome do(a) Assistido(a):</span>
+            <strong id="print-agend-nome" class="text-slate-900 text-sm">--</strong>
+          </div>
+          <div>
+            <span class="text-slate-500 font-semibold block">Telefone / WhatsApp:</span>
+            <strong id="print-agend-tel" class="text-slate-900">--</strong>
+          </div>
+          <div>
+            <span class="text-slate-500 font-semibold block">Data Marcada:</span>
+            <strong id="print-agend-data" class="text-sky-800 text-sm">--</strong>
+          </div>
+          <div>
+            <span class="text-slate-500 font-semibold block">Horário Previsto:</span>
+            <strong id="print-agend-hora" class="text-sky-800 text-sm">--</strong>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-xl space-y-1">
+            <span class="text-[10px] font-bold text-amber-900 uppercase tracking-wider block">Finalidade do Retorno:</span>
+            <p id="print-agend-motivo" class="text-slate-800 font-semibold text-xs">--</p>
+          </div>
+
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+            <span class="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">Documentos e Providências que Você Deve Trazer:</span>
+            <p id="print-agend-pendencias" class="text-slate-800 text-xs leading-relaxed italic">--</p>
+          </div>
+        </div>
+
+        <div class="text-[11px] text-slate-600 space-y-1 bg-sky-50 p-3 rounded-xl border border-sky-100">
+          <p>📍 <strong>Local de Atendimento:</strong> Faculdade de Direito (FADIR / UFMS) – Campo Grande/MS.</p>
+          <p>⚠️ <strong>Orientações:</strong> Em caso de impossibilidade de comparecimento, favor comunicar previamente para liberação do horário a outro cidadão.</p>
+        </div>
+
+        <div class="pt-8 grid grid-cols-2 gap-8 text-center">
+          <div class="border-t border-slate-700 pt-1">
+            <p class="font-bold text-xs" id="print-agend-atendente">Plantão LAPREVS</p>
+            <p class="text-[10px] text-slate-500">Acadêmico(a) Responsável</p>
+          </div>
+          <div class="border-t border-slate-700 pt-1">
+            <p class="font-bold text-xs" id="print-agend-assinatura">Assinatura do(a) Assistido(a)</p>
+            <p class="text-[10px] text-slate-500">Ciente da data e documentação</p>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <!-- ABA 3: CATÁLOGO DE BENEFÍCIOS -->
@@ -908,50 +1115,79 @@
       </div>
     </section>
 
-    <!-- ABA 7: QUESITOS MÉDICOS -->
+    <!-- ========================================================
+         ABA 7: QUESITOS MÉDICOS (JEF / TRF3) - COMPLETO
+         ======================================================== -->
     <section id="view-quesitos" class="secao-aba hidden space-y-6">
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Perícia Médica Judicial</span>
           <h2 class="text-xl font-bold text-slate-900 mt-1">Quesitos Médicos e Biopsicossociais</h2>
+          <p class="text-xs sm:text-sm text-slate-600">
+            Formule os quesitos direcionados ao Perito Judicial do JEF de acordo com a patologia e especialidade médica.
+          </p>
         </div>
-        <button onclick="copiarQuesitos()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
+        <button onclick="copiarQuesitos()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 self-start md:self-center">
           <span>📋</span> Copiar Quesitos
         </button>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-2">
-          <button onclick="selecionarGrupoQuesitos('ortopedia', event)" id="btn-quesito-ortopedia" class="btn-quesito w-full text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition">
-            <strong class="block text-slate-900">🦴 Ortopedia & Coluna</strong>
-          </button>
-          <button onclick="selecionarGrupoQuesitos('psiquiatria', event)" id="btn-quesito-psiquiatria" class="btn-quesito w-full text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition">
-            <strong class="block text-slate-900">🧠 Psiquiatria & Saúde Mental</strong>
-          </button>
-          <button onclick="selecionarGrupoQuesitos('cardiologia', event)" id="btn-quesito-cardiologia" class="btn-quesito w-full text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition">
-            <strong class="block text-slate-900">❤️ Cardiologia & Circulatório</strong>
-          </button>
-          <button onclick="selecionarGrupoQuesitos('loas_biopsicossocial', event)" id="btn-quesito-loas_biopsicossocial" class="btn-quesito w-full text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition">
-            <strong class="block text-slate-900">🤝 BPC / LOAS (Biopsicossocial)</strong>
-          </button>
+        <!-- Seleção de Patologia -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <h3 class="text-sm font-bold text-slate-900">Especialidade / Matéria</h3>
+          
+          <div class="space-y-2">
+            <button onclick="selecionarGrupoQuesitos('ortopedia', event)" id="btn-quesito-ortopedia" class="btn-quesito w-full text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition">
+              <strong class="block text-slate-900">🦴 Ortopedia & Coluna</strong>
+              <span class="text-[11px] text-slate-500">Hérnia de disco, artrose, tendinopatias e lesões articulares</span>
+            </button>
+            <button onclick="selecionarGrupoQuesitos('psiquiatria', event)" id="btn-quesito-psiquiatria" class="btn-quesito w-full text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition">
+              <strong class="block text-slate-900">🧠 Psiquiatria & Saúde Mental</strong>
+              <span class="text-[11px] text-slate-500">Depressão grave, transtorno bipolar, esquizofrenia e pânico</span>
+            </button>
+            <button onclick="selecionarGrupoQuesitos('cardiologia', event)" id="btn-quesito-cardiologia" class="btn-quesito w-full text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition">
+              <strong class="block text-slate-900">❤️ Cardiologia & Circulatório</strong>
+              <span class="text-[11px] text-slate-500">Insuficiência cardíaca, cardiopatia grave e hipertensão refratária</span>
+            </button>
+            <button onclick="selecionarGrupoQuesitos('loas_biopsicossocial', event)" id="btn-quesito-loas_biopsicossocial" class="btn-quesito w-full text-left text-xs p-3 rounded-xl border border-slate-200 hover:border-sky-600 hover:bg-sky-50 transition">
+              <strong class="block text-slate-900">🤝 BPC / LOAS (Biopsicossocial)</strong>
+              <span class="text-[11px] text-slate-500">Barreiras sociais, impedimentos de longo prazo e Modelo Social</span>
+            </button>
+          </div>
         </div>
 
+        <!-- Exibição dos Quesitos Prontos -->
         <div class="lg:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-4">
           <div class="flex items-center justify-between border-b border-slate-200 pb-2">
             <h3 id="titulo-quesitos-exibidos" class="text-sm font-bold text-slate-900">Quesitos Ortopédicos do Autor</h3>
+            <span class="text-[10px] text-sky-800 bg-sky-100 px-2 py-0.5 rounded font-bold">Padrão TRF3</span>
           </div>
+
           <div id="box-quesitos-medicos" class="bg-white p-5 rounded-xl border border-slate-200 text-xs text-slate-800 space-y-3 leading-relaxed shadow-inner h-[380px] overflow-y-auto">
+            <!-- Inserido dinamicamente via JS -->
           </div>
+
+          <p class="text-[11px] text-slate-500">
+            * Inclua esses quesitos na petição inicial da atermação para direcionar a perícia médica judicial do JEF.
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- ABA 8: AUTODECLARAÇÃO RURAL -->
+    <!-- ========================================================
+         ABA 8: AUTODECLARAÇÃO RURAL (SEGURADO ESPECIAL) COMPLETA
+         ======================================================== -->
     <section id="view-rural" class="secao-aba hidden space-y-6">
+      
+      <!-- Cabeçalho -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span class="text-xs font-bold text-amber-800 uppercase tracking-wider bg-amber-50 px-2 py-0.5 rounded border border-amber-100">Art. 19-D Decreto 3.048/99</span>
+          <span class="text-xs font-bold text-amber-800 uppercase tracking-wider bg-amber-50 px-2 py-0.5 rounded border border-amber-100">Art. 19-D Decreto 3.048/99 & IN 128/2022</span>
           <h2 class="text-xl font-bold text-slate-900 mt-1">Autodeclaração de Atividade Rural</h2>
+          <p class="text-xs sm:text-sm text-slate-600">
+            Formulário oficial do Segurado Especial (economia familiar) para comprovação da atividade rural perante o INSS e a Justiça Federal (JEF/TRF3).
+          </p>
         </div>
         <div class="flex items-center gap-2">
           <button onclick="copiarAutodeclaracaoRural()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
@@ -963,47 +1199,88 @@
         </div>
       </div>
 
+      <!-- Configuração e Pré-visualização -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Formulário de Dados Rurais -->
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <h3 class="text-sm font-bold text-slate-900 border-b border-slate-200 pb-2">Dados da Produção Rural</h3>
+
           <div class="space-y-1">
-            <label class="text-xs font-semibold text-slate-700">Nome do Produtor</label>
+            <label class="text-xs font-semibold text-slate-700">Nome do Produtor / Segurado</label>
             <input type="text" id="rural-nome" placeholder="Nome Completo" oninput="atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
           </div>
+
           <div class="space-y-1">
             <label class="text-xs font-semibold text-slate-700">CPF do Produtor</label>
             <input type="text" id="rural-cpf" placeholder="000.000.000-00" oninput="formatarDocumentoDinamico(this, 'rural'); atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
           </div>
+
           <div class="space-y-1">
-            <label class="text-xs font-semibold text-slate-700">Denominação do Imóvel / Assentamento</label>
-            <input type="text" id="rural-imovel" placeholder="Ex.: Assentamento Patagônia" oninput="atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
+            <label class="text-xs font-semibold text-slate-700">Nome do Imóvel / Assentamento / Sítio</label>
+            <input type="text" id="rural-imovel" placeholder="Ex.: Assentamento Itamarati, Sítio Primavera" oninput="atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
           </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Município / UF</label>
+            <input type="text" id="rural-municipio" value="Campo Grande - MS" oninput="atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
+          </div>
+
           <div class="space-y-1">
             <label class="text-xs font-semibold text-slate-700">Condição na Terra</label>
-            <select id="rural-condicao" onchange="atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 bg-white">
+            <select id="rural-condicao" onchange="atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-amber-600">
               <option value="Proprietário / Posseiro">Proprietário / Posseiro</option>
               <option value="Assentado da Reforma Agrária">Assentado da Reforma Agrária (INCRA)</option>
               <option value="Meeiro / Parceiro / Comodatário">Meeiro / Parceiro / Comodatário</option>
+              <option value="Arrendatário Rural">Arrendatário Rural</option>
             </select>
           </div>
+
           <div class="space-y-1">
-            <label class="text-xs font-semibold text-slate-700">Período de Atividade</label>
+            <label class="text-xs font-semibold text-slate-700">Área Explorada (Hectares / Módulos)</label>
+            <input type="text" id="rural-area" value="Menor que 4 módulos fiscais" oninput="atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Período de Atividade Rural</label>
             <input type="text" id="rural-periodo" placeholder="Ex.: 01/01/2005 até os dias atuais" oninput="atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
           </div>
-        </div>
 
-        <div class="lg:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200">
-          <div id="box-autodeclaracao-rural" class="bg-white p-6 rounded-xl border border-slate-200 text-xs text-slate-800 font-serif leading-relaxed h-[500px] overflow-y-auto whitespace-pre-wrap select-text shadow-inner">
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Principais Produtos Cultivados</label>
+            <input type="text" id="rural-produtos" value="Mandioca, milho, hortaliças e criação de subsistência" oninput="atualizarAutodeclaracaoRural()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600">
           </div>
         </div>
+
+        <!-- Folha Timbrada da Autodeclaração -->
+        <div class="lg:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+            <span class="text-xs font-bold text-slate-700">Visualização do Modelo de Autodeclaração Oficial</span>
+            <span class="text-[10px] text-amber-800 bg-amber-100 px-2 py-0.5 rounded font-bold">INSS / TRF3</span>
+          </div>
+
+          <div id="box-autodeclaracao-rural" class="bg-white p-6 rounded-xl border border-slate-200 text-xs text-slate-800 font-serif leading-relaxed h-[500px] overflow-y-auto whitespace-pre-wrap select-text shadow-inner">
+            <!-- Preenchido via JS -->
+          </div>
+        </div>
+
       </div>
+
     </section>
 
-    <!-- ABA 9: ENCAMINHAMENTOS -->
+    <!-- ========================================================
+         ABA 9: ENCAMINHAMENTOS (OFÍCIOS RÁPIDOS & GUIAS COMPLETAS)
+         ======================================================== -->
     <section id="view-encaminhamentos" class="secao-aba hidden space-y-6">
+      
+      <!-- Cabeçalho -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Orientação ao Cidadão & Rede Externa</span>
           <h2 class="text-xl font-bold text-slate-900 mt-1">Guia de Encaminhamento do Assistido</h2>
+          <p class="text-xs sm:text-sm text-slate-600">
+            Gere uma guia clara e didática para entregar em mãos ao assistido, indicando o local exato, a demanda que ele deve solicitar no balcão e os documentos necessários.
+          </p>
         </div>
         <div class="flex items-center gap-2">
           <button onclick="copiarEncaminhamento()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
@@ -1016,105 +1293,545 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Formulário do Encaminhamento -->
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <h3 class="text-sm font-bold text-slate-900 border-b border-slate-200 pb-2">Destino e Instruções</h3>
+
           <div class="space-y-1">
-            <label class="text-xs font-semibold text-slate-700">Órgão / Local</label>
-            <select id="enc-destino" onchange="alternarModeloDestinoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-slate-300 bg-white">
-              <option value="CRAS">CRAS / SAS – Inscrição/Atualização do CadÚnico</option>
+            <label class="text-xs font-semibold text-slate-700">Órgão / Local de Atendimento</label>
+            <select id="enc-destino" onchange="alternarModeloDestinoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-sky-600">
+              <option value="CRAS">CRAS / SAS – Inscrição ou Atualização do CadÚnico</option>
               <option value="INSS">INSS Agência Centro – Senha Meu INSS / Cópia de PA</option>
-              <option value="DPU">DPU – Defensoria da União (Recurso ao TRF3)</option>
-              <option value="DPE_SAUDE">DPE/MS – Saúde Pública (Remédios e Cirurgias SUS)</option>
+              <option value="DPU">DPU – Defensoria da União (Recurso ao TRF3 / Processo Federal)</option>
+              <option value="DPE_SAUDE">DPE/MS – Defensoria de Saúde Pública (Remédios e Exames SUS)</option>
+              <option value="SAUDE">Posto de Saúde / UPA – Cópia Integral de Prontuário</option>
+              <option value="OUTRO">Outro Órgão / Personalizado</option>
             </select>
           </div>
+
+          <!-- Prioridade Legal no Atendimento -->
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700 flex items-center justify-between">
+              <span>Prioridade Legal de Atendimento</span>
+              <span class="text-[10px] text-amber-700 font-bold bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200">Lei 10.048/00</span>
+            </label>
+            <select id="enc-prioridade" onchange="atualizarTextoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-amber-300 bg-amber-50/40 focus:outline-none focus:border-amber-600 font-medium text-slate-800">
+              <option value="GERAL">Geral / Sem prioridade legal específica</option>
+              <option value="IDOSO_80">⭐ Superprioridade: Pessoa Idosa com 80+ anos (Art. 71, § 5º do Estatuto do Idoso)</option>
+              <option value="IDOSO_60">Pessoa Idosa com 60+ anos (Lei nº 10.741/2003)</option>
+              <option value="PCD">Pessoa com Deficiência / Mobilidade Reduzida (Lei nº 13.146/2015 - LBI)</option>
+              <option value="TEA">Pessoa com Transtorno do Espectro Autista - TEA (Lei nº 12.764/2012)</option>
+              <option value="GESTANTE">Gestante / Lactante / Criança de Colo (Lei nº 10.048/2000)</option>
+              <option value="DOENCA_GRAVE">Portador(a) de Doença Grave / Tratamento Crônico (Lei nº 14.375/2022)</option>
+            </select>
+          </div>
+
           <div class="space-y-1">
             <label class="text-xs font-semibold text-slate-700">Nome do Assistido</label>
-            <input type="text" id="enc-nome" placeholder="Nome Completo" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-slate-300">
+            <input type="text" id="enc-nome" placeholder="Nome Completo" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
           </div>
+
           <div class="space-y-1">
             <label class="text-xs font-semibold text-slate-700">Documento (CPF ou RNM)</label>
-            <input type="text" id="enc-cpf" placeholder="000.000.000-00" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-slate-300">
+            <input type="text" id="enc-cpf" placeholder="000.000.000-00" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
           </div>
+
           <div class="space-y-1">
-            <label class="text-xs font-semibold text-slate-700">O que solicitar no balcão?</label>
-            <textarea id="enc-motivo" rows="3" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300"></textarea>
+            <label class="text-xs font-semibold text-slate-700">O que o Assistido deve solicitar no local?</label>
+            <textarea id="enc-motivo" rows="3" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">Solicitar a inscrição ou atualização do Cadastro Único (CadÚnico) para fins de instrução de processo de Benefício de Prestação Continuada (BPC/LOAS).</textarea>
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Documentos que o Assistido deve levar (Checklist)</label>
+            <textarea id="enc-documentos" rows="3" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">1. RG e CPF de todas as pessoas que moram na casa
+2. Comprovante de residência atualizado (conta de água ou luz)
+3. Carteira de Trabalho de todos os adultos da casa
+4. Comprovantes de renda familiar (holerite ou extrato de benefício)</textarea>
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-semibold text-slate-700">Orientações e Horário para o Cidadão</label>
+            <input type="text" id="enc-dicas" value="Comparecer com agendamento prévio ou cedo para retirada de senha. Horário: 07h30 às 17h00." oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
           </div>
         </div>
 
-        <div class="lg:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+        <!-- Visualização da Guia do Assistido -->
+        <div class="lg:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+            <span class="text-xs font-bold text-slate-700">Guia Prática de Encaminhamento (Entrega ao Assistido)</span>
+            <span class="text-[10px] text-sky-800 bg-sky-100 px-2 py-0.5 rounded font-bold">Folha de Mão</span>
+          </div>
+
           <div id="box-texto-encaminhamento" class="bg-white p-6 rounded-xl border border-slate-200 text-xs text-slate-800 font-sans leading-relaxed h-[520px] overflow-y-auto whitespace-pre-wrap select-text shadow-inner">
+            <!-- Gerado via JS -->
           </div>
         </div>
+
       </div>
+
     </section>
 
-    <!-- ABA 10: CONTATOS ÚTEIS -->
+    <!-- ========================================================
+         ABA 10: CONTATOS ÚTEIS (13 ÓRGÃOS COMPLETOS E RESTAURADOS)
+         ======================================================== -->
     <section id="view-orgaos" class="secao-aba hidden space-y-6">
+      
+      <!-- Cabeçalho -->
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Guia Institucional de Campo Grande / MS</span>
           <h2 class="text-xl font-bold text-slate-900 mt-1">Contatos Úteis & Balcões Virtuais</h2>
+          <p class="text-xs sm:text-sm text-slate-600">
+            Endereços, telefones, horários de atendimento presencial e links dos órgãos da Seguridade Social e do Sistema de Justiça.
+          </p>
         </div>
+
+        <!-- Busca Instantânea de Contatos -->
         <div class="w-full md:w-72">
           <input type="text" id="filtro-busca-orgaos" oninput="filtrarCartoesOrgaos()" placeholder="Buscar por órgão, serviço ou bairro..." class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
         </div>
       </div>
 
+      <!-- Grid com todos os 13 Órgãos Oficiais -->
       <div id="grid-contatos-orgaos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
         <!-- 1. DPU Campo Grande/MS -->
         <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-sky-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
           <div class="space-y-1.5">
-            <span class="text-[10px] font-bold text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded uppercase">Defensoria da União</span>
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded uppercase">Defensoria da União</span>
+              <span class="text-[10px] text-amber-700 font-semibold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Agendamento p/ PAJ</span>
+            </div>
             <h3 class="text-sm font-bold text-slate-900">1. DPU – Defensoria Pública da União (Campo Grande/MS)</h3>
-            <p class="text-xs text-slate-600">Abertura de PAJ, recursos à Turma Recursal do TRF3 e causas federais.</p>
+            <p class="text-xs text-slate-600">Abertura de PAJ, recursos à Turma Recursal do TRF3 e causas de competência federal.</p>
             <div class="text-[11px] text-slate-700 space-y-1 pt-1">
-              <p>📍 <strong>Endereço:</strong> Rua Eduardo Santos Pereira, 1186 – Centro</p>
-              <p>⏰ <strong>Horário:</strong> Segunda a sexta, das 12h às 17h</p>
-              <p>📞 <strong>Telefone:</strong> (67) 3311-9850 | Plantão: (67) 98114-1615</p>
+              <p>📍 <strong>Endereço:</strong> Rua Eduardo Santos Pereira, 1186 (esq. c/ Rua 25 de Dezembro) – Vila Cruzeiro / Centro, CEP 79010-030</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 12h00 às 17h00</p>
+              <p>📞 <strong>Telefones:</strong> (67) 3311-9850 | <strong>Plantão:</strong> (67) 98114-1615</p>
+              <p>✉️ <strong>E-mail:</strong> atendimentodpums@dpu.def.br</p>
+              <p class="text-[10px] text-slate-500 italic">Demanda agendamento para abertura de novo PAJ, ressalvados casos de urgência com risco iminente de perecimento de direito ou prazo.</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-200">
-            <a href="https://www.dpu.def.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-indigo-700 hover:bg-indigo-800 px-3 py-1.5 rounded-lg inline-flex items-center gap-1 transition">
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="https://www.dpu.def.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-indigo-700 hover:bg-indigo-800 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
               <span>⚖️</span> Portal DPU
             </a>
+            <a href="mailto:atendimentodpums@dpu.def.br" class="text-[11px] font-semibold text-slate-700 bg-slate-200 hover:bg-slate-300 px-3 py-1.5 rounded-lg transition">
+              Enviar E-mail
+            </a>
           </div>
         </div>
 
-        <!-- 2. INSS Central -->
+        <!-- 2.1 DPE/MS - Saúde Pública -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-teal-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-teal-800 bg-teal-100 px-2 py-0.5 rounded uppercase">DPE/MS • Saúde</span>
+              <span class="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Sem Agendamento p/ Urgência</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">2.1 DPE/MS – Unidade de Saúde Pública</h3>
+            <p class="text-xs text-slate-600">Medicamentos, cirurgias, internações, leitos de UTI e insumos essenciais do SUS.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Rua Barão de Melgaço, 128 – Centro, CEP 79002-090</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 12h00 às 19h00 (plantão de urgência em regime de sobreaviso)</p>
+              <p>📞 <strong>Tel / WhatsApp:</strong> (67) 3317-8757</p>
+              <p class="text-[10px] text-slate-500 italic">Não demanda agendamento para urgências (ordem de chegada com laudo/receituário). Procedimentos eletivos podem ser pré-agendados.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="https://www.defensoria.ms.def.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-teal-700 hover:bg-teal-800 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+              <span>🏥</span> Plataforma DPE/MS
+            </a>
+          </div>
+        </div>
+
+        <!-- 2.2 DPE/MS - Cível, Consumidor e Fazenda Pública -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-teal-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-teal-800 bg-teal-100 px-2 py-0.5 rounded uppercase">DPE/MS • Cível & Fazenda</span>
+              <span class="text-[10px] text-amber-700 font-semibold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Requer Agendamento</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">2.2 DPE/MS – Cível, Consumidor e Fazenda</h3>
+            <p class="text-xs text-slate-600">Ações cíveis em geral, relações de consumo e ações acidentárias contra o INSS na Fazenda Pública Estadual.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Rua Antônio Maria Coelho, 1668 – Centro, CEP 79002-220</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 12h00 às 19h00</p>
+              <p>📞 <strong>Telefone:</strong> (67) 3317-8757</p>
+              <p class="text-[10px] text-slate-500 italic">Demanda agendamento prévio preferencialmente para triagem inicial.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="https://www.defensoria.ms.def.br/agendamento" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-teal-700 hover:bg-teal-800 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+              <span>📅</span> Agendamento Eletrônico
+            </a>
+          </div>
+        </div>
+
+        <!-- 2.3 DPE/MS - Família e Sucessões -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-teal-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-teal-800 bg-teal-100 px-2 py-0.5 rounded uppercase">DPE/MS • Família</span>
+              <span class="text-[10px] text-amber-700 font-semibold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Requer Agendamento</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">2.3 DPE/MS – Família e Sucessões</h3>
+            <p class="text-xs text-slate-600">Interdição/curatela de incapazes, alimentos, inventários, guarda e união estável.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Rua Arthur Jorge, 779 – Centro, CEP 79002-450</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 12h00 às 19h00</p>
+              <p>📞 <strong>Telefone:</strong> (67) 3313-5800 | <strong>Central:</strong> 129</p>
+              <p class="text-[10px] text-slate-500 italic">Triagem inicial mediante agendamento prévio.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="https://www.defensoria.ms.def.br/agendamento" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-teal-700 hover:bg-teal-800 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+              <span>📅</span> Agendamento Eletrônico
+            </a>
+          </div>
+        </div>
+
+        <!-- 2.4 DPE/MS - Postos Fácil -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-teal-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-teal-800 bg-teal-100 px-2 py-0.5 rounded uppercase">DPE/MS • Rede Fácil</span>
+              <span class="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Ordem de Chegada</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">2.4 DPE/MS – Postos de Triagem Rápida (Rede Fácil)</h3>
+            <p class="text-xs text-slate-600">Atendimento presencial descentralizado nos bairros.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Unidades:</strong> Fácil Aero Rancho (Rua Mal. Floriano, 908) | Fácil General Osório (Rua Santo Ângelo, 338) | Fácil Guaicurus (Av. Gury Marques, 5111)</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 08h00 às 16h00</p>
+              <p>📞 <strong>Telefone:</strong> (67) 3317-8764</p>
+              <p class="text-[10px] text-slate-500 italic">Atendimento presencial por ordem de chegada no balcão.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <span class="text-[11px] font-semibold text-teal-800 bg-teal-50 px-3 py-1 rounded-lg border border-teal-200">
+              Atendimento Balcão
+            </span>
+          </div>
+        </div>
+
+        <!-- 3. INSS Central -->
         <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-blue-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
           <div class="space-y-1.5">
-            <span class="text-[10px] font-bold text-blue-800 bg-blue-100 px-2 py-0.5 rounded uppercase">Previdência Social</span>
-            <h3 class="text-sm font-bold text-slate-900">2. INSS – Agência Central (Rua 26 de Agosto)</h3>
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-blue-800 bg-blue-100 px-2 py-0.5 rounded uppercase">Previdência Social</span>
+              <span class="text-[10px] text-amber-700 font-semibold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Obrigatório Agendamento</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">3. INSS – Agência Central (APS Campo Grande - 26 de Agosto)</h3>
+            <p class="text-xs text-slate-600">Cumprimento de exigências, perícias e consultas presenciais.</p>
             <div class="text-[11px] text-slate-700 space-y-1 pt-1">
-              <p>📍 <strong>Endereço:</strong> Rua 26 de Agosto, 347 – Centro</p>
-              <p>⏰ <strong>Horário:</strong> Segunda a sexta, das 07h às 17h</p>
-              <p>📞 <strong>Telefones:</strong> Central 135 | (67) 4009-7605</p>
+              <p>📍 <strong>Endereço:</strong> Rua 26 de Agosto, 347 – Centro, CEP 79002-081</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 07h00 às 17h00 (presencial prioritariamente das 07h00 às 13h00)</p>
+              <p>📞 <strong>Telefones:</strong> Central 135 | <strong>Agência:</strong> (67) 4009-7605</p>
+              <p class="text-[10px] text-slate-500 italic">Demanda agendamento indispensável via 135 ou Meu INSS.</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-200">
-            <a href="https://meu.inss.gov.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded-lg inline-flex items-center gap-1 transition">
-              <span>🌐</span> Meu INSS
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="https://meu.inss.gov.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+              <span>🌐</span> Portal Meu INSS
+            </a>
+            <a href="tel:135" class="text-[11px] font-semibold text-slate-700 bg-slate-200 hover:bg-slate-300 px-3 py-1.5 rounded-lg transition">
+              Ligar 135
             </a>
           </div>
         </div>
 
-        <!-- 3. JFMS / JEF TRF3 -->
+        <!-- 4. Justiça Federal (JFMS / JEF - TRF3) -->
         <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-sky-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
           <div class="space-y-1.5">
-            <span class="text-[10px] font-bold text-sky-800 bg-sky-100 px-2 py-0.5 rounded uppercase">Justiça Federal</span>
-            <h3 class="text-sm font-bold text-slate-900">3. Justiça Federal de MS (JFMS / JEF - TRF3)</h3>
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-sky-800 bg-sky-100 px-2 py-0.5 rounded uppercase">Justiça Federal</span>
+              <span class="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Balcão Livre</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">4. Justiça Federal de Mato Grosso do Sul (JFMS / JEF - TRF3)</h3>
+            <p class="text-xs text-slate-600">Subseção Judiciária de Campo Grande – Juizados Especiais e Varas Federais.</p>
             <div class="text-[11px] text-slate-700 space-y-1 pt-1">
-              <p>📍 <strong>Endereço:</strong> Rua Del. Carlos Roberto Bastos de Oliveira, 128 – Parque dos Poderes</p>
-              <p>⏰ <strong>Horário:</strong> Segunda a sexta, das 12h às 19h</p>
-              <p>📞 <strong>Telefone:</strong> (67) 3320-1100 | Secretaria JEF: 3320-1119</p>
+              <p>📍 <strong>Endereço:</strong> Rua Delegado Carlos Roberto Bastos de Oliveira, 128 – Parque dos Poderes, CEP 79037-102</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 12h00 às 19h00</p>
+              <p>📞 <strong>Telefones:</strong> (67) 3320-1100 (Geral) | (67) 3320-1119 (Secretaria do JEF)</p>
+              <p class="text-[10px] text-slate-500 italic">Não demanda agendamento para comparecimento ao balcão físico.</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-200">
-            <a href="https://web.trf3.jus.br/balcaovirtual/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-sky-700 hover:bg-sky-800 px-3 py-1.5 rounded-lg inline-flex items-center gap-1 transition">
-              <span>🖥️</span> Balcão Virtual
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="https://web.trf3.jus.br/balcaovirtual/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-sky-700 hover:bg-sky-800 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+              <span>🖥️</span> Balcão Virtual JFMS
+            </a>
+            <a href="https://pje1g.trf3.jus.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-slate-700 bg-slate-200 hover:bg-slate-300 px-3 py-1.5 rounded-lg transition">
+              PJe TRF3
             </a>
           </div>
         </div>
+
+        <!-- 5. Tribunal de Justiça de MS (TJMS) -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-slate-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-slate-800 bg-slate-200 px-2 py-0.5 rounded uppercase">Justiça Estadual</span>
+              <span class="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Balcão Livre</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">5. Tribunal de Justiça de MS (TJMS)</h3>
+            <p class="text-xs text-slate-600">Fórum Central, Juizados Especiais Cíveis, Fazendários e Varas Cíveis da Capital.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Rua da Paz, 14 – Centro, CEP 79002-919</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 12h00 às 19h00</p>
+              <p>📞 <strong>Telefones:</strong> (67) 3317-3300 | <strong>Secretaria Juizados:</strong> (67) 3317-3400</p>
+              <p class="text-[10px] text-slate-500 italic">Não demanda agendamento para atendimento presencial de balcão.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="https://www.tjms.jus.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-slate-800 hover:bg-slate-900 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+              <span>🏛️</span> Portal TJMS
+            </a>
+          </div>
+        </div>
+
+        <!-- 6.1 Procon Estadual (Procon/MS) -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-amber-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded uppercase">Consumidor Estadual</span>
+              <span class="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Senhas Presenciais</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">6.1 Procon Estadual de Mato Grosso do Sul (Procon/MS)</h3>
+            <p class="text-xs text-slate-600">Proteção ao consumidor, combate a fraudes e cobranças indevidas de consignados.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Rua Padre João Crippa, 3115 – São Francisco, CEP 79010-180</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 07h30 às 17h30 (senhas até 16h00)</p>
+              <p>📞 <strong>Telefones:</strong> Disque 151 | <strong>Recepção:</strong> (67) 3316-9800</p>
+              <p class="text-[10px] text-slate-500 italic">Não demanda agendamento para retirada de senhas; registro online viável via Consumidor.gov.br.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="http://www.procon.ms.gov.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-amber-700 hover:bg-amber-800 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+              <span>🛡️</span> Portal Procon/MS
+            </a>
+            <a href="https://consumidor.gov.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-slate-700 bg-slate-200 hover:bg-slate-300 px-3 py-1.5 rounded-lg transition">
+              Consumidor.gov.br
+            </a>
+          </div>
+        </div>
+
+        <!-- 6.2 Procon Municipal de Campo Grande -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-amber-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded uppercase">Consumidor Municipal</span>
+              <span class="text-[10px] text-slate-700 font-semibold bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Balcão ou Agendado</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">6.2 Procon Municipal de Campo Grande</h3>
+            <p class="text-xs text-slate-600">Subsecretaria de Proteção e Defesa do Consumidor da Capital.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Rua Venâncio Borges do Nascimento, 377 – Jardim TV Morena, CEP 79050-480</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 07h30 às 17h30</p>
+              <p>📞 <strong>Telefones:</strong> (67) 2020-1231 | <strong>Central:</strong> 156 (opção 6)</p>
+              <p class="text-[10px] text-slate-500 italic">Ordem de chegada no balcão ou agendamento prévio por telefone.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="http://www.campogrande.ms.gov.br/procon/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-amber-700 hover:bg-amber-800 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+              <span>🏢</span> Procon CG
+            </a>
+          </div>
+        </div>
+
+        <!-- 7. BACEN -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-blue-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-blue-900 bg-blue-100 px-2 py-0.5 rounded uppercase">Banco Central</span>
+              <span class="text-[10px] text-sky-700 font-semibold bg-sky-50 px-2 py-0.5 rounded border border-sky-200">100% Eletrônico / Remoto</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">7. Banco Central do Brasil (BACEN)</h3>
+            <p class="text-xs text-slate-600">Registrato, relatórios de dívidas (SCR), chaves PIX e reclamações contra bancos.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Atendimento:</strong> Sem atendimento presencial ao público. Operação 100% remota.</p>
+              <p>⏰ <strong>Horário Telefônico:</strong> Segunda a sexta-feira, das 08h00 às 18h00</p>
+              <p>📞 <strong>Telefone:</strong> Central 145 (custo de ligação local)</p>
+              <p class="text-[10px] text-slate-500 italic">Agendamento não aplicável (serviços remotos via Registrato Gov.br).</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="https://registrato.bcb.gov.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-blue-900 hover:bg-blue-950 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+              <span>🔐</span> Registrato BACEN
+            </a>
+            <a href="https://www.bcb.gov.br/acessoinformacao/faleconosco" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-slate-700 bg-slate-200 hover:bg-slate-300 px-3 py-1.5 rounded-lg transition">
+              Fale Conosco
+            </a>
+          </div>
+        </div>
+
+        <!-- 8. Receita Federal (DRF Campo Grande) -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-slate-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-slate-800 bg-slate-200 px-2 py-0.5 rounded uppercase">Receita Federal</span>
+              <span class="text-[10px] text-amber-700 font-semibold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Obrigatório Agendamento</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">8. Receita Federal do Brasil (DRF – Campo Grande/MS)</h3>
+            <p class="text-xs text-slate-600">Regularização de CPF de assistidos, certidões fiscais e procurações e-CAC.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Rua Desembargador Leão Neto do Carmo, 03 – Parque dos Poderes, CEP 79037-902</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 08h00 às 17h00</p>
+              <p>📞 <strong>Telefone:</strong> (67) 3318-7200</p>
+              <p class="text-[10px] text-slate-500 italic">Atendimento presencial condicionado à emissão prévia de senha pela internet.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="https://servicos.receita.fazenda.gov.br/servicos/sap/agendamento/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-slate-800 hover:bg-slate-900 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+              <span>📅</span> Agendamento RFB
+            </a>
+          </div>
+        </div>
+
+        <!-- 9.1 Banco do Brasil - Agência Centro -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-yellow-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-yellow-900 bg-yellow-100 px-2 py-0.5 rounded uppercase">Banco do Brasil</span>
+              <span class="text-[10px] text-slate-700 font-semibold bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Senhas Físicas / App</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">9.1 Banco do Brasil – Agência Centro (0048)</h3>
+            <p class="text-xs text-slate-600">Atendimento bancário geral, pagamentos de benefícios e abertura de contas.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Rua 13 de Maio, 2833 – Centro, CEP 79002-356</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 10h00 às 15h00</p>
+              <p>📞 <strong>Telefones:</strong> (67) 4003-3001 | (67) 3389-4000</p>
+              <p class="text-[10px] text-slate-500 italic">Senhas no local ou emissão antecipada via App BB.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="https://www.bb.com.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-slate-900 bg-yellow-400 hover:bg-yellow-500 px-3 py-1.5 rounded-lg transition">
+              Portal BB
+            </a>
+          </div>
+        </div>
+
+        <!-- 9.2 Banco do Brasil - Agência Setor Público (RPV / Precatórios) -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-yellow-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-yellow-900 bg-yellow-100 px-2 py-0.5 rounded uppercase">BB • RPV e Precatórios</span>
+              <span class="text-[10px] text-amber-700 font-semibold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Gerência de Alvarás</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">9.2 Banco do Brasil – Setor Público (Ag. 2576)</h3>
+            <p class="text-xs text-slate-600">Levantamento de RPVs e Precatórios Estaduais e Federais depositados no BB.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Av. Des. José Nunes da Cunha, Bloco 1 – Parque dos Poderes, CEP 79031-310</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 10h00 às 15h00</p>
+              <p>📞 <strong>Telefone:</strong> (67) 3322-2300</p>
+              <p class="text-[10px] text-slate-500 italic">Senha física para atendimento jurídico e gerência de alvarás.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <span class="text-[11px] font-semibold text-yellow-950 bg-yellow-50 px-3 py-1 rounded-lg border border-yellow-200">
+              Atendimento RPV / Precatórios
+            </span>
+          </div>
+        </div>
+
+        <!-- 10. Caixa Econômica Federal -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-blue-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-blue-900 bg-blue-100 px-2 py-0.5 rounded uppercase">Caixa Econômica</span>
+              <span class="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Sem Agendamento</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">10. Caixa Econômica Federal – Agências Centrais / Jurídicas</h3>
+            <p class="text-xs text-slate-600">Levantamento de RPVs/Precatórios da Justiça Federal (TRF3), FGTS e PIS.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Ag. Pantaneira (2218):</strong> Rua 13 de Maio, 2837 – Centro, CEP 79002-356</p>
+              <p>📍 <strong>Ag. Barão do Rio Branco (0017):</strong> Rua Barão do Rio Branco, 1119 – Centro, CEP 79002-171</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 10h00 às 15h00</p>
+              <p>📞 <strong>Telefones:</strong> 4004-0104 | 0800 726 0101 | <strong>Ag. Centro:</strong> (67) 3316-2400</p>
+              <p class="text-[10px] text-slate-500 italic">Não demanda agendamento. Triagem por senha física de gerência/alvarás.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="https://www.caixa.gov.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+              <span>🏦</span> Portal Caixa
+            </a>
+          </div>
+        </div>
+
+        <!-- 11. OAB/MS -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-amber-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded uppercase">Advocacia / OAB</span>
+              <span class="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Balcão Livre</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">11. OAB/MS – Seccional Mato Grosso do Sul</h3>
+            <p class="text-xs text-slate-600">Apoio institucional, prerrogativas e Comissão de Direito Previdenciário.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Av. Mato Grosso, 4700 – Carandá Bosque, CEP 79031-001</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 08h00 às 18h00</p>
+              <p>📞 <strong>Telefone:</strong> (67) 3318-4700</p>
+              <p class="text-[10px] text-slate-500 italic">Não demanda agendamento para balcão geral ou prerrogativas.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="https://www.oabms.org.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-slate-800 bg-slate-200 hover:bg-slate-300 px-3 py-1.5 rounded-lg transition">
+              Portal OAB/MS
+            </a>
+          </div>
+        </div>
+
+        <!-- 12. Ministério Público do Trabalho (MPT 24ª) -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-rose-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-rose-800 bg-rose-100 px-2 py-0.5 rounded uppercase">Trabalho • MPT</span>
+              <span class="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Sem Agendamento</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">12. MPT – Procuradoria Regional do Trabalho (24ª Região)</h3>
+            <p class="text-xs text-slate-600">Denúncias trabalhistas, acidentes do trabalho graves e direitos coletivos.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Endereço:</strong> Rua Dr. Paulo Machado, 120 – Royal Park, CEP 79021-460</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 09h00 às 17h00</p>
+              <p>📞 <strong>Telefone:</strong> (67) 3358-3000</p>
+              <p class="text-[10px] text-slate-500 italic">Peticionamento e denúncias funcionam preferencialmente pelo sistema eletrônico.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="https://www.prt24.mpt.mp.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-rose-700 hover:bg-rose-800 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+              <span>⚖️</span> Peticionamento Eletrônico MPT
+            </a>
+          </div>
+        </div>
+
+        <!-- 13. SAS / CRAS - Cadastro Único -->
+        <div class="card-orgao p-4 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-emerald-400 hover:shadow-md transition flex flex-col justify-between space-y-3">
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded uppercase">Assistência Social</span>
+              <span class="text-[10px] text-amber-700 font-semibold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Obrigatório Agendamento</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">13. Centros de Referência de Assistência Social (CRAS / CadÚnico - SAS)</h3>
+            <p class="text-xs text-slate-600">Inscrição e atualização obrigatória do CadÚnico para concessão e manutenção do BPC/LOAS.</p>
+            <div class="text-[11px] text-slate-700 space-y-1 pt-1">
+              <p>📍 <strong>Sede Central (SAS):</strong> Rua Cândido Mariano, 2655 – Centro, CEP 79002-205</p>
+              <p>⏰ <strong>Horário:</strong> Segunda a sexta-feira, das 07h30 às 17h00</p>
+              <p>📞 <strong>Telefones:</strong> (67) 3314-4482 | <strong>Localizar CRAS do Bairro:</strong> (67) 3314-4480</p>
+              <p class="text-[10px] text-slate-500 italic">Obrigatório agendamento online prévio para atendimento presencial.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
+            <a href="http://agendamentocras.campogrande.ms.gov.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-white bg-emerald-700 hover:bg-emerald-800 px-3 py-1.5 rounded-lg flex items-center gap-1 transition">
+              <span>📅</span> Agendar CadÚnico CG
+            </a>
+            <a href="https://cadunico.dataprev.gov.br/" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-slate-700 bg-slate-200 hover:bg-slate-300 px-3 py-1.5 rounded-lg transition">
+              Consulta CadÚnico
+            </a>
+          </div>
+        </div>
+
       </div>
+
     </section>
 
   </main>
@@ -1157,12 +1874,7 @@
         </div>
         <textarea id="input-novo-andamento-texto" rows="2" placeholder="Descreva a diligência ou providência adotada..." class="w-full text-xs p-2.5 rounded-lg border border-slate-300 bg-white"></textarea>
         <div class="flex justify-end">
-          <button onclick="salvarNovoAndamentoNoCaso()" class="text-xs font-bold text-white bg-sky-700 hover:bg-sky-800 px-4 py-2 rounded-lg transition shadow-xs">
-            ➕ Adicionar Andamento
-          </button>
-        </div>
-      </div>
-
+      <!-- Ações do Modal -->
       <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200">
         <div class="flex items-center gap-2">
           <button onclick="fecharFichaCasoModal()" class="text-xs font-semibold text-slate-600 px-4 py-2 rounded-xl hover:bg-slate-100 transition">Fechar</button>
@@ -1170,9 +1882,14 @@
             📦 <span id="modal-txt-arquivar">Arquivar Caso</span>
           </button>
         </div>
-        <button onclick="carregarAssistidoDoModalNasAbas()" class="text-xs font-bold text-white bg-sky-700 hover:bg-sky-800 px-4 py-2 rounded-xl transition shadow-xs">
-          📋 Carregar Dados nas Demais Ferramentas
-        </button>
+        <div class="flex gap-2">
+          <button onclick="abrirAgendamentoParaCasoAtual()" class="text-xs font-bold text-amber-800 bg-amber-100 hover:bg-amber-200 border border-amber-300 px-4 py-2 rounded-xl transition shadow-xs flex items-center gap-1.5">
+            <span>📅</span> Agendar Retorno
+          </button>
+          <button onclick="carregarAssistidoDoModalNasAbas()" class="text-xs font-bold text-white bg-sky-700 hover:bg-sky-800 px-4 py-2 rounded-xl transition shadow-xs flex items-center gap-1.5">
+            <span>📋</span> Usar Dados
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -1205,11 +1922,11 @@
         <button onclick="fecharConfigPlanilhaModal()" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
       </div>
       <p class="text-xs text-slate-600 leading-relaxed">
-        Endpoint conectado diretamente à planilha do Google Sheets via API REST.
+        Cole o endpoint gerado no Sheet Best ou a URL do Web App do Google Apps Script para sincronização em nuvem.
       </p>
 
       <div class="space-y-1">
-        <label class="text-xs font-semibold text-slate-700">URL da API Sheet Best:</label>
+        <label class="text-xs font-semibold text-slate-700">URL da API Sheet Best / Web App:</label>
         <input type="url" id="input-url-script-planilha" value="https://api.sheetbest.com/sheets/fe51f0f0-d3fe-4349-82fa-e4554ecdf9a2" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
       </div>
       <div class="flex justify-end gap-2 pt-2">
@@ -1219,6 +1936,10 @@
     </div>
   </div>
 
+  <!-- Iframe e Form ocultos para transporte resiliente -->
+  <iframe name="hidden_iframe_sync" id="hidden_iframe_sync" class="hidden"></iframe>
+  <form id="form_transporte_sheets" target="hidden_iframe_sync" method="POST" class="hidden"></form>
+
   <!-- RODAPÉ -->
   <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-500 no-print">
     <div class="max-w-7xl mx-auto px-4 space-y-1">
@@ -1227,12 +1948,11 @@
     </div>
   </footer>
 
-  <!-- ==================== CÓDIGO JAVASCRIPT INTEGRADO ==================== -->
+  <!-- ==================== CÓDIGO JAVASCRIPT ==================== -->
   <script>
     const SALARIO_MINIMO_2026 = 1621.00;
     const LIMITE_ALCADA_60SM_2026 = 60 * SALARIO_MINIMO_2026; // R$ 97.260,00
 
-    // Endpoint fixo da API Sheet Best
     const SHEET_BEST_ENDPOINT = 'https://api.sheetbest.com/sheets/fe51f0f0-d3fe-4349-82fa-e4554ecdf9a2';
 
     let estadoApp = {
@@ -1240,6 +1960,7 @@
       filtroStatusCasos: 'ativos',
       triagem: { passo1_indeferimento: null, passo2_objeto: null, passo3_alcada: null },
       atendimentos: [],
+      agendamentos: [],
       casoSelecionadoModalId: null,
       casoPendenteArquivamentoId: null,
       vinculosTempo: [
@@ -1252,6 +1973,7 @@
     window.onload = function() {
       carregarLogoArmazenada();
       carregarAtendimentosLocais();
+      carregarAgendamentosLocais();
       inicializarDatas();
       mudarAba('view-triagem');
       selecionarGrupoQuesitos('ortopedia');
@@ -1483,7 +2205,7 @@
     }
 
     // ==========================================
-    // FUNÇÕES DE ENVIO E SINCRONIZAÇÃO SHEET BEST
+    // ENVIO INTEGRADO: SHEET BEST + FALLBACK FORMS
     // ==========================================
     async function enviarCasoParaSheetBest(caso) {
       const urlApi = estadoApp.urlPlanilha || SHEET_BEST_ENDPOINT;
@@ -1508,7 +2230,7 @@
         });
         return resp.ok;
       } catch (e) {
-        console.error('Falha de envio Sheet Best:', e);
+        console.warn('Sheet Best inacessível no momento, acionando fallback.');
         return false;
       }
     }
@@ -1586,6 +2308,7 @@
       }
 
       atualizarContadoresFiltrosCasos();
+      popularSelectCasosParaAgendamento();
 
       if (casosParaExibir.length === 0) {
         container.innerHTML = `
@@ -1886,7 +2609,7 @@
       estadoApp.urlPlanilha = url;
       localStorage.setItem('laprevs_url_sheets', url);
       fecharConfigPlanilhaModal();
-      mostrarNotificacao('✓ Conexão Sheet Best atualizada!');
+      mostrarNotificacao('✓ Conexão com Google Sheets atualizada!');
     }
 
     function adicionarLinhaVinculo() {
@@ -2027,41 +2750,54 @@ ${nome} (Jus Postulandi - Apoio LAPREVS)`;
     function imprimirPeticaoA4() { window.print(); }
     function imprimirTermoAtermacao() { window.print(); }
 
+    /* ========================================================
+       9. QUESITOS MÉDICOS POR ESPECIALIDADE (BANCO INTEGRAL)
+       ======================================================== */
     const bancoQuesitos = {
       ortopedia: {
         titulo: 'Quesitos Ortopédicos do Autor (Coluna & Articulações)',
         itens: [
-          '1. O periciando apresenta limitação em coluna ou membros?',
-          '2. Há incapacidade para as funções habituais?',
-          '3. A incapacidade é temporária ou permanente?'
+          '1. O(A) periciando(a) é portador(a) de patologia da coluna vertebral (hérnias discais, discopatias, espondilose) ou dos membros superiores/inferiores?',
+          '2. Em caso positivo, qual o CID-10 correspondente e qual o grau de limitação funcional para movimentos de flexão, rotação ou sustentação de peso?',
+          '3. Considerando a atividade habitual e a escolaridade do(a) autor(a), a referida patologia impede o exercício da sua profissão atual?',
+          '4. A incapacidade apurada é de caráter temporário ou definitivo? Há possibilidade de reabilitação profissional eficaz?',
+          '5. Com base nos exames de imagem e receituários apresentados, é possível estimar a Data de Início da Doença (DID) e a Data de Início da Incapacidade (DII)?'
         ]
       },
       psiquiatria: {
-        titulo: 'Quesitos Psiquiátricos do Autor',
+        titulo: 'Quesitos Psiquiátricos do Autor (Saúde Mental)',
         itens: [
-          '1. O periciando apresenta transtorno mental crônico?',
-          '2. Há prejuízo do juízo crítico ou cognição?'
+          '1. O(A) periciando(a) apresenta quadro de transtorno mental crônico ou refratário (F32, F33, F31, F20)?',
+          '2. O quadro psiquiátrico prejudica o juízo crítico, a capacidade de concentração, tolerância ao estresse e relacionamento interpessoal no ambiente laboral?',
+          '3. O(A) autor(a) faz uso regular de medicação psicotrópica que provoque sedação ou redução dos reflexos psicomotores?',
+          '4. A incapacidade identificada é total para qualquer atividade ou restrita à função habitual? Há prognóstico de remissão dos sintomas?',
+          '5. A enfermidade torna o(a) autor(a) vulnerável à piora diante da pressão ou exigência de produtividade no trabalho?'
         ]
       },
       cardiologia: {
         titulo: 'Quesitos Cardiológicos do Autor',
         itens: [
-          '1. Há cardiopatia grave ou limitação a esforço físico?'
+          '1. O(A) periciando(a) é portador(a) de cardiopatia grave, insuficiência coronariana ou hipertensão arterial em estágio avançado?',
+          '2. Há classificação funcional da New York Heart Association (NYHA) para o quadro cardiovascular apurado?',
+          '3. O esforço físico moderado ou estresse habitual desencadeia sintomas de dispneia, angina ou arritmias?',
+          '4. Há contraindicação médica formal para a realização de esforços de carga, caminhadas prolongadas ou exposição ao calor?'
         ]
       },
       loas_biopsicossocial: {
-        titulo: 'Quesitos Biopsicossociais (BPC/LOAS)',
+        titulo: 'Quesitos Biopsicossociais (BPC / LOAS - Modelo Social da Deficiência)',
         itens: [
-          '1. Há impedimento de longo prazo (mínimo de 2 anos)?',
-          '2. Há barreiras que impedem a participação comunitária plena?'
+          '1. O(A) periciando(a) apresenta impedimento de longo prazo (mínimo de 2 anos) de natureza física, mental, intelectual ou sensorial?',
+          '2. O impedimento, em interação com as barreiras ambientais e atitudinais existentes, obstrui sua participação plena e efetiva na sociedade em igualdade de condições?',
+          '3. O(A) autor(a) necessita do auxílio contínuo de terceiros para atos da vida diária e cuidados pessoais básicos?',
+          '4. Sob a ótica da Classificação Internacional de Funcionalidade (CIF), quais são as principais restrições de desempenho e capacidade enfrentadas?'
         ]
       }
     };
 
     function selecionarGrupoQuesitos(chave, evt) {
-      document.querySelectorAll('.btn-quesito').forEach(b => b.classList.remove('border-sky-600', 'bg-sky-50'));
+      document.querySelectorAll('.btn-quesito').forEach(b => b.classList.remove('border-sky-600', 'bg-sky-50', 'ring-1', 'ring-sky-600'));
       const btn = (evt && evt.currentTarget) ? evt.currentTarget : document.getElementById('btn-quesito-' + chave);
-      if (btn) btn.classList.add('border-sky-600', 'bg-sky-50');
+      if (btn) btn.classList.add('border-sky-600', 'bg-sky-50', 'ring-1', 'ring-sky-600');
       const g = bancoQuesitos[chave];
       if (g) {
         document.getElementById('titulo-quesitos-exibidos').textContent = g.titulo;
@@ -2071,17 +2807,60 @@ ${nome} (Jus Postulandi - Apoio LAPREVS)`;
 
     function copiarQuesitos() {
       let txt = document.getElementById('titulo-quesitos-exibidos').textContent + '\n\n';
-      document.querySelectorAll('#box-quesitos-medicos p').forEach(p => txt += p.textContent + '\n');
-      copiarParaClipboard(txt, '✓ Quesitos copiados!');
+      document.querySelectorAll('#box-quesitos-medicos p').forEach(p => txt += p.textContent + '\n\n');
+      copiarParaClipboard(txt, '✓ Quesitos copiados para a área de transferência!');
     }
 
+    /* ========================================================
+       10. AUTODECLARAÇÃO RURAL (MODELO COMPLETO OFICIAL)
+       ======================================================== */
     function atualizarAutodeclaracaoRural() {
-      const nome = document.getElementById('rural-nome').value.trim() || '[NOME]';
+      const nome = document.getElementById('rural-nome').value.trim() || '[NOME DO PRODUTOR / SEGURADO]';
       const cpf = document.getElementById('rural-cpf').value.trim() || '[CPF]';
-      const imovel = document.getElementById('rural-imovel').value.trim() || '[IMÓVEL]';
-      const cond = document.getElementById('rural-condicao').value;
-      const per = document.getElementById('rural-periodo').value.trim() || '[PERÍODO]';
-      document.getElementById('box-autodeclaracao-rural').textContent = `AUTODECLARAÇÃO RURAL (SEGURADO ESPECIAL)\n\nNome: ${nome}\nCPF: ${cpf}\nImóvel: ${imovel} | Condição: ${cond}\nPeríodo: ${per}\n\nDeclaro regime de economia familiar sob as penas do art. 299 do CP.\n\nCampo Grande/MS, ${new Date().toLocaleDateString('pt-BR')}.`;
+      const imovel = document.getElementById('rural-imovel').value.trim() || '[NOME DO IMÓVEL / ASSENTAMENTO / SÍTIO]';
+      const municipio = document.getElementById('rural-municipio').value.trim() || 'Campo Grande - MS';
+      const condicao = document.getElementById('rural-condicao').value;
+      const area = document.getElementById('rural-area').value.trim() || 'Menor que 4 módulos fiscais';
+      const periodo = document.getElementById('rural-periodo').value.trim() || '[PERÍODO TRABALHADO NO CAMPO]';
+      const produtos = document.getElementById('rural-produtos').value.trim() || 'Mandioca, milho, hortaliças e criação de subsistência';
+
+      const texto = `AUTODECLARAÇÃO DE EXERCÍCIO DE ATIVIDADE RURAL (SEGURADO ESPECIAL)
+(Em estrita conformidade com o art. 19-D do Decreto nº 3.048/1999 e a Instrução Normativa PRES/INSS nº 128/2022)
+
+1. IDENTIFICAÇÃO DO SEGURADO(A) ESPECIAL
+--------------------------------------------------------------------------------------------------------
+Nome Completo: ${nome}
+Número de Inscrição no CPF: ${cpf}
+
+2. DADOS DO IMÓVEL RURAL / LOCAL DE DESENVOLVIMENTO DA ATIVIDADE
+--------------------------------------------------------------------------------------------------------
+Denominação do Imóvel / Assentamento / Sítio: ${imovel}
+Município / UF: ${municipio}
+Condição do(a) Declarante na Terra: ${condicao}
+Área Total / Explorada: ${area}
+
+3. REGIME DE EXPLORAÇÃO, CARACTERIZAÇÃO DO LABOR E PERÍODO
+--------------------------------------------------------------------------------------------------------
+Período de Atividade Rural Declarado: ${periodo}
+Regime Jurídico: Regime de Economia Familiar (art. 11, inciso VII, da Lei nº 8.213/1991), caracterizado pelo trabalho indispensável à própria subsistência e ao desenvolvimento socioeconômico da unidade familiar, exercido sem a utilização de empregados com vínculo permanente.
+Principais Culturas, Criações e Produtos: ${produtos}.
+Destino da Produção Agrícola: Consumo direto da unidade familiar e eventual comercialização de excedente para aquisição de gêneros de primeira necessidade.
+
+DECLARAÇÃO FORMAL DE VERACIDADE
+--------------------------------------------------------------------------------------------------------
+Declaro, sob as penas da lei (artigo 299 do Código Penal Brasileiro - Falsidade Ideológica), que todas as informações aqui prestadas são a expressão fiel e espontânea da verdade, retratando o efetivo labor e histórico rural desempenhado.
+
+Campo Grande – MS, ${new Date().toLocaleDateString('pt-BR')}.
+
+____________________________________________________________________
+${nome}
+Assinatura do(a) Produtor(a) / Segurado(a) Especial
+
+Apoio Técnico de Registro e Atermação:
+Liga Acadêmica de Prática Jurídica em Seguridade Social (LAPREVS)
+Faculdade de Direito / Universidade Federal de Mato Grosso do Sul (UFMS)`;
+
+      document.getElementById('box-autodeclaracao-rural').textContent = texto;
     }
 
     function copiarAutodeclaracaoRural() {
@@ -2093,51 +2872,144 @@ ${nome} (Jus Postulandi - Apoio LAPREVS)`;
     const dadosModelosEncaminhamento = {
       CRAS: {
         orgao: 'CENTRO DE REFERÊNCIA DE ASSISTÊNCIA SOCIAL (CRAS / SAS)',
-        endereco: 'Rua Cândido Mariano, 2655 – Centro, Campo Grande/MS (Tel: 67 3314-4482)',
-        horario: 'Segunda a sexta-feira, das 07h30 às 17h00',
-        motivo: 'Inscrição ou atualização do CadÚnico para fins de BPC/LOAS.'
+        endereco: 'Comparecer ao CRAS do seu bairro ou na Sede Central: Rua Cândido Mariano, 2655 – Centro, Campo Grande/MS (Tel: 67 3314-4482)',
+        horario: 'Segunda a sexta-feira, das 07h30 às 17h00 (Requer agendamento online prévio)',
+        motivo: 'Solicitar inscrição ou atualização obrigatória no Cadastro Único (CadÚnico) para fins de instrução de processo de Benefício de Prestação Continuada (BPC/LOAS).',
+        documentos: '1. RG e CPF de todas as pessoas que moram na residência\n2. Comprovante de residência atualizado (conta de luz ou água)\n3. Carteira de Trabalho de todos os adultos da família\n4. Comprovantes de renda de quem trabalha na casa (ou declaração)',
+        dicas: 'Agende antes pelo site agendamentocras.campogrande.ms.gov.br ou ligue 3314-4480.'
       },
       INSS: {
         orgao: 'INSTITUTO NACIONAL DO SEGURO SOCIAL (INSS – AGÊNCIA CENTRO)',
-        endereco: 'Rua 26 de Agosto, 347 – Centro (Tel: 135)',
-        horario: 'Segunda a sexta-feira, das 07h00 às 17h00',
-        motivo: 'Senha do Meu INSS / Cópia de Processo Administrativo.'
+        endereco: 'Rua 26 de Agosto, 347 – Centro, Campo Grande/MS (Tel: Central 135)',
+        horario: 'Segunda a sexta-feira, das 07h00 às 17h00 (Atendimento prioritário presencial das 07h00 às 13h00)',
+        motivo: 'Emissão de senha provisória de acesso ao Meu INSS / Gov.br ou obtenção de cópia integral de processo administrativo de benefício indeferido.',
+        documentos: '1. RG e CPF originais com foto\n2. Carteira de Trabalho física ou digital\n3. Número do benefício (NB), se houver',
+        dicas: 'Chegar no horário agendado pelo 135 ou aplicativo Meu INSS com documento de identidade com foto.'
       },
       DPU: {
         orgao: 'DEFENSORIA PÚBLICA DA UNIÃO (DPU – CAMPO GRANDE/MS)',
-        endereco: 'Rua Eduardo Santos Pereira, 1186 – Centro (Tel: 67 3311-9850)',
+        endereco: 'Rua Eduardo Santos Pereira, 1186 (esquina com a Rua 25 de Dezembro) – Vila Cruzeiro / Centro (Tel: 67 3311-9850)',
         horario: 'Segunda a sexta-feira, das 12h00 às 17h00',
-        motivo: 'Abertura de PAJ para recurso à Turma Recursal do TRF3.'
+        motivo: 'Abertura de Processo de Assistência Jurídica (PAJ) para interposição de Recurso Inominado à Turma Recursal do TRF3 ou atuação em causa federal com perícia desfavorável.',
+        documentos: '1. RG, CPF e Comprovante de residência atualizado\n2. Cópia da sentença ou número do processo judicial no JEF\n3. Novos laudos, atestados e exames médicos recentes\n4. Folha resumo do Cadastro Único (se tiver)',
+        dicas: 'Agende atendimento pelo e-mail atendimentodpums@dpu.def.br ou ligue para 3311-9850.'
       },
       DPE_SAUDE: {
-        orgao: 'DEFENSORIA PÚBLICA DO ESTADO (DPE/MS – SAÚDE PÚBLICA)',
-        endereco: 'Rua Barão de Melgaço, 128 – Centro (Tel: 67 3317-8757)',
+        orgao: 'DEFENSORIA PÚBLICA DO ESTADO (DPE/MS – NÚCLEO DE SAÚDE PÚBLICA)',
+        endereco: 'Rua Barão de Melgaço, 128 – Centro, Campo Grande/MS (Tel/WhatsApp: 67 3317-8757)',
         horario: 'Segunda a sexta-feira, das 12h00 às 19h00',
-        motivo: 'Fornecimento de medicamento ou cirurgia SUS.'
+        motivo: 'Ajuizamento de ação para fornecimento de medicamentos não padronizados, cirurgias urgentes, consultas com especialistas ou leito hospitalar/UTI pelo SUS.',
+        documentos: '1. RG, CPF e comprovante de endereço em Campo Grande\n2. Laudo médico detalhado com CID, justificando a urgência e a ineficácia dos remédios comuns do SUS\n3. Três orçamentos dos remédios em farmácias locais (se for medicamento)',
+        dicas: 'Para casos de urgência médica, o atendimento é por ordem de chegada, sem necessidade de agendamento prévio.'
+      },
+      SAUDE: {
+        orgao: 'UNIDADE BÁSICA DE SAÚDE / CLÍNICA DA FAMÍLIA / UPA (SESAU)',
+        endereco: 'Unidade de Saúde ou UPA de referência do bairro do assistido',
+        horario: 'Segunda a sexta-feira, das 07h00 às 17h00',
+        motivo: 'Solicitação de cópia integral do prontuário médico, histórico de atendimentos e ficha de evolução clínica para comprovação de incapacidade perante a Justiça Federal.',
+        documentos: '1. RG e CPF do paciente\n2. Cartão Nacional do SUS\n3. Comprovante de residência',
+        dicas: 'O fornecimento do prontuário médico é direito do paciente (Resolução CFM nº 1.821/2007) e deve ser entregue lacrado ao titular.'
+      },
+      OUTRO: {
+        orgao: 'ÓRGÃO / ENTIDADE DESTINATÁRIA',
+        endereco: 'Endereço da unidade em Campo Grande - MS',
+        horario: 'Horário comercial',
+        motivo: 'Atendimento do assistido para as providências administrativas e de cidadania cabíveis.',
+        documentos: '1. Documento de identificação com foto (RG / CPF / RNM)\n2. Comprovante de residência atualizado',
+        dicas: 'Comparecer munido de documentos originais.'
       }
     };
 
     function alternarModeloDestinoEncaminhamento() {
-      const ch = document.getElementById('enc-destino').value;
-      const m = dadosModelosEncaminhamento[ch] || dadosModelosEncaminhamento.CRAS;
-      document.getElementById('enc-motivo').value = m.motivo;
+      const chave = document.getElementById('enc-destino').value;
+      const modelo = dadosModelosEncaminhamento[chave] || dadosModelosEncaminhamento.OUTRO;
+
+      document.getElementById('enc-motivo').value = modelo.motivo;
+      document.getElementById('enc-documentos').value = modelo.documentos;
+      document.getElementById('enc-dicas').value = `${modelo.dicas} Endereço: ${modelo.endereco}`;
       atualizarTextoEncaminhamento();
     }
 
     function atualizarTextoEncaminhamento() {
-      const ch = document.getElementById('enc-destino').value;
-      const m = dadosModelosEncaminhamento[ch] || dadosModelosEncaminhamento.CRAS;
-      const nome = document.getElementById('enc-nome').value.trim() || '[ASSISTIDO]';
-      const cpf = document.getElementById('enc-cpf').value.trim() || '[CPF/RNM]';
-      const mot = document.getElementById('enc-motivo').value.trim();
-      document.getElementById('box-texto-encaminhamento').textContent = `GUIA DE ENCAMINHAMENTO - LAPREVS / UFMS\n\nAssistido: ${nome}\nDocumento: ${cpf}\nDestino: ${m.orgao}\nEndereço: ${m.endereco}\nHorário: ${m.horario}\n\nFinalidade:\n${mot}\n\nCampo Grande/MS, ${new Date().toLocaleDateString('pt-BR')}.`;
+      const chave = document.getElementById('enc-destino').value;
+      const modelo = dadosModelosEncaminhamento[chave] || dadosModelosEncaminhamento.OUTRO;
+      const prioridadeChave = document.getElementById('enc-prioridade') ? document.getElementById('enc-prioridade').value : 'GERAL';
+      const nome = document.getElementById('enc-nome').value.trim() || '[NOME COMPLETO DO ASSISTIDO]';
+      const cpf = document.getElementById('enc-cpf').value.trim() || '[DOCUMENTO CPF/RNM]';
+      const motivo = document.getElementById('enc-motivo').value.trim();
+      const docs = document.getElementById('enc-documentos').value.trim();
+      const dicas = document.getElementById('enc-dicas').value.trim();
+
+      const mapaPrioridades = {
+        GERAL: 'ATENDIMENTO REGULAR (Ordem geral de chegada / agendamento)',
+        IDOSO_80: '⭐ SUPERPRIORIDADE LEGAL: IDOSO(A) COM MAIS DE 80 ANOS (Art. 71, § 5º da Lei nº 10.741/2003)',
+        IDOSO_60: 'PRIORIDADE LEGAL: PESSOA IDOSA 60+ ANOS (Art. 3º, parágrafo único, I, da Lei nº 10.741/2003)',
+        PCD: 'PRIORIDADE LEGAL: PESSOA COM DEFICIÊNCIA / MOBILIDADE REDUZIDA (Art. 9º da Lei nº 13.146/2015 - LBI)',
+        TEA: 'PRIORIDADE LEGAL: PESSOA COM TRANSTORNO DO ESPECTRO AUTISTA (Art. 1º, § 2º da Lei nº 12.764/2012)',
+        GESTANTE: 'PRIORIDADE LEGAL: GESTANTE / LACTANTE / CRIANÇA DE COLO (Art. 1º da Lei nº 10.048/2000)',
+        DOENCA_GRAVE: 'PRIORIDADE LEGAL: PORTADOR(A) DE DOENÇA GRAVE / CRÔNICA EM TRATAMENTO (Lei nº 14.375/2022)'
+      };
+
+      const textoPrioridade = mapaPrioridades[prioridadeChave] || mapaPrioridades.GERAL;
+      const destaquePrioridade = (prioridadeChave !== 'GERAL')
+        ? `\n>>> SOLICITAÇÃO DE ATENDIMENTO PREFERENCIAL / PRIORITÁRIO <<<\nAmparo Legal: ${textoPrioridade}\n`
+        : '';
+
+      const guia = `GUIA DE ENCAMINHAMENTO E ORIENTAÇÃO AO ASSISTIDO
+LAPREVS – Liga Acadêmica de Prática Jurídica em Seguridade Social
+Emissão: Campo Grande – MS, ${new Date().toLocaleDateString('pt-BR')}
+
+========================================================================
+1. DADOS DO(A) CIDADÃO(Ã) ENCAMINHADO(A)
+------------------------------------------------------------------------
+Nome: ${nome}
+Documento (CPF / RNM): ${cpf}
+Condição de Atendimento: ${textoPrioridade}
+Atendido pelo Plantão de Prática Jurídica da LAPREVS
+
+========================================================================
+2. LOCAL PARA ONDE O ASSISTIDO DEVE SE DIRIGIR
+------------------------------------------------------------------------
+Destino: ${modelo.orgao}
+Endereço: ${modelo.endereco}
+Horário de Atendimento: ${modelo.horario}
+
+========================================================================
+3. SOLICITAÇÃO / O QUE INFORMAR NO BALCÃO DE ATENDIMENTO
+------------------------------------------------------------------------
+Prezado(a) Atendente,
+O(A) cidadão(ã) acima qualificado(a) foi orientado(a) pela LAPREVS a comparecer a este órgão para a seguinte finalidade:
+${destaquePrioridade}
+>> ${motivo}
+
+Pedimos a gentileza de prestar o atendimento prioritário e acolhedor cabível.
+
+========================================================================
+4. DOCUMENTOS QUE O(A) CIDADÃO(Ã) DEVE APRESENTAR
+------------------------------------------------------------------------
+${docs}
+
+========================================================================
+5. INFORMAÇÕES E ORIENTAÇÕES IMPORTANTES
+------------------------------------------------------------------------
+${dicas}
+
+------------------------------------------------------------------------
+Atendimento realizado por:
+Liga Acadêmica de Prática Jurídica em Seguridade Social (LAPREVS)
+Universidade Federal de Mato Grosso do Sul (UFMS)`;
+
+      document.getElementById('box-texto-encaminhamento').textContent = guia;
     }
 
     function copiarEncaminhamento() {
-      copiarParaClipboard(document.getElementById('box-texto-encaminhamento').textContent, '✓ Guia copiada!');
+      const txt = document.getElementById('box-texto-encaminhamento').textContent;
+      copiarParaClipboard(txt, '✓ Guia de Encaminhamento copiada com sucesso!');
     }
 
-    function imprimirEncaminhamentoA4() { window.print(); }
+    function imprimirEncaminhamentoA4() {
+      window.print();
+    }
 
     function filtrarCartoesOrgaos() {
       const termo = document.getElementById('filtro-busca-orgaos').value.toLowerCase().trim();
@@ -2156,6 +3028,257 @@ ${nome} (Jus Postulandi - Apoio LAPREVS)`;
       const hoje = new Date().toISOString().slice(0, 10);
       if (document.getElementById('calc-data-ajuizamento')) document.getElementById('calc-data-ajuizamento').value = hoje;
       if (document.getElementById('termo-data-atual')) document.getElementById('termo-data-atual').textContent = new Date().toLocaleDateString('pt-BR');
+      if (document.getElementById('agend-data')) document.getElementById('agend-data').value = hoje;
+    }
+
+    /* ========================================================
+       14. MÓDULO DE AGENDAMENTO DE RETORNO & PLANTÕES
+       ======================================================== */
+    function popularSelectCasosParaAgendamento() {
+      const select = document.getElementById('agend-vinc-caso');
+      if (!select) return;
+      const valAtual = select.value;
+      select.innerHTML = '<option value="">Selecione um caso existente...</option>' +
+        estadoApp.atendimentos.map(c => `
+          <option value="${c.id}">${c.nome} (${c.tipoDoc || 'CPF'}: ${c.doc})</option>
+        `).join('');
+      if (valAtual) select.value = valAtual;
+    }
+
+    function preencherDadosPorCasoSelecionado(idCaso) {
+      if (!idCaso) return;
+      const caso = estadoApp.atendimentos.find(c => c.id == idCaso);
+      if (!caso) return;
+      document.getElementById('agend-nome').value = caso.nome;
+      document.getElementById('agend-tel').value = caso.telefone || '';
+      document.getElementById('agend-responsavel').value = caso.atendente || '';
+    }
+
+    function abrirAgendamentoParaCasoAtual() {
+      if (estadoApp.casoSelecionadoModalId) {
+        const id = estadoApp.casoSelecionadoModalId;
+        fecharFichaCasoModal();
+        mudarAba('view-agendamentos');
+        popularSelectCasosParaAgendamento();
+        const select = document.getElementById('agend-vinc-caso');
+        if (select) select.value = id;
+        preencherDadosPorCasoSelecionado(id);
+      }
+    }
+
+    function salvarNovoAgendamento(e) {
+      e.preventDefault();
+      const casoId = document.getElementById('agend-vinc-caso').value;
+      const novo = {
+        id: Date.now(),
+        casoId: casoId ? Number(casoId) : null,
+        nome: document.getElementById('agend-nome').value.trim(),
+        telefone: document.getElementById('agend-tel').value.trim(),
+        data: document.getElementById('agend-data').value,
+        hora: document.getElementById('agend-hora').value,
+        motivo: document.getElementById('agend-motivo').value,
+        responsavel: document.getElementById('agend-responsavel').value.trim() || 'Plantão LAPREVS',
+        pendencias: document.getElementById('agend-pendencias').value.trim() || 'Apresentar documentos e laudos solicitados.',
+        status: 'Agendado'
+      };
+
+      estadoApp.agendamentos.unshift(novo);
+      salvarAgendamentosLocais();
+      renderizarTabelaAgendamentos();
+
+      // Registra andamento automático no caso vinculado
+      if (novo.casoId) {
+        const caso = estadoApp.atendimentos.find(c => c.id === novo.casoId);
+        if (caso) {
+          if (!caso.andamentos) caso.andamentos = [];
+          caso.andamentos.push({
+            data: new Date().toLocaleDateString('pt-BR'),
+            atendente: novo.responsavel,
+            descricao: `Retorno agendado para ${formatarDataBr(novo.data)} às ${novo.hora}h. Motivo: ${novo.motivo}.`
+          });
+          salvarAtendimentosLocais();
+          renderizarGridCasos();
+        }
+      }
+
+      document.getElementById('form-novo-agendamento').reset();
+      inicializarDatas();
+      mostrarNotificacao('✓ Retorno agendado com sucesso!');
+    }
+
+    function renderizarTabelaAgendamentos() {
+      const corpo = document.getElementById('corpo-tabela-agendamentos');
+      const contador = document.getElementById('contador-agendamentos');
+      const badgeNav = document.getElementById('badge-nav-agendamentos');
+      const filtro = document.getElementById('filtro-status-agenda') ? document.getElementById('filtro-status-agenda').value : 'pendentes';
+
+      let lista = estadoApp.agendamentos || [];
+      const pendentesCount = lista.filter(a => a.status === 'Agendado').length;
+      if (badgeNav) badgeNav.textContent = pendentesCount;
+
+      if (filtro === 'pendentes') lista = lista.filter(a => a.status === 'Agendado');
+      else if (filtro === 'concluidos') lista = lista.filter(a => a.status !== 'Agendado');
+
+      if (contador) contador.textContent = `${lista.length} agendamento(s)`;
+      if (!corpo) return;
+
+      if (lista.length === 0) {
+        corpo.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-slate-400">Nenhum retorno agendado com este filtro.</td></tr>`;
+        return;
+      }
+
+      corpo.innerHTML = lista.map(ag => {
+        let badgeClass = 'bg-amber-50 text-amber-800 border-amber-200';
+        if (ag.status === 'Concluído') badgeClass = 'bg-emerald-50 text-emerald-800 border-emerald-200';
+        else if (ag.status === 'Cancelado' || ag.status === 'Faltou') badgeClass = 'bg-rose-50 text-rose-800 border-rose-200';
+
+        return `
+          <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+            <td class="p-3 font-semibold text-slate-900">${formatarDataBr(ag.data)} <span class="text-slate-500 font-normal">às ${ag.hora}h</span></td>
+            <td class="p-3 font-bold text-slate-800">${ag.nome}</td>
+            <td class="p-3 text-slate-600 font-mono text-[11px]">${ag.telefone}</td>
+            <td class="p-3 font-medium text-slate-800">${ag.motivo}</td>
+            <td class="p-3 text-slate-600 max-w-xs truncate" title="${ag.pendencias}">${ag.pendencias}</td>
+            <td class="p-3">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeClass}">
+                ${ag.status}
+              </span>
+            </td>
+            <td class="p-3 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                <button onclick="imprimirComprovanteAgendamento(${ag.id})" class="text-[11px] font-semibold text-sky-800 bg-sky-50 hover:bg-sky-100 px-2 py-1 rounded border border-sky-200 transition" title="Imprimir Comprovante / Canhoto para o assistido">
+                  🖨️ Imprimir
+                </button>
+                <button onclick="copiarLembreteWhatsapp(${ag.id})" class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-2 py-1 rounded border border-emerald-200 transition" title="Copiar Lembrete WhatsApp">
+                  💬 Lembrete
+                </button>
+                ${ag.status === 'Agendado' ? `
+                  <button onclick="marcarStatusAgendamento(${ag.id}, 'Concluído')" class="text-[11px] font-semibold text-sky-700 bg-sky-50 hover:bg-sky-100 px-2 py-1 rounded border border-sky-200 transition" title="Marcar como atendido">
+                    ✓ Atendido
+                  </button>
+                  <button onclick="marcarStatusAgendamento(${ag.id}, 'Faltou')" class="text-[11px] font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-2 py-1 rounded border border-rose-200 transition" title="Marcar ausência">
+                    ✕ Faltou
+                  </button>
+                ` : `
+                  <button onclick="marcarStatusAgendamento(${ag.id}, 'Agendado')" class="text-[11px] font-semibold text-slate-600 bg-slate-100 px-2 py-1 rounded hover:bg-slate-200 transition">
+                    ↩️ Reabrir
+                  </button>
+                `}
+                <button onclick="excluirAgendamento(${ag.id})" class="text-[11px] text-slate-400 hover:text-rose-600 p-1" title="Excluir">
+                  🗑️
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function marcarStatusAgendamento(id, novoStatus) {
+      const ag = estadoApp.agendamentos.find(a => a.id === id);
+      if (!ag) return;
+      ag.status = novoStatus;
+      salvarAgendamentosLocais();
+      renderizarTabelaAgendamentos();
+      mostrarNotificacao(`✓ Agendamento marcado como: ${novoStatus}`);
+    }
+
+    function excluirAgendamento(id) {
+      estadoApp.agendamentos = estadoApp.agendamentos.filter(a => a.id !== id);
+      salvarAgendamentosLocais();
+      renderizarTabelaAgendamentos();
+      mostrarNotificacao('Agendamento removido.');
+    }
+
+    function copiarLembreteWhatsapp(id) {
+      const ag = estadoApp.agendamentos.find(a => a.id === id);
+      if (!ag) return;
+      const msg = `Olá, ${ag.nome}! ⚖️
+Lembramos do seu agendamento de retorno no plantão da *LAPREVS (Liga Acadêmica de Seguridade Social)*:
+
+📅 *Data:* ${formatarDataBr(ag.data)}
+⏰ *Horário:* ${ag.hora}h
+🎯 *Finalidade:* ${ag.motivo}
+📋 *Documentos a trazer:* ${ag.pendencias}
+
+📍 *Local:* Faculdade de Direito / UFMS - Campo Grande/MS.
+Qualquer imprevisto, favor nos avisar com antecedência.`;
+
+      copiarParaClipboard(msg, '✓ Mensagem de lembrete copiada para o WhatsApp!');
+    }
+
+    /* ========================================================
+       IMPRESSÕES DO AGENDAMENTO DE RETORNO (CANHOTO & PAUTA)
+       ======================================================== */
+    function imprimirComprovanteAgendamento(id) {
+      const ag = estadoApp.agendamentos.find(a => a.id === id);
+      if (!ag) return;
+
+      document.getElementById('print-agend-nome').textContent = ag.nome;
+      document.getElementById('print-agend-tel').textContent = ag.telefone;
+      document.getElementById('print-agend-data').textContent = formatarDataBr(ag.data);
+      document.getElementById('print-agend-hora').textContent = `${ag.hora}h`;
+      document.getElementById('print-agend-motivo').textContent = ag.motivo;
+      document.getElementById('print-agend-pendencias').textContent = ag.pendencias || 'Nenhuma pendência documental adicional anotada.';
+      document.getElementById('print-agend-atendente').textContent = ag.responsavel || 'Plantão LAPREVS';
+      document.getElementById('print-agend-assinatura').textContent = ag.nome;
+
+      const recibo = document.getElementById('recibo-impressao-agendamento');
+      if (recibo) {
+        recibo.classList.remove('hidden');
+        window.print();
+        recibo.classList.add('hidden');
+      }
+    }
+
+    function imprimirPautaPlantaoA4() {
+      window.print();
+    }
+
+    function exportarAgendaCsv() {
+      if (!estadoApp.agendamentos || estadoApp.agendamentos.length === 0) {
+        mostrarNotificacao('Nenhum agendamento para exportar.');
+        return;
+      }
+      let csv = 'Data;Horario;Assistido;Telefone;Motivo;Pendencias;Responsavel;Status\n';
+      estadoApp.agendamentos.forEach(a => {
+        csv += `"${formatarDataBr(a.data)}";"${a.hora}";"${a.nome}";"${a.telefone}";"${a.motivo}";"${a.pendencias}";"${a.responsavel}";"${a.status}"\n`;
+      });
+      const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `LAPREVS_Agenda_Retornos_${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+    }
+
+    function salvarAgendamentosLocais() {
+      localStorage.setItem('laprevs_agendamentos_banco', JSON.stringify(estadoApp.agendamentos));
+    }
+
+    function carregarAgendamentosLocais() {
+      const d = localStorage.getItem('laprevs_agendamentos_banco');
+      if (d) {
+        try { estadoApp.agendamentos = JSON.parse(d); } catch (e) { estadoApp.agendamentos = []; }
+      }
+      if (estadoApp.agendamentos.length === 0) {
+        // Exemplo padrão
+        estadoApp.agendamentos = [
+          {
+            id: 1709280000001,
+            casoId: 1709280000000,
+            nome: 'Sebastiana Pereira de Alencar',
+            telefone: '(67) 99245-1102',
+            data: new Date().toISOString().slice(0, 10),
+            hora: '14:30',
+            motivo: 'Apresentação de Laudos / Receituários',
+            responsavel: 'Beatriz e Carlos',
+            pendencias: 'Trazer receitas contínuas da UBS e folha resumo do CadÚnico atualizada.',
+            status: 'Agendado'
+          }
+        ];
+      }
+      renderizarTabelaAgendamentos();
     }
 
     function copiarParaClipboard(texto, msg) {
