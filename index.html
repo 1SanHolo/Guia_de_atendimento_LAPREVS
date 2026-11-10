@@ -1867,9 +1867,14 @@
           <span id="modal-ponto-status" class="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
           <span id="modal-texto-status" class="font-medium text-slate-700">Verificando status...</span>
         </div>
-        <button id="btn-desconectar-planilha" onclick="desconectarPlanilha()" class="text-[10px] font-bold text-rose-600 hover:text-rose-800 hover:underline hidden">
-          Desconectar
-        </button>
+        <div class="flex items-center gap-2">
+          <button id="btn-testar-planilha" onclick="testarConexaoPlanilha()" class="text-[10px] font-bold text-sky-700 hover:text-sky-900 bg-sky-50 px-2.5 py-1 rounded-lg border border-sky-200">
+            🧪 Testar Ping
+          </button>
+          <button id="btn-desconectar-planilha" onclick="desconectarPlanilha()" class="text-[10px] font-bold text-rose-600 hover:text-rose-800 hover:underline hidden">
+            Desconectar
+          </button>
+        </div>
       </div>
 
       <div class="space-y-1">
@@ -2764,20 +2769,66 @@
     function sincronizarComPlanilhaGoogle(atendimento) {
       if (!estadoApp.urlPlanilha) return;
       try {
+        const payload = JSON.stringify(atendimento);
+
+        // Método 1: fetch no-cors com text/plain
         fetch(estadoApp.urlPlanilha, {
           method: 'POST',
           mode: 'no-cors',
           cache: 'no-cache',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(atendimento)
+          body: payload
         }).then(() => {
-          console.log('Enviado para a planilha Google:', atendimento.nome);
+          console.log('Dados enviados ao Google Apps Script:', atendimento.nome);
         }).catch(err => {
-          console.warn('Erro ao conectar com Google Planilhas:', err);
+          console.warn('Tentativa 1 falhou, tentando fallback com beacon/form:', err);
+          // Fallback se fetch falhar por restrição do navegador
+          try {
+            const formData = new FormData();
+            formData.append('data', atendimento.data || '');
+            formData.append('nome', atendimento.nome || '');
+            formData.append('tipoDoc', atendimento.tipoDoc || 'CPF');
+            formData.append('doc', atendimento.doc || '');
+            formData.append('telefone', atendimento.telefone || '');
+            formData.append('objeto', atendimento.objeto || '');
+            formData.append('statusInss', atendimento.statusInss || '');
+            formData.append('providencia', atendimento.providencia || '');
+            formData.append('atendente', atendimento.atendente || '');
+            formData.append('observacoes', atendimento.observacoes || '');
+            navigator.sendBeacon(estadoApp.urlPlanilha, formData);
+          } catch(eBeacon) {
+            console.error('Falha no fallback:', eBeacon);
+          }
         });
       } catch (e) {
-        console.error('Falha no envio para o Apps Script:', e);
+        console.error('Falha geral no envio para o Apps Script:', e);
       }
+    }
+
+    function testarConexaoPlanilha() {
+      if (!estadoApp.urlPlanilha) {
+        mostrarNotificacao('⚠️ Insira o link da planilha antes de testar.');
+        return;
+      }
+
+      mostrarNotificacao('🧪 Enviando linha de teste para a planilha...');
+      const teste = {
+        data: new Date().toLocaleDateString('pt-BR'),
+        nome: 'Teste de Conexão LAPREVS',
+        tipoDoc: 'CPF',
+        doc: '000.000.000-00',
+        telefone: '(67) 99999-9999',
+        objeto: 'Teste de Sincronização em Nuvem',
+        statusInss: 'Não se aplica (Fora do INSS)',
+        providencia: 'Orientação Jurídica Pura',
+        atendente: 'Sistema Automático',
+        observacoes: 'Linha gerada para validar o link do Google Apps Script com a planilha do Drive.'
+      };
+
+      sincronizarComPlanilhaGoogle(teste);
+      setTimeout(() => {
+        mostrarNotificacao('✓ Teste enviado! Verifique sua planilha agora.');
+      }, 1200);
     }
 
     function sincronizarTodosOsAtendimentosComPlanilha() {
@@ -2793,7 +2844,6 @@
 
       mostrarNotificacao(`🔄 Enviando ${estadoApp.atendimentos.length} caso(s) para a planilha...`);
       
-      // Envia os atendimentos com pequeno intervalo para respeitar o LockService do Apps Script
       estadoApp.atendimentos.forEach((at, index) => {
         setTimeout(() => {
           sincronizarComPlanilhaGoogle(at);
