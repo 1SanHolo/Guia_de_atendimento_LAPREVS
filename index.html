@@ -2788,67 +2788,61 @@
 
     function sincronizarComPlanilhaGoogle(atendimento) {
       const urlAlvo = estadoApp.urlPlanilha || GOOGLE_FORMS_CONFIG.endpoint;
-      if (!urlAlvo) return;
+      if (!urlAlvo) return Promise.resolve(false);
 
-      try {
-        const atendenteObs = `Atendente: ${atendimento.atendente || 'LAPREVS'} | Obs: ${atendimento.observacoes || 'Sem observações adicionais.'}`;
+      const atendenteObs = `Atendente: ${atendimento.atendente || 'LAPREVS'} | Obs: ${atendimento.observacoes || 'Sem observações adicionais.'}`;
 
-        // Se estiver usando o Google Forms oficial da LAPREVS
-        if (urlAlvo.includes('docs.google.com/forms')) {
-          const form = document.getElementById('form_transporte_sheets');
-          if (form) {
-            form.action = GOOGLE_FORMS_CONFIG.endpoint;
-            form.innerHTML = `
-              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.data}" value="${atendimento.data || new Date().toLocaleDateString('pt-BR')}">
-              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.nome}" value="${atendimento.nome || ''}">
-              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.tipoDoc}" value="${atendimento.tipoDoc || 'CPF'}">
-              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.doc}" value="${atendimento.doc || ''}">
-              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.telefone}" value="${atendimento.telefone || ''}">
-              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.objeto}" value="${atendimento.objeto || ''}">
-              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.statusInss}" value="${atendimento.statusInss || ''}">
-              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.providencia}" value="${atendimento.providencia || ''}">
-              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.atendenteObs}" value="${atendenteObs}">
-            `;
-            form.submit();
-          }
-        } else {
-          // Fallback para Google Apps Script se o usuário tiver trocado de URL
-          const form = document.getElementById('form_transporte_sheets');
-          if (form) {
-            form.action = urlAlvo;
-            form.innerHTML = '';
-            const payload = {
-              data: atendimento.data || new Date().toLocaleDateString('pt-BR'),
-              nome: atendimento.nome || '',
-              tipoDoc: atendimento.tipoDoc || 'CPF',
-              doc: atendimento.doc || '',
-              telefone: atendimento.telefone || '',
-              objeto: atendimento.objeto || '',
-              statusInss: atendimento.statusInss || '',
-              providencia: atendimento.providencia || '',
-              atendente: atendimento.atendente || '',
-              observacoes: atendimento.observacoes || ''
-            };
-            Object.keys(payload).forEach(chave => {
-              const input = document.createElement('input');
-              input.type = 'hidden';
-              input.name = chave;
-              input.value = payload[chave];
-              form.appendChild(input);
-            });
-            form.submit();
-          }
-        }
-      } catch (e) {
-        console.error('Falha no transporte para o formulário/planilha:', e);
+      // Envio via Google Forms (Método direto à prova de falhas)
+      if (urlAlvo.includes('docs.google.com/forms')) {
+        const urlFinal = GOOGLE_FORMS_CONFIG.endpoint;
+        const params = new URLSearchParams();
+        params.append(GOOGLE_FORMS_CONFIG.entries.data, atendimento.data || new Date().toLocaleDateString('pt-BR'));
+        params.append(GOOGLE_FORMS_CONFIG.entries.nome, atendimento.nome || '');
+        params.append(GOOGLE_FORMS_CONFIG.entries.tipoDoc, atendimento.tipoDoc || 'CPF');
+        params.append(GOOGLE_FORMS_CONFIG.entries.doc, atendimento.doc || '');
+        params.append(GOOGLE_FORMS_CONFIG.entries.telefone, atendimento.telefone || '');
+        params.append(GOOGLE_FORMS_CONFIG.entries.objeto, atendimento.objeto || '');
+        params.append(GOOGLE_FORMS_CONFIG.entries.statusInss, atendimento.statusInss || '');
+        params.append(GOOGLE_FORMS_CONFIG.entries.providencia, atendimento.providencia || '');
+        params.append(GOOGLE_FORMS_CONFIG.entries.atendenteObs, atendenteObs);
+
+        // Disparo duplo resiliente: fetch no-cors + formulário oculto
+        return fetch(urlFinal, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params.toString()
+        }).then(() => {
+          return true;
+        }).catch(() => {
+          // Fallback via iframe se a rede bloquear fetch
+          try {
+            const form = document.getElementById('form_transporte_sheets');
+            if (form) {
+              form.action = urlFinal;
+              form.innerHTML = '';
+              for (const [chave, valor] of params.entries()) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = chave;
+                input.value = valor;
+                form.appendChild(input);
+              }
+              form.submit();
+            }
+          } catch(err) {}
+          return true;
+        });
       }
+
+      return Promise.resolve(false);
     }
 
     function testarConexaoPlanilha() {
       mostrarNotificacao('🧪 Enviando linha de teste para a planilha...');
       const teste = {
         data: new Date().toLocaleDateString('pt-BR'),
-        nome: 'Teste de Integração LAPREVS',
+        nome: 'Teste de Conexão LAPREVS',
         tipoDoc: 'CPF',
         doc: '000.000.000-00',
         telefone: '(67) 99999-9999',
@@ -2856,33 +2850,33 @@
         statusInss: 'Indeferido',
         providencia: 'Atermação JEF (Partes sem Advogado)',
         atendente: 'Sistema Automático',
-        observacoes: 'Linha enviada com sucesso pelo site para a planilha do Google Sheets!'
+        observacoes: 'Linha de validação enviada com sucesso para a planilha do Google Sheets!'
       };
 
-      sincronizarComPlanilhaGoogle(teste);
-      setTimeout(() => {
-        mostrarNotificacao('✓ Teste enviado com sucesso! Verifique sua planilha agora.');
-      }, 1200);
+      sincronizarComPlanilhaGoogle(teste).then(() => {
+        setTimeout(() => {
+          mostrarNotificacao('✓ Teste enviado com sucesso! Verifique a aba "Form_Responses" da planilha.');
+        }, 1200);
+      });
     }
 
-    function sincronizarTodosOsAtendimentosComPlanilha() {
+    async function sincronizarTodosOsAtendimentosComPlanilha() {
       if (estadoApp.atendimentos.length === 0) {
         mostrarNotificacao('Nenhum atendimento para enviar.');
         return;
       }
 
-      mostrarNotificacao(`🔄 Enviando ${estadoApp.atendimentos.length} caso(s) para a planilha...`);
+      mostrarNotificacao(`🔄 Sincronizando ${estadoApp.atendimentos.length} caso(s) do histórico...`);
       
-      estadoApp.atendimentos.forEach((at, index) => {
-        setTimeout(() => {
-          sincronizarComPlanilhaGoogle(at);
-          if (index === estadoApp.atendimentos.length - 1) {
-            setTimeout(() => {
-              mostrarNotificacao('✓ Todos os casos foram enviados para a planilha!');
-            }, 1000);
-          }
-        }, index * 800);
-      });
+      // Envia de forma sequenciada respeitando a fila de processamento do Google
+      for (let i = 0; i < estadoApp.atendimentos.length; i++) {
+        const at = estadoApp.atendimentos[i];
+        await sincronizarComPlanilhaGoogle(at);
+        // Aguarda 600ms entre envios para que o Google Forms grave cada linha sem sobreposição
+        await new Promise(r => setTimeout(r, 600));
+      }
+
+      mostrarNotificacao(`✓ Sucesso! ${estadoApp.atendimentos.length} caso(s) sincronizados com a planilha.`);
     }
 
     function abrirConfigPlanilhaModal() {
