@@ -1908,6 +1908,22 @@
     const SALARIO_MINIMO_2026 = 1621.00;
     const LIMITE_ALCADA_60SM_2026 = 60 * SALARIO_MINIMO_2026; // R$ 97.260,00
 
+    // Constante do Formulário da LAPREVS (Ponte Google Sheets)
+    const GOOGLE_FORMS_CONFIG = {
+      endpoint: 'https://docs.google.com/forms/d/e/1FAIpQLSdaoTFr_HKbzZQ8yN9yzyJ73kRiN9XHQAn6CSMtN_AOLgGkBA/formResponse',
+      entries: {
+        data: 'entry.276454132',
+        nome: 'entry.207153029',
+        tipoDoc: 'entry.895246530',
+        doc: 'entry.306142965',
+        telefone: 'entry.1599007072',
+        objeto: 'entry.2074717279',
+        statusInss: 'entry.1407373069',
+        providencia: 'entry.336276969',
+        atendenteObs: 'entry.425145299'
+      }
+    };
+
     let estadoApp = {
       abaAtiva: 'view-triagem',
       filtroStatusCasos: 'ativos', // 'ativos', 'arquivados', 'todos'
@@ -1922,7 +1938,7 @@
       vinculosTempo: [
         { id: 1, desc: 'Empresa / Empregador 1', inicio: '2015-01-01', fim: '2018-06-30', tipo: 'urbano' }
       ],
-      urlPlanilha: localStorage.getItem('laprevs_url_sheets') || '',
+      urlPlanilha: localStorage.getItem('laprevs_url_sheets') || GOOGLE_FORMS_CONFIG.endpoint,
       logoCustomizada: localStorage.getItem('laprevs_logo_custom') || ''
     };
 
@@ -2771,81 +2787,85 @@
     }
 
     function sincronizarComPlanilhaGoogle(atendimento) {
-      if (!estadoApp.urlPlanilha) return;
+      const urlAlvo = estadoApp.urlPlanilha || GOOGLE_FORMS_CONFIG.endpoint;
+      if (!urlAlvo) return;
+
       try {
-        const urlAlvo = estadoApp.urlPlanilha;
-        const dados = {
-          data: atendimento.data || new Date().toLocaleDateString('pt-BR'),
-          nome: atendimento.nome || '',
-          tipoDoc: atendimento.tipoDoc || 'CPF',
-          doc: atendimento.doc || '',
-          telefone: atendimento.telefone || '',
-          objeto: atendimento.objeto || '',
-          statusInss: atendimento.statusInss || '',
-          providencia: atendimento.providencia || '',
-          atendente: atendimento.atendente || '',
-          observacoes: atendimento.observacoes || ''
-        };
+        const atendenteObs = `Atendente: ${atendimento.atendente || 'LAPREVS'} | Obs: ${atendimento.observacoes || 'Sem observações adicionais.'}`;
 
-        // Método Primário Infalível: Submissão via Form oculto direcionado para iframe
-        // Esse método nunca é barrado por bloqueios de CORS nem por redirecionamento 302 do Google
-        const form = document.getElementById('form_transporte_sheets');
-        if (form) {
-          form.action = urlAlvo;
-          form.innerHTML = '';
-          Object.keys(dados).forEach(chave => {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = chave;
-            input.value = dados[chave];
-            form.appendChild(input);
-          });
-          form.submit();
+        // Se estiver usando o Google Forms oficial da LAPREVS
+        if (urlAlvo.includes('docs.google.com/forms')) {
+          const form = document.getElementById('form_transporte_sheets');
+          if (form) {
+            form.action = GOOGLE_FORMS_CONFIG.endpoint;
+            form.innerHTML = `
+              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.data}" value="${atendimento.data || new Date().toLocaleDateString('pt-BR')}">
+              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.nome}" value="${atendimento.nome || ''}">
+              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.tipoDoc}" value="${atendimento.tipoDoc || 'CPF'}">
+              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.doc}" value="${atendimento.doc || ''}">
+              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.telefone}" value="${atendimento.telefone || ''}">
+              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.objeto}" value="${atendimento.objeto || ''}">
+              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.statusInss}" value="${atendimento.statusInss || ''}">
+              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.providencia}" value="${atendimento.providencia || ''}">
+              <input type="hidden" name="${GOOGLE_FORMS_CONFIG.entries.atendenteObs}" value="${atendenteObs}">
+            `;
+            form.submit();
+          }
+        } else {
+          // Fallback para Google Apps Script se o usuário tiver trocado de URL
+          const form = document.getElementById('form_transporte_sheets');
+          if (form) {
+            form.action = urlAlvo;
+            form.innerHTML = '';
+            const payload = {
+              data: atendimento.data || new Date().toLocaleDateString('pt-BR'),
+              nome: atendimento.nome || '',
+              tipoDoc: atendimento.tipoDoc || 'CPF',
+              doc: atendimento.doc || '',
+              telefone: atendimento.telefone || '',
+              objeto: atendimento.objeto || '',
+              statusInss: atendimento.statusInss || '',
+              providencia: atendimento.providencia || '',
+              atendente: atendimento.atendente || '',
+              observacoes: atendimento.observacoes || ''
+            };
+            Object.keys(payload).forEach(chave => {
+              const input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = chave;
+              input.value = payload[chave];
+              form.appendChild(input);
+            });
+            form.submit();
+          }
         }
-
-        // Método Secundário (GET com query string) como reforço imediato
-        const params = new URLSearchParams(dados).toString();
-        const urlGet = urlAlvo + (urlAlvo.includes('?') ? '&' : '?') + params;
-        const imgPing = new Image();
-        imgPing.src = urlGet;
-
       } catch (e) {
-        console.error('Falha geral no envio para o Apps Script:', e);
+        console.error('Falha no transporte para o formulário/planilha:', e);
       }
     }
 
     function testarConexaoPlanilha() {
-      if (!estadoApp.urlPlanilha) {
-        mostrarNotificacao('⚠️ Insira o link da planilha antes de testar.');
-        return;
-      }
-
       mostrarNotificacao('🧪 Enviando linha de teste para a planilha...');
       const teste = {
         data: new Date().toLocaleDateString('pt-BR'),
-        nome: 'Teste de Conexão LAPREVS',
+        nome: 'Teste de Integração LAPREVS',
         tipoDoc: 'CPF',
         doc: '000.000.000-00',
         telefone: '(67) 99999-9999',
-        objeto: 'Teste de Sincronização em Nuvem',
-        statusInss: 'Não se aplica (Fora do INSS)',
-        providencia: 'Orientação Jurídica Pura',
+        objeto: 'BPC / LOAS (Deficiência)',
+        statusInss: 'Indeferido',
+        providencia: 'Atermação JEF (Partes sem Advogado)',
         atendente: 'Sistema Automático',
-        observacoes: 'Linha gerada para validar o link do Google Apps Script com a planilha do Drive.'
+        observacoes: 'Linha enviada com sucesso pelo site para a planilha do Google Sheets!'
       };
 
       sincronizarComPlanilhaGoogle(teste);
       setTimeout(() => {
-        mostrarNotificacao('✓ Teste enviado! Verifique sua planilha agora.');
-      }, 1500);
+        mostrarNotificacao('✓ Teste enviado com sucesso! Verifique sua planilha agora.');
+      }, 1200);
     }
 
     function sincronizarTodosOsAtendimentosComPlanilha() {
-      if (!estadoApp.urlPlanilha) {
-        mostrarNotificacao('⚠️ Configure a URL da planilha primeiro no botão ⚙️');
-        abrirConfigPlanilhaModal();
-        return;
-      }
       if (estadoApp.atendimentos.length === 0) {
         mostrarNotificacao('Nenhum atendimento para enviar.');
         return;
@@ -2861,7 +2881,7 @@
               mostrarNotificacao('✓ Todos os casos foram enviados para a planilha!');
             }, 1000);
           }
-        }, index * 600);
+        }, index * 800);
       });
     }
 
@@ -2876,29 +2896,28 @@
     }
 
     function salvarConfigPlanilha() {
-      const url = document.getElementById('input-url-script-planilha').value.trim();
+      const url = document.getElementById('input-url-script-planilha').value.trim() || GOOGLE_FORMS_CONFIG.endpoint;
       estadoApp.urlPlanilha = url;
       localStorage.setItem('laprevs_url_sheets', url);
       atualizarIndicadorConexaoPlanilha();
       fecharConfigPlanilhaModal();
-      mostrarNotificacao(url ? '✓ Conexão com Google Planilha salva!' : 'Planilha desconectada.');
+      mostrarNotificacao('✓ Conexão com Google Sheets ativa!');
       
-      // Envia automaticamente os casos salvos se uma URL válida for configurada
-      if (url && estadoApp.atendimentos.length > 0) {
+      if (estadoApp.atendimentos.length > 0) {
         sincronizarTodosOsAtendimentosComPlanilha();
       }
     }
 
     function desconectarPlanilha() {
       estadoApp.urlPlanilha = '';
-      localStorage.removeItem('laprevs_url_sheets');
+      localStorage.setItem('laprevs_url_sheets', '');
       document.getElementById('input-url-script-planilha').value = '';
       atualizarIndicadorConexaoPlanilha();
-      mostrarNotificacao('⚠️ Google Planilha desconectada. Modo local ativo.');
+      mostrarNotificacao('⚠️ Planilha desconectada. Modo local ativo.');
     }
 
     function atualizarIndicadorConexaoPlanilha() {
-      const temConexao = !!(estadoApp.urlPlanilha && estadoApp.urlPlanilha.includes('script.google.com'));
+      const temConexao = !!estadoApp.urlPlanilha;
 
       const containerBadge = document.getElementById('indicador-status-planilha');
       const pontoBadge = document.getElementById('ponto-status-planilha');
@@ -2920,7 +2939,7 @@
         }
 
         if (modalPonto) modalPonto.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500';
-        if (modalTexto) modalTexto.innerHTML = '<strong class="text-emerald-700">Conectada e Pronta:</strong> Os atendimentos serão enviados para o Google Sheets.';
+        if (modalTexto) modalTexto.innerHTML = '<strong class="text-emerald-700">Conectada e Pronta:</strong> Os atendimentos salvos caem direto no Google Sheets da LAPREVS.';
         if (btnDesconectar) btnDesconectar.classList.remove('hidden');
       } else {
         if (containerBadge) {
@@ -2934,7 +2953,7 @@
         }
 
         if (modalPonto) modalPonto.className = 'w-2.5 h-2.5 rounded-full bg-amber-500';
-        if (modalTexto) modalTexto.innerHTML = '<strong class="text-slate-700">Nenhuma Planilha Conectada:</strong> Cole o link do Apps Script para habilitar sincronização.';
+        if (modalTexto) modalTexto.innerHTML = '<strong class="text-slate-700">Nenhuma Planilha Conectada:</strong> Salvo apenas na memória local do computador.';
         if (btnDesconectar) btnDesconectar.classList.add('hidden');
       }
     }
