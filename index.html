@@ -1888,6 +1888,10 @@
     </div>
   </div>
 
+  <!-- Iframe e Form ocultos para transporte garantido sem bloqueio de CORS/Redirecionamento -->
+  <iframe name="hidden_iframe_sync" id="hidden_iframe_sync" class="hidden"></iframe>
+  <form id="form_transporte_sheets" target="hidden_iframe_sync" method="POST" class="hidden"></form>
+
   <!-- ==================== RODAPÉ ==================== -->
   <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-500 no-print">
     <div class="max-w-7xl mx-auto px-4 space-y-1">
@@ -2769,37 +2773,42 @@
     function sincronizarComPlanilhaGoogle(atendimento) {
       if (!estadoApp.urlPlanilha) return;
       try {
-        const payload = JSON.stringify(atendimento);
+        const urlAlvo = estadoApp.urlPlanilha;
+        const dados = {
+          data: atendimento.data || new Date().toLocaleDateString('pt-BR'),
+          nome: atendimento.nome || '',
+          tipoDoc: atendimento.tipoDoc || 'CPF',
+          doc: atendimento.doc || '',
+          telefone: atendimento.telefone || '',
+          objeto: atendimento.objeto || '',
+          statusInss: atendimento.statusInss || '',
+          providencia: atendimento.providencia || '',
+          atendente: atendimento.atendente || '',
+          observacoes: atendimento.observacoes || ''
+        };
 
-        // Método 1: fetch no-cors com text/plain
-        fetch(estadoApp.urlPlanilha, {
-          method: 'POST',
-          mode: 'no-cors',
-          cache: 'no-cache',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: payload
-        }).then(() => {
-          console.log('Dados enviados ao Google Apps Script:', atendimento.nome);
-        }).catch(err => {
-          console.warn('Tentativa 1 falhou, tentando fallback com beacon/form:', err);
-          // Fallback se fetch falhar por restrição do navegador
-          try {
-            const formData = new FormData();
-            formData.append('data', atendimento.data || '');
-            formData.append('nome', atendimento.nome || '');
-            formData.append('tipoDoc', atendimento.tipoDoc || 'CPF');
-            formData.append('doc', atendimento.doc || '');
-            formData.append('telefone', atendimento.telefone || '');
-            formData.append('objeto', atendimento.objeto || '');
-            formData.append('statusInss', atendimento.statusInss || '');
-            formData.append('providencia', atendimento.providencia || '');
-            formData.append('atendente', atendimento.atendente || '');
-            formData.append('observacoes', atendimento.observacoes || '');
-            navigator.sendBeacon(estadoApp.urlPlanilha, formData);
-          } catch(eBeacon) {
-            console.error('Falha no fallback:', eBeacon);
-          }
-        });
+        // Método Primário Infalível: Submissão via Form oculto direcionado para iframe
+        // Esse método nunca é barrado por bloqueios de CORS nem por redirecionamento 302 do Google
+        const form = document.getElementById('form_transporte_sheets');
+        if (form) {
+          form.action = urlAlvo;
+          form.innerHTML = '';
+          Object.keys(dados).forEach(chave => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = chave;
+            input.value = dados[chave];
+            form.appendChild(input);
+          });
+          form.submit();
+        }
+
+        // Método Secundário (GET com query string) como reforço imediato
+        const params = new URLSearchParams(dados).toString();
+        const urlGet = urlAlvo + (urlAlvo.includes('?') ? '&' : '?') + params;
+        const imgPing = new Image();
+        imgPing.src = urlGet;
+
       } catch (e) {
         console.error('Falha geral no envio para o Apps Script:', e);
       }
@@ -2828,7 +2837,7 @@
       sincronizarComPlanilhaGoogle(teste);
       setTimeout(() => {
         mostrarNotificacao('✓ Teste enviado! Verifique sua planilha agora.');
-      }, 1200);
+      }, 1500);
     }
 
     function sincronizarTodosOsAtendimentosComPlanilha() {
@@ -2852,7 +2861,7 @@
               mostrarNotificacao('✓ Todos os casos foram enviados para a planilha!');
             }, 1000);
           }
-        }, index * 400);
+        }, index * 600);
       });
     }
 
