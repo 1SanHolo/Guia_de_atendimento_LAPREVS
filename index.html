@@ -403,6 +403,14 @@
           <p class="text-xs sm:text-sm text-slate-600">
             Cadastre os atendimentos do plantão. Os dados salvos sincronizam com os computadores e com o Google Sheets.
           </p>
+          <!-- Indicador Visual de Conexão com Google Sheets -->
+          <div class="flex items-center gap-2 mt-2">
+            <div id="indicador-status-planilha" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-colors bg-amber-50 text-amber-800 border-amber-200">
+              <span id="ponto-status-planilha" class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+              <span id="texto-status-planilha">Planilha Desconectada (Modo Local)</span>
+            </div>
+            <span class="text-[10px] text-slate-400">| Sincronização automática em nuvem</span>
+          </div>
         </div>
         <div class="flex items-center gap-2">
           <button onclick="carregarCasoExemploSebastiana()" class="text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
@@ -1852,6 +1860,18 @@
       <p class="text-xs text-slate-600 leading-relaxed">
         Cole a URL do seu Web App gerado no Google Apps Script para sincronizar em tempo real as 3 máquinas do plantão com a planilha do Drive.
       </p>
+      
+      <!-- Detalhes do Status Atual no Modal -->
+      <div id="modal-status-box" class="p-3 rounded-xl border text-xs flex items-center justify-between bg-slate-50 border-slate-200">
+        <div class="flex items-center gap-2">
+          <span id="modal-ponto-status" class="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+          <span id="modal-texto-status" class="font-medium text-slate-700">Verificando status...</span>
+        </div>
+        <button id="btn-desconectar-planilha" onclick="desconectarPlanilha()" class="text-[10px] font-bold text-rose-600 hover:text-rose-800 hover:underline hidden">
+          Desconectar
+        </button>
+      </div>
+
       <div class="space-y-1">
         <label class="text-xs font-semibold text-slate-700">URL do Web App (Google Apps Script):</label>
         <input type="url" id="input-url-script-planilha" placeholder="https://script.google.com/macros/s/.../exec" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
@@ -1902,6 +1922,7 @@
       carregarLogoArmazenada();
       carregarAtendimentosLocais();
       inicializarDatas();
+      atualizarIndicadorConexaoPlanilha();
       mudarAba('view-triagem');
       selecionarGrupoQuesitos('ortopedia');
       atualizarMinutaPeticao();
@@ -2787,6 +2808,7 @@
 
     function abrirConfigPlanilhaModal() {
       document.getElementById('input-url-script-planilha').value = estadoApp.urlPlanilha;
+      atualizarIndicadorConexaoPlanilha();
       document.getElementById('modal-planilha').classList.remove('hidden');
     }
 
@@ -2798,12 +2820,63 @@
       const url = document.getElementById('input-url-script-planilha').value.trim();
       estadoApp.urlPlanilha = url;
       localStorage.setItem('laprevs_url_sheets', url);
+      atualizarIndicadorConexaoPlanilha();
       fecharConfigPlanilhaModal();
-      mostrarNotificacao('✓ Conexão com Google Planilha salva!');
+      mostrarNotificacao(url ? '✓ Conexão com Google Planilha salva!' : 'Planilha desconectada.');
       
-      // Pergunta ou envia automaticamente o que já estiver salvo
-      if (estadoApp.atendimentos.length > 0) {
+      // Envia automaticamente os casos salvos se uma URL válida for configurada
+      if (url && estadoApp.atendimentos.length > 0) {
         sincronizarTodosOsAtendimentosComPlanilha();
+      }
+    }
+
+    function desconectarPlanilha() {
+      estadoApp.urlPlanilha = '';
+      localStorage.removeItem('laprevs_url_sheets');
+      document.getElementById('input-url-script-planilha').value = '';
+      atualizarIndicadorConexaoPlanilha();
+      mostrarNotificacao('⚠️ Google Planilha desconectada. Modo local ativo.');
+    }
+
+    function atualizarIndicadorConexaoPlanilha() {
+      const temConexao = !!(estadoApp.urlPlanilha && estadoApp.urlPlanilha.includes('script.google.com'));
+
+      const containerBadge = document.getElementById('indicador-status-planilha');
+      const pontoBadge = document.getElementById('ponto-status-planilha');
+      const textoBadge = document.getElementById('texto-status-planilha');
+
+      const modalPonto = document.getElementById('modal-ponto-status');
+      const modalTexto = document.getElementById('modal-texto-status');
+      const btnDesconectar = document.getElementById('btn-desconectar-planilha');
+
+      if (temConexao) {
+        if (containerBadge) {
+          containerBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-colors bg-emerald-50 text-emerald-800 border-emerald-200';
+        }
+        if (pontoBadge) {
+          pontoBadge.className = 'w-2 h-2 rounded-full bg-emerald-500';
+        }
+        if (textoBadge) {
+          textoBadge.textContent = 'Planilha Conectada (Nuvem Ativa)';
+        }
+
+        if (modalPonto) modalPonto.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500';
+        if (modalTexto) modalTexto.innerHTML = '<strong class="text-emerald-700">Conectada e Pronta:</strong> Os atendimentos serão enviados para o Google Sheets.';
+        if (btnDesconectar) btnDesconectar.classList.remove('hidden');
+      } else {
+        if (containerBadge) {
+          containerBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-colors bg-slate-100 text-slate-700 border-slate-300';
+        }
+        if (pontoBadge) {
+          pontoBadge.className = 'w-2 h-2 rounded-full bg-amber-500 animate-pulse';
+        }
+        if (textoBadge) {
+          textoBadge.textContent = 'Planilha Desconectada (Salvo Localmente)';
+        }
+
+        if (modalPonto) modalPonto.className = 'w-2.5 h-2.5 rounded-full bg-amber-500';
+        if (modalTexto) modalTexto.innerHTML = '<strong class="text-slate-700">Nenhuma Planilha Conectada:</strong> Cole o link do Apps Script para habilitar sincronização.';
+        if (btnDesconectar) btnDesconectar.classList.add('hidden');
       }
     }
 
