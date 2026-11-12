@@ -118,6 +118,34 @@
         padding: 10mm 12mm !important;
         background: #ffffff !important;
       }
+
+      /* Modo Isolado: Impressão Exclusiva do Planejamento CNIS */
+      body.imprimindo-planejamento > *:not(#folha-planejamento-impressao) {
+        display: none !important;
+      }
+      body.imprimindo-planejamento #folha-planejamento-impressao {
+        display: block !important;
+        visibility: visible !important;
+        position: static !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 10mm 12mm !important;
+        background: #ffffff !important;
+      }
+
+      /* Modo Isolado: Impressão Exclusiva da Simulação Previdenciária */
+      body.imprimindo-simulacao > *:not(#folha-simulacao-impressao) {
+        display: none !important;
+      }
+      body.imprimindo-simulacao #folha-simulacao-impressao {
+        display: block !important;
+        visibility: visible !important;
+        position: static !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 10mm 12mm !important;
+        background: #ffffff !important;
+      }
     }
 
     /* Scrollbar sutil */
@@ -815,6 +843,7 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Coluna Esquerda: Qualificação do Requerente -->
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4 text-xs">
           <h3 class="text-sm font-bold text-slate-900 border-b border-slate-200 pb-2">Qualificação do Requerente</h3>
           <div class="space-y-1">
@@ -827,36 +856,43 @@
           </div>
           <div class="space-y-1">
             <label class="font-semibold text-slate-700">Profissão / Atividade Habitual</label>
-            <input type="text" id="tcarp-input-profissao" oninput="atualizarCamposTermoAtermacao()" placeholder="Ex.: Trabalhador(a) Rural / Do Lar / Pedreiro" class="w-full p-2.5 rounded-xl border border-slate-300">
+            <input type="text" id="tcarp-input-profissao" oninput="atualizarCamposTermoAtermacao()" placeholder="Ex.: Trabalhadora Rural / Do Lar" class="w-full p-2.5 rounded-xl border border-slate-300">
           </div>
           <div class="space-y-1">
             <label class="font-semibold text-slate-700">Endereço Residencial Completo</label>
-            <textarea id="tcarp-input-endereco" rows="2" oninput="atualizarCamposTermoAtermacao()" placeholder="Rua, nº, Bairro, CEP, Campo Grande/MS" class="w-full p-2.5 rounded-xl border border-slate-300"></textarea>
+            <input type="text" id="tcarp-input-endereco" oninput="atualizarCamposTermoAtermacao()" placeholder="Rua, nº, Bairro, CEP – Campo Grande/MS" class="w-full p-2.5 rounded-xl border border-slate-300">
           </div>
         </div>
 
-        <div id="folha-termo-atermacao" class="lg:col-span-2 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-xs font-serif text-xs text-slate-900 space-y-4 leading-relaxed">
+        <!-- Coluna Direita (2/3): Folha TCARP em Tela Cheia -->
+        <div id="folha-termo-atermacao" class="lg:col-span-2 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-xs font-serif text-xs text-slate-900 space-y-3.5 leading-relaxed">
           <div class="text-center border-b-2 border-slate-800 pb-3 space-y-1">
             <p class="font-sans text-[10px] font-bold uppercase tracking-widest text-slate-500">Liga Acadêmica de Prática Jurídica em Seguridade Social • LAPREVS / UFMS</p>
-            <h3 class="text-sm font-bold uppercase">TERMO DE CIÊNCIA, ATERMAÇÃO E RENÚNCIA AO EXCEDENTE DE ALÇADA (TCARP)</h3>
+            <h3 class="text-sm font-bold uppercase">TERMO DE CIÊNCIA, ATERMAÇÃO, HIPOSSUFICIÊNCIA E RENÚNCIA AO EXCEDENTE DE ALÇADA (TCARP)</h3>
           </div>
           <p class="text-justify">
-            Eu, <strong id="termo-nome-assistido">[NOME DO ASSISTIDO]</strong>, <span id="termo-profissao-assistido">[PROFISSÃO / ATIVIDADE HABITUAL]</span>, portador(a) do <strong id="termo-doc-assistido">CPF/RNM nº [DOCUMENTO]</strong>, residente e domiciliado(a) na <span id="termo-endereco-assistido">[ENDEREÇO RESIDENCIAL COMPLETO, CAMPO GRANDE/MS]</span>, declaro para os devidos fins perante o <strong>Juizado Especial Federal de Campo Grande/MS (TRF3)</strong> que:
+            Eu, <strong id="termo-nome-assistido">[NOME DO ASSISTIDO]</strong>, <span id="termo-profissao-assistido">[PROFISSÃO / ATIVIDADE HABITUAL]</span>, portador(a) do <strong id="termo-doc-assistido">CPF/RNM nº [DOCUMENTO]</strong>, residente e domiciliado(a) na <span id="termo-endereco-assistido">[ENDEREÇO RESIDENCIAL COMPLETO, CAMPO GRANDE/MS]</span>, <strong>DECLARO</strong>, sob as penas da lei e para que produza seus jurídicos e legais efeitos perante o <strong>Juizado Especial Federal de Campo Grande/MS (TRF3)</strong>, que:
           </p>
           <p class="text-justify">
-            <strong>1. Jus Postulandi e Natureza Acadêmica do Auxílio:</strong> Fui devidamente esclarecido(a) pelos acadêmicos extensionistas da LAPREVS/UFMS de que estou ingressando com a presente demanda em causa própria (<em>Jus Postulandi</em>, art. 10 da Lei nº 10.259/2001), sem constituição de advogado particular, permanecendo pessoalmente responsável pelo acompanhamento das intimações e comparecimento às perícias e audiências designadas.
+            <strong>1. Veracidade, Residência e Profissão:</strong> As declarações e informações prestadas no presente atendimento são verdadeiras (Lei nº 7.115/1983 e art. 99, § 3º, do CPC/2015), inclusive para fins de comprovação de que resido no endereço acima informado e exerço a atividade habitual declarada. Estou ciente de que estou sujeito(a) à multa de até 10 (dez) vezes o valor das despesas processuais caso seja constatada falsidade na declaração de hipossuficiência, bem como às sanções penais do art. 299 do Código Penal (falsidade ideológica).
           </p>
           <p class="text-justify">
-            <strong>2. Renúncia ao Valor Excedente a 60 Salários Mínimos:</strong> Para fins de fixação da competência absoluta deste Juizado Especial Federal (art. 3º da Lei nº 10.259/2001), renuncio expressamente a eventual crédito que ultrapasse o teto legal de <strong>60 (sessenta) salários mínimos</strong> vigente na data do ajuizamento da ação.
+            <strong>2. Hipossuficiência Econômica e Justiça Gratuita:</strong> Não disponho de recursos suficientes que me permitam constituir advogado particular e arcar com custas processuais, taxas ou despesas judiciais sem prejuízo do meu sustento próprio e de minha família, sendo juridicamente hipossuficiente nos termos do art. 5º, inciso LXXIV, da Constituição Federal e dos arts. 98 e 99 do CPC/2015.
           </p>
           <p class="text-justify">
-            <strong>3. Veracidade das Informações e Documentos:</strong> Declaro que todas as informações prestadas e os documentos apresentados nesta data são autênticos e verdadeiros, sob as penas da lei.
+            <strong>3. Jus Postulandi e Auxílio Acadêmico (LAPREVS/UFMS):</strong> Fui devidamente esclarecido(a) pelos acadêmicos extensionistas da <strong>LAPREVS / UFMS</strong> de que estou ingressando com a presente demanda em causa própria (<em>Jus Postulandi</em>, art. 10 da Lei nº 10.259/2001), sem constituição de advogado, permanecendo pessoalmente responsável pelo acompanhamento das intimações e pelo comparecimento às perícias e audiências designadas.
           </p>
-          <p class="pt-2">Campo Grande – MS, <span id="termo-data-atual">--</span>.</p>
-          <div class="pt-8 text-center max-w-md mx-auto">
+          <p class="text-justify">
+            <strong>4. Renúncia ao Valor Excedente a 60 Salários Mínimos:</strong> Para fins de fixação da competência absoluta deste Juizado Especial Federal (art. 3º da Lei nº 10.259/2001), renuncio expressamente a eventual crédito que ultrapasse o teto legal de <strong>60 (sessenta) salários mínimos</strong> vigente na data do ajuizamento da ação.
+          </p>
+          <p class="text-justify">
+            <strong>5. Consentimento para Tratamento de Dados (LGPD):</strong> Declaro estar de acordo com o tratamento dos meus dados pessoais pela equipe da LAPREVS/UFMS exclusivamente para a finalidade de orientação jurídica e atermação perante o Juizado Especial Federal, autorizando seu compartilhamento estritamente necessário ao andamento processual, em conformidade com a Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais).
+          </p>
+          <p class="pt-2">Por ser expressão da verdade, firmo o presente termo. Campo Grande – MS, <span id="termo-data-atual">--</span>.</p>
+          <div class="pt-7 text-center max-w-md mx-auto">
             <div class="border-t border-slate-800 pt-2">
               <strong id="termo-assinatura-nome">[NOME DO ASSISTIDO]</strong>
-              <span class="block text-[10px] font-sans text-slate-600">Assinatura do(a) Requerente</span>
+              <span class="block text-[10px] font-sans text-slate-600">Assinatura do(a) Requerente em Causa Própria</span>
             </div>
           </div>
         </div>
@@ -1096,6 +1132,9 @@
           <button type="button" onclick="copiarPlanoAcaoCnis()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition">
             📋 Copiar Plano de Ação
           </button>
+          <button type="button" onclick="imprimirPlanejamentoCnisA4()" class="text-xs font-bold text-white bg-indigo-700 hover:bg-indigo-800 px-3.5 py-2 rounded-xl transition shadow-xs">
+            🖨️ Imprimir Plano A4
+          </button>
           <button type="button" onclick="limparAnaliseCnis()" class="text-xs font-semibold text-slate-600 hover:text-slate-900 bg-white border border-slate-300 px-3 py-2 rounded-xl transition">
             ↺ Limpar
           </button>
@@ -1189,6 +1228,9 @@
           </button>
           <button type="button" onclick="importarDadosParaSimulacao('calculadora')" class="text-xs font-semibold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
             <span>🧮</span> Puxar da Calculadora
+          </button>
+          <button type="button" onclick="imprimirSimulacaoA4()" class="text-xs font-bold text-white bg-emerald-700 hover:bg-emerald-800 px-3.5 py-2 rounded-xl transition shadow-xs flex items-center gap-1.5">
+            <span>🖨️</span> Imprimir Simulação A4
           </button>
         </div>
       </div>
@@ -1287,115 +1329,95 @@
     <section id="view-encaminhamentos" class="secao-aba hidden space-y-6">
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Orientação ao Cidadão & Rede Externa</span>
-          <h2 class="text-xl font-bold text-slate-900 mt-1">Guia de Encaminhamento do Assistido</h2>
+          <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Rede de Proteção • Campo Grande / MS</span>
+          <h2 class="text-xl font-bold text-slate-900 mt-1">Guia Oficial de Encaminhamento ao Cidadão</h2>
           <p class="text-xs sm:text-sm text-slate-600">
-            Preencha os campos ao lado, clique em <strong>Inserir Informações na Folha</strong> para atualizar o documento e imprima a folha individual de encaminhamento.
+            Selecione o órgão destinatário (CRAS, INSS, DPU, DPE ou Saúde) para emitir a folha timbrada pronta para entrega ao assistido.
           </p>
         </div>
         <div class="flex items-center gap-2">
-          <button type="button" onclick="copiarEncaminhamento()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
-            <span>📋</span> Copiar Texto
-          </button>
-          <button type="button" onclick="imprimirEncaminhamentoA4()" class="text-xs font-semibold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
-            <span>🖨️</span> Imprimir Folha A4
-          </button>
+          <button type="button" onclick="copiarEncaminhamento()" class="text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-xl transition">📋 Copiar Texto</button>
+          <button type="button" onclick="imprimirEncaminhamentoA4()" class="text-xs font-bold text-white bg-sky-700 hover:bg-sky-800 px-4 py-2 rounded-xl transition shadow-xs">🖨️ Imprimir Folha A4</button>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        <!-- Formulário do Encaminhamento (Quadro da Esquerda) -->
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-200 pb-2">
-            <h3 class="text-sm font-bold text-slate-900">Preenchimento da Guia</h3>
-            <button type="button" onclick="aplicarDadosFormularioParaFolhaImpressao()" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1 rounded-lg transition">
-              ⚡ Inserir na Folha
-            </button>
-          </div>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Formulário de Preenchimento (Esquerda) -->
+        <div class="lg:col-span-5 bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3.5 text-xs">
+          <h3 class="text-sm font-bold text-slate-900 border-b border-slate-200 pb-2">Dados do Encaminhamento</h3>
 
           <div class="space-y-1">
-            <label class="text-xs font-semibold text-slate-700">Órgão de Destino</label>
-            <select id="enc-destino" onchange="alternarModeloDestinoEncaminhamento()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-sky-600">
-              <option value="CRAS">CRAS / SAS (Cadastro Único / CadÚnico)</option>
-              <option value="INSS">INSS – Agência da Previdência Social</option>
-              <option value="DPU">Defensoria Pública da União (DPU/MS)</option>
-              <option value="DPE_SAUDE">Defensoria Pública Estadual (DPE – Saúde)</option>
-              <option value="SAUDE">Unidade Básica de Saúde / UPA (Prontuário)</option>
-              <option value="OUTRO">Outro Órgão / Entidade</option>
+            <label class="font-semibold text-slate-700">Órgão / Entidade Destinatária *</label>
+            <select id="enc-destino" onchange="alternarModeloDestinoEncaminhamento()" class="w-full p-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-sky-600">
+              <option value="CRAS">CRAS / SAS – Cadastro Único (CadÚnico)</option>
+              <option value="INSS">INSS – Agência Centro (Senha Gov.br / Acerto CNIS / Cópia)</option>
+              <option value="DPU">Defensoria Pública da União (DPU/MS – Recursos / Causas > 60 SM)</option>
+              <option value="DPE_SAUDE">Defensoria Pública Estadual (DPE/MS – Núcleo de Saúde SUS)</option>
+              <option value="SAUDE">Unidade Básica de Saúde / UPA (Cópia de Prontuário Médico)</option>
+              <option value="OUTRO">Outro Órgão / Entidade (Preencher Manualmente)</option>
             </select>
           </div>
 
-          <!-- Campos Livres quando "Outro Órgão / Entidade" for selecionado -->
-          <div id="container-enc-outro-campos" class="hidden p-3.5 bg-sky-50/70 border border-sky-200 rounded-xl space-y-2.5">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-sky-800 block">Dados do Órgão Personalizado</span>
+          <div id="container-enc-outro-campos" class="hidden space-y-2.5 p-3 bg-slate-50 rounded-xl border border-slate-200">
             <div class="space-y-1">
-              <label class="text-xs font-semibold text-slate-700">Nome do Órgão / Entidade *</label>
-              <input type="text" id="enc-outro-orgao" placeholder="Ex.: Secretaria Municipal de Saúde / Conselho Tutelar..." oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-sky-600">
+              <label class="font-semibold text-slate-700">Nome do Órgão Destinatário</label>
+              <input type="text" id="enc-outro-orgao" oninput="atualizarTextoEncaminhamento()" placeholder="Ex.: Juizado Especial Cível / Procon..." class="w-full p-2 rounded-lg border border-slate-300 bg-white">
             </div>
             <div class="space-y-1">
-              <label class="text-xs font-semibold text-slate-700">Endereço Completo *</label>
-              <input type="text" id="enc-outro-endereco" placeholder="Ex.: Rua Bahia, 280 – Centro, Campo Grande/MS" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-sky-600">
+              <label class="font-semibold text-slate-700">Endereço Completo</label>
+              <input type="text" id="enc-outro-endereco" oninput="atualizarTextoEncaminhamento()" placeholder="Rua, nº, Bairro, Campo Grande/MS" class="w-full p-2 rounded-lg border border-slate-300 bg-white">
             </div>
             <div class="space-y-1">
-              <label class="text-xs font-semibold text-slate-700">Horário de Atendimento</label>
-              <input type="text" id="enc-outro-horario" placeholder="Ex.: Segunda a sexta-feira, das 07h30 às 17h00" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-sky-600">
+              <label class="font-semibold text-slate-700">Horário de Atendimento</label>
+              <input type="text" id="enc-outro-horario" oninput="atualizarTextoEncaminhamento()" placeholder="Ex.: Seg a Sex, 08h00 às 17h00" class="w-full p-2 rounded-lg border border-slate-300 bg-white">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="space-y-1">
+              <label class="font-semibold text-slate-700">Nome do Assistido(a) *</label>
+              <input type="text" id="enc-nome" oninput="atualizarTextoEncaminhamento()" placeholder="Nome completo" class="w-full p-2 rounded-xl border border-slate-300">
+            </div>
+            <div class="space-y-1">
+              <label class="font-semibold text-slate-700">CPF / RNM *</label>
+              <input type="text" id="enc-cpf" oninput="atualizarTextoEncaminhamento()" placeholder="000.000.000-00" class="w-full p-2 rounded-xl border border-slate-300">
             </div>
           </div>
 
           <div class="space-y-1">
-            <label class="text-xs font-semibold text-slate-700">Prioridade Legal no Atendimento</label>
-            <select id="enc-prioridade" onchange="atualizarTextoEncaminhamento()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:border-sky-600">
-              <option value="geral">Atendimento Geral (Sem prioridade legal)</option>
-              <option value="idoso60">Pessoa Idosa (60+ anos – Lei 10.741/03)</option>
-              <option value="idoso80">Superprioridade (80+ anos – Art. 71, § 5º)</option>
-              <option value="deficiencia">Pessoa com Deficiência (Lei 13.146/15)</option>
-              <option value="autista">Transtorno do Espectro Autista (Lei 12.764/12)</option>
-              <option value="gestante">Gestante / Lactante / Criança de Colo</option>
-              <option value="grave">Portador de Doença Grave (Lei 7.713/88)</option>
+            <label class="font-semibold text-slate-700">Prioridade de Atendimento Legal</label>
+            <select id="enc-prioridade" onchange="atualizarTextoEncaminhamento()" class="w-full p-2 rounded-xl border border-slate-300 bg-white">
+              <option value="geral">Atendimento Geral (Sem tarja especial)</option>
+              <option value="idoso80">Superprioridade – Pessoa Idosa 80+ anos</option>
+              <option value="idoso60">Prioridade Legal – Pessoa Idosa 60+ anos</option>
+              <option value="deficiencia">Prioridade Legal – Pessoa com Deficiência (LBI)</option>
+              <option value="autista">Prioridade Legal – Transtorno do Espectro Autista (TEA)</option>
+              <option value="gestante">Prioridade Legal – Gestante / Lactante / Criança de Colo</option>
+              <option value="grave">Prioridade Legal – Portador de Doença Grave</option>
             </select>
           </div>
 
           <div class="space-y-1">
-            <label class="text-xs font-semibold text-slate-700">Nome Completo do Assistido</label>
-            <input type="text" id="enc-nome" placeholder="Nome Completo" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+            <label class="font-semibold text-slate-700">Finalidade / Solicitação no Balcão</label>
+            <textarea id="enc-motivo" rows="3" oninput="atualizarTextoEncaminhamento()" class="w-full p-2 rounded-xl border border-slate-300">Inscrição ou atualização cadastral no Cadastro Único (CadÚnico) para fins de concessão de Benefício de Prestação Continuada (BPC/LOAS).</textarea>
           </div>
 
           <div class="space-y-1">
-            <label class="text-xs font-semibold text-slate-700">Documento (CPF ou RNM)</label>
-            <input type="text" id="enc-cpf" placeholder="000.000.000-00" oninput="formatarDocumentoDinamico(this, 'enc'); atualizarTextoEncaminhamento()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
-          </div>
-
-          <div class="space-y-1">
-            <label class="text-xs font-semibold text-slate-700">Finalidade / Solicitação no Balcão</label>
-            <textarea id="enc-motivo" rows="3" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">Inscrição ou atualização cadastral no Cadastro Único (CadÚnico) para fins de concessão de Benefício de Prestação Continuada (BPC/LOAS).</textarea>
-          </div>
-
-          <div class="space-y-1">
-            <label class="text-xs font-semibold text-slate-700">Documentos que o Cidadão Deve Levar</label>
-            <textarea id="enc-documentos" rows="4" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">1. RG e CPF de todos os membros do grupo familiar
+            <label class="font-semibold text-slate-700">Documentos que o Cidadão Deve Apresentar</label>
+            <textarea id="enc-documentos" rows="4" oninput="atualizarTextoEncaminhamento()" class="w-full p-2 rounded-xl border border-slate-300">1. RG e CPF de todos os membros do grupo familiar
 2. Comprovante de residência atualizado (água ou energia)
 3. Carteira de Trabalho de todos os adultos
 4. Comprovantes de renda de quem trabalha na residência</textarea>
           </div>
 
           <div class="space-y-1">
-            <label class="text-xs font-semibold text-slate-700">Orientações e Endereço</label>
-            <textarea id="enc-dicas" rows="2" oninput="atualizarTextoEncaminhamento()" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">Agendamento prévio pelo portal agendamentocras.campogrande.ms.gov.br ou ligue 3314-4480. Endereço: Rua Cândido Mariano, 2655 – Centro, Campo Grande/MS.</textarea>
+            <label class="font-semibold text-slate-700">Orientações Gerais ao Cidadão</label>
+            <textarea id="enc-dicas" rows="2" oninput="atualizarTextoEncaminhamento()" class="w-full p-2 rounded-xl border border-slate-300">Agendamento prévio pelo portal agendamentocras.campogrande.ms.gov.br ou ligue 3314-4480. Endereço: Rua Cândido Mariano, 2655 – Centro, Campo Grande/MS (Tel: 67 3314-4482)</textarea>
           </div>
-
-          <button type="button" onclick="aplicarDadosFormularioParaFolhaImpressao()" class="w-full text-xs font-bold text-white bg-sky-700 hover:bg-sky-800 py-2.5 rounded-xl transition shadow-xs flex items-center justify-center gap-1.5">
-            <span>✍️</span> Inserir Informações Preenchidas na Folha
-          </button>
         </div>
 
-        <!-- Visualização da Guia (Estilo Ofício Institucional Moderno) -->
-        <div class="lg:col-span-2 bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-between space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-200 pb-2">
-            <span class="text-xs font-bold text-slate-700">Pré-visualização Oficial (Estilo Executivo A4)</span>
-            <span class="text-[10px] text-sky-800 bg-sky-100 px-2.5 py-0.5 rounded-full font-bold">Pronto para Impressão</span>
-          </div>
-
+        <!-- Pré-visualização Executiva da Folha A4 (Direita) -->
+        <div class="lg:col-span-7 space-y-4">
           <div id="box-texto-encaminhamento" class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 text-xs text-slate-800 space-y-5 shadow-xs select-text">
             <!-- Cabeçalho Institucional Centralizado -->
             <div class="border-b-2 border-slate-800 pb-4 text-center space-y-1">
@@ -1476,320 +1498,404 @@
             </button>
           </div>
         </div>
-
       </div>
     </section>
 
     <!-- ========================================================
-         ABA 10: CONTATOS ÚTEIS & DIRETÓRIO DE ÓRGÃOS (CAMPO GRANDE / MS)
+         ABA 10: CONTATOS ÚTEIS & REDE DE APOIO (CAMPO GRANDE / MS)
          ======================================================== -->
     <section id="view-orgaos" class="secao-aba hidden space-y-6">
       <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Diretório Oficial • Campo Grande / MS</span>
-            <h2 class="text-xl font-bold text-slate-900 mt-1">Contatos Úteis & Rede de Apoio</h2>
+            <span class="text-xs font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Rede de Proteção • Campo Grande / MS</span>
+            <h2 class="text-xl font-bold text-slate-900 mt-1">Contatos Úteis, Defensorias, Fóruns da Justiça & Órgãos</h2>
             <p class="text-xs sm:text-sm text-slate-600">
-              Consulte telefones, endereços, copie os dados para o cidadão ou gere o encaminhamento direto com 1 clique.
+              Consulte endereços, telefones, horários de atendimento, copie para o WhatsApp ou gere um encaminhamento direto.
             </p>
           </div>
-          <div class="w-full md:w-80">
-            <input type="text" id="filtro-busca-orgaos" oninput="filtrarCartoesOrgaos()" placeholder="Filtrar órgão (Ex: DPU, INSS, Saúde, CRAS)..." class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
-          </div>
+          <input type="text" id="filtro-busca-orgaos" oninput="filtrarCartoesOrgaos()" placeholder="Buscar órgão, endereço ou serviço..." class="text-xs p-2.5 rounded-xl border border-slate-300 w-full md:w-72 focus:outline-none focus:border-sky-600">
         </div>
 
-        <!-- Filtros Rápidos por Categoria -->
         <div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-100">
-          <span class="text-[11px] font-semibold text-slate-500 mr-1">Categoria:</span>
-          <button type="button" onclick="filtrarCategoriaOrgaos('todos')" id="btn-cat-orgao-todos" class="btn-cat-orgao px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-700 text-white transition">Todos (14)</button>
-          <button type="button" onclick="filtrarCategoriaOrgaos('defensoria')" id="btn-cat-orgao-defensoria" class="btn-cat-orgao px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">Defensorias (DPU/DPE)</button>
-          <button type="button" onclick="filtrarCategoriaOrgaos('justica')" id="btn-cat-orgao-justica" class="btn-cat-orgao px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">INSS & Justiça</button>
-          <button type="button" onclick="filtrarCategoriaOrgaos('assistencia')" id="btn-cat-orgao-assistencia" class="btn-cat-orgao px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">CRAS & Assistência</button>
-          <button type="button" onclick="filtrarCategoriaOrgaos('bancos')" id="btn-cat-orgao-bancos" class="btn-cat-orgao px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">Bancos & Consumidor</button>
+          <button type="button" onclick="filtrarCategoriaOrgaos('todos')" id="btn-cat-orgao-todos" class="btn-cat-orgao px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-700 text-white transition">Todos</button>
+          <button type="button" onclick="filtrarCategoriaOrgaos('defensoria')" id="btn-cat-orgao-defensoria" class="btn-cat-orgao px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">Defensorias (DPU & DPE)</button>
+          <button type="button" onclick="filtrarCategoriaOrgaos('justica')" id="btn-cat-orgao-justica" class="btn-cat-orgao px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">Fóruns da Justiça & MP</button>
+          <button type="button" onclick="filtrarCategoriaOrgaos('social')" id="btn-cat-orgao-social" class="btn-cat-orgao px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">Assistência, Bancos & Órgãos</button>
         </div>
       </div>
 
-      <div id="grid-contatos-orgaos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- 1. DPU -->
-        <div data-categoria="defensoria" class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-sky-800 bg-sky-100 px-2 py-0.5 rounded uppercase">Federal • Gratuito</span>
-              <span class="text-[11px] font-mono text-slate-500">DPU/MS</span>
+      <div id="grid-contatos-orgaos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+
+        <!-- 1. Defensoria Pública da União (DPU) -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="defensoria">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-sky-100 text-sky-800">FEDERAL • GRATUITO</span>
+              <span class="text-[10px] font-bold text-slate-400">DPU/MS</span>
             </div>
             <h3 class="text-sm font-bold text-slate-900">Defensoria Pública da União (DPU)</h3>
-            <p class="text-xs text-slate-600">Atuação em causas contra o INSS (recursos à Turma Recursal, perícias complexas e ações acima de 60 SM).</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
-              <p>📍 <strong>Endereço:</strong> Rua Eduardo Santos Pereira, 1186 – Centro</p>
-              <p>📞 <strong>Telefone:</strong> (67) 3311-9850 | Emergência: (67) 99985-1660</p>
-              <p>✉️ <strong>E-mail:</strong> atendimentodpums@dpu.def.br</p>
-              <p>🕒 <strong>Horário:</strong> Seg a Sex, 12h00 às 17h00</p>
+            <p class="text-slate-600">Atuação em causas contra o INSS (recursos à Turma Recursal, perícias complexas e ações acima de 60 SM).</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Endereço:</strong> Rua Eduardo Santos Pereira, 1186 – Centro</p>
+              <p><strong>📞 Telefone:</strong> (67) 3311-9850 | Emergência: (67) 99985-1660</p>
+              <p><strong>✉️ E-mail:</strong> atendimentodpums@dpu.def.br</p>
+              <p><strong>🕒 Horário:</strong> Seg a Sex, 12h00 às 17h00</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-            <button type="button" onclick="copiarContatoOrgao('Defensoria Pública da União (DPU/MS)', 'Rua Eduardo Santos Pereira, 1186 – Centro', '(67) 3311-9850 | Emergência: (67) 99985-1660', 'Seg a Sex, 12h00 às 17h00')" class="text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">📋 Copiar</button>
-            <button type="button" onclick="enviarWhatsAppContatoOrgao('Defensoria Pública da União (DPU/MS)', 'Rua Eduardo Santos Pereira, 1186 – Centro', '(67) 3311-9850', 'Seg a Sex, 12h00 às 17h00')" class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition">💬 WhatsApp</button>
-            <button type="button" onclick="encaminharParaOrgaoDireto('DPU')" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1.5 rounded-lg transition ml-auto">✉️ Encaminhar</button>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Defensoria Pública da União (DPU)', 'Rua Eduardo Santos Pereira, 1186 - Centro', '(67) 3311-9850', 'Seg a Sex, 12h às 17h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Defensoria Pública da União (DPU)', 'Rua Eduardo Santos Pereira, 1186 - Centro', '(67) 3311-9850', 'Seg a Sex, 12h às 17h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('DPU')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
           </div>
         </div>
 
-        <!-- 2. DPE Saúde -->
-        <div data-categoria="defensoria" class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded uppercase">Estadual • Saúde SUS</span>
-              <span class="text-[11px] font-mono text-slate-500">DPE/MS</span>
+        <!-- 2. Defensoria Pública – Núcleo de Saúde Pública -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="defensoria">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">ESTADUAL • SAÚDE SUS</span>
+              <span class="text-[10px] font-bold text-slate-400">DPE/MS</span>
             </div>
             <h3 class="text-sm font-bold text-slate-900">Defensoria Pública – Núcleo de Saúde Pública</h3>
-            <p class="text-xs text-slate-600">Fornecimento de medicamentos de alto custo, cirurgias urgentes, exames e vagas hospitalares pelo SUS.</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
-              <p>📍 <strong>Endereço:</strong> Rua Barão de Melgaço, 128 – Centro</p>
-              <p>📞 <strong>Tel / WhatsApp:</strong> (67) 3317-8757 / (67) 99271-5439</p>
-              <p>🕒 <strong>Horário:</strong> Seg a Sex, 12h00 às 19h00</p>
+            <p class="text-slate-600">Fornecimento de medicamentos de alto custo, cirurgias urgentes, exames e vagas hospitalares pelo SUS.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Endereço:</strong> Rua Barão de Melgaço, 128 – Centro</p>
+              <p><strong>📞 Tel / WhatsApp:</strong> (67) 3317-8757 / (67) 99271-5439</p>
+              <p><strong>🕒 Horário:</strong> Seg a Sex, 12h00 às 19h00</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-            <button type="button" onclick="copiarContatoOrgao('Defensoria Pública – Núcleo de Saúde Pública (DPE/MS)', 'Rua Barão de Melgaço, 128 – Centro', '(67) 3317-8757 / (67) 99271-5439', 'Seg a Sex, 12h00 às 19h00')" class="text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">📋 Copiar</button>
-            <button type="button" onclick="enviarWhatsAppContatoOrgao('Defensoria Pública – Núcleo de Saúde Pública (DPE/MS)', 'Rua Barão de Melgaço, 128 – Centro', '(67) 3317-8757', 'Seg a Sex, 12h00 às 19h00')" class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition">💬 WhatsApp</button>
-            <button type="button" onclick="encaminharParaOrgaoDireto('DPE_SAUDE')" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1.5 rounded-lg transition ml-auto">✉️ Encaminhar</button>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Defensoria Pública - Núcleo de Saúde Pública', 'Rua Barão de Melgaço, 128 - Centro', '(67) 3317-8757', 'Seg a Sex, 12h às 19h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Defensoria Pública - Núcleo de Saúde Pública', 'Rua Barão de Melgaço, 128 - Centro', '(67) 3317-8757', 'Seg a Sex, 12h às 19h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('DPE_SAUDE')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
           </div>
         </div>
 
-        <!-- 3. DPE Cível, Fazenda & Família -->
-        <div data-categoria="defensoria" class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded uppercase">Estadual • Cível & Família</span>
-              <span class="text-[11px] font-mono text-slate-500">DPE/MS</span>
+        <!-- 3. Defensoria Pública – Cível, Fazenda & Família -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="defensoria">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">ESTADUAL • CÍVEL & FAMÍLIA</span>
+              <span class="text-[10px] font-bold text-slate-400">DPE/MS</span>
             </div>
             <h3 class="text-sm font-bold text-slate-900">Defensoria Pública – Cível, Fazenda & Família</h3>
-            <p class="text-xs text-slate-600">Curatela/Interdição, pensão alimentícia, inventário, guarda e demandas contra Estado/Município.</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
-              <p>📍 <strong>Unidade Belmar:</strong> Rua Arthur Jorge, 779 – Centro</p>
-              <p>📍 <strong>Postos Fácil:</strong> Aero Rancho, Bosque dos Ipês, Guaicurus e General Osório</p>
-              <p>📞 <strong>Central 129:</strong> Ligue 129 ou (67) 3317-8700</p>
+            <p class="text-slate-600">Curatela/Interdição, pensão alimentícia, inventário, guarda e demandas contra Estado/Município.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Unidade Belmar:</strong> Rua Arthur Jorge, 779 – Centro</p>
+              <p><strong>📍 Postos Fácil:</strong> Aero Rancho, Bosque dos Ipês, Guaicurus e General Osório</p>
+              <p><strong>📞 Central 129:</strong> Ligue 129 ou (67) 3317-8700</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-            <button type="button" onclick="copiarContatoOrgao('Defensoria Pública – Cível, Fazenda & Família (DPE/MS)', 'Rua Arthur Jorge, 779 – Centro (e Postos Fácil)', 'Central 129 ou (67) 3317-8700', 'Seg a Sex, 12h00 às 19h00')" class="text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">📋 Copiar</button>
-            <button type="button" onclick="enviarWhatsAppContatoOrgao('Defensoria Pública – Cível e Família (DPE/MS)', 'Rua Arthur Jorge, 779 – Centro', 'Ligue 129 ou (67) 3317-8700', 'Seg a Sex, 12h00 às 19h00')" class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition">💬 WhatsApp</button>
-            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'DEFENSORIA PÚBLICA DO ESTADO (DPE/MS – CÍVEL / FAMÍLIA / CURATELA)', 'Rua Arthur Jorge, 779 – Centro (ou Unidades Rede Fácil)', 'Atendimento para ação de curatela/interdição, guarda, pensão ou demanda cível estadual.')" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1.5 rounded-lg transition ml-auto">✉️ Encaminhar</button>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Defensoria Pública - Cível, Fazenda & Família', 'Rua Arthur Jorge, 779 - Centro', '129 / (67) 3317-8700', 'Seg a Sex, 12h às 19h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Defensoria Pública - Cível, Fazenda & Família', 'Rua Arthur Jorge, 779 - Centro', '129 / (67) 3317-8700', 'Seg a Sex, 12h às 19h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'DEFENSORIA PÚBLICA ESTADUAL – CÍVEL, FAZENDA & FAMÍLIA', 'Rua Arthur Jorge, 779 – Centro, Campo Grande/MS', 'Atendimento estadual para ação de curatela/interdição, guarda, pensão alimentícia, inventário ou ação acidentária.')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
           </div>
         </div>
 
-        <!-- 3.1 DPE Unidade Centro (Criminal, Execução Penal, Mulher e Direitos Humanos) -->
-        <div data-categoria="defensoria" class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded uppercase">Estadual • Unidade Centro</span>
-              <span class="text-[11px] font-mono text-slate-500">DPE/MS</span>
+        <!-- 4. Defensoria Pública – Unidade Centro -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="defensoria">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">ESTADUAL • UNIDADE CENTRO</span>
+              <span class="text-[10px] font-bold text-slate-400">DPE/MS</span>
             </div>
             <h3 class="text-sm font-bold text-slate-900">Defensoria Pública – Unidade Centro (Criminal, Execução Penal & Núcleos)</h3>
-            <p class="text-xs text-slate-600">Defesa criminal, execução penal (certidões de recolhimento prisional para Auxílio-Reclusão), NUDEM (Mulher) e Direitos Humanos.</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
-              <p>📍 <strong>Endereço:</strong> Rua Antônio Maria Coelho, 1668 – Centro</p>
-              <p>📞 <strong>Telefone:</strong> (67) 3313-5900 / Central 129</p>
-              <p>🕒 <strong>Horário:</strong> Seg a Sex, 12h00 às 19h00</p>
+            <p class="text-slate-600">Defesa criminal, execução penal (certidões de recolhimento prisional para Auxílio-Reclusão), NUDEM (Mulher) e Direitos Humanos.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Endereço:</strong> Rua Antônio Maria Coelho, 1668 – Centro</p>
+              <p><strong>📞 Telefone:</strong> (67) 3313-5900 / Central 129</p>
+              <p><strong>🕒 Horário:</strong> Seg a Sex, 12h00 às 19h00</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-            <button type="button" onclick="copiarContatoOrgao('Defensoria Pública – Unidade Centro (DPE/MS)', 'Rua Antônio Maria Coelho, 1668 – Centro', '(67) 3313-5900 / Central 129', 'Seg a Sex, 12h00 às 19h00')" class="text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">📋 Copiar</button>
-            <button type="button" onclick="enviarWhatsAppContatoOrgao('Defensoria Pública – Unidade Centro (DPE/MS)', 'Rua Antônio Maria Coelho, 1668 – Centro', '(67) 3313-5900 / Central 129', 'Seg a Sex, 12h00 às 19h00')" class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition">💬 WhatsApp</button>
-            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'DEFENSORIA PÚBLICA DO ESTADO (DPE/MS – UNIDADE CENTRO)', 'Rua Antônio Maria Coelho, 1668 – Centro, Campo Grande/MS', 'Atendimento junto ao núcleo criminal / execução penal (certidão de recolhimento prisional) ou núcleos especializados da DPE/MS.')" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1.5 rounded-lg transition ml-auto">✉️ Encaminhar</button>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Defensoria Pública - Unidade Centro', 'Rua Antônio Maria Coelho, 1668 - Centro', '(67) 3313-5900', 'Seg a Sex, 12h às 19h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Defensoria Pública - Unidade Centro', 'Rua Antônio Maria Coelho, 1668 - Centro', '(67) 3313-5900', 'Seg a Sex, 12h às 19h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'DEFENSORIA PÚBLICA ESTADUAL – UNIDADE CENTRO', 'Rua Antônio Maria Coelho, 1668 – Centro, Campo Grande/MS', 'Atendimento junto aos Núcleos Especializados / Execução Penal (emissão de certidão carcerária para fins de Auxílio-Reclusão).')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
           </div>
         </div>
 
-        <!-- 5. Justiça Federal / JEF TRF3 -->
-        <div data-categoria="justica" class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded uppercase">Poder Judiciário • TRF3</span>
-              <span class="text-[11px] font-mono text-slate-500">JEF / JFMS</span>
+        <!-- 5. Fórum da Justiça Federal – Juizado Especial Federal (JEF) -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="justica">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-indigo-100 text-indigo-800">FÓRUNS DA JUSTIÇA • TRF3</span>
+              <span class="text-[10px] font-bold text-slate-400">JEF / JFMS</span>
             </div>
-            <h3 class="text-sm font-bold text-slate-900">Juizado Especial Federal (JEF) – Campo Grande</h3>
-            <p class="text-xs text-slate-600">Balcão de atermação, perícias judiciais e secretaria dos Juizados Especiais Federais da 3ª Região.</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
-              <p>📍 <strong>Endereço:</strong> Rua Del. Carlos Roberto Bastos de Oliveira, 128 – Parque dos Poderes</p>
-              <p>📞 <strong>Balcão / Atermação:</strong> (67) 3320-1119 / (67) 3320-1100</p>
-              <p>🚌 <strong>Ônibus:</strong> Linhas 072, 206 e 521</p>
+            <h3 class="text-sm font-bold text-slate-900">Fórum da Justiça Federal – Juizado Especial Federal (JEF)</h3>
+            <p class="text-slate-600">Balcão de atermação, perícias judiciais, Varas Federais e secretaria dos Juizados Especiais Federais da 3ª Região.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Endereço:</strong> Rua Del. Carlos Roberto Bastos de Oliveira, 128 – Parque dos Poderes</p>
+              <p><strong>📞 Balcão / Atermação:</strong> (67) 3320-1119 / (67) 3320-1100</p>
+              <p><strong>🚌 Ônibus:</strong> Linhas 072, 206 e 521</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-            <button type="button" onclick="copiarContatoOrgao('Juizado Especial Federal (JEF) – Campo Grande/MS', 'Rua Del. Carlos Roberto Bastos de Oliveira, 128 – Parque dos Poderes (Ônibus: 072, 206 e 521)', '(67) 3320-1119 / (67) 3320-1100', 'Seg a Sex, 12h00 às 19h00')" class="text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">📋 Copiar</button>
-            <button type="button" onclick="enviarWhatsAppContatoOrgao('Juizado Especial Federal (JEF) – Campo Grande/MS', 'Rua Del. Carlos Roberto Bastos de Oliveira, 128 – Parque dos Poderes (Linhas de ônibus: 072, 206 e 521)', '(67) 3320-1119', 'Seg a Sex, 12h00 às 19h00')" class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition">💬 WhatsApp</button>
-            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'JUIZADO ESPECIAL FEDERAL (JEF / TRF3 – CAMPO GRANDE/MS)', 'Rua Del. Carlos Roberto Bastos de Oliveira, 128 – Parque dos Poderes', 'Comparecimento ao balcão de atermação / secretaria do Juizado Especial Federal.')" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1.5 rounded-lg transition ml-auto">✉️ Encaminhar</button>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Fórum da Justiça Federal - Juizado Especial Federal (JEF)', 'Rua Del. Carlos Roberto Bastos de Oliveira, 128 - Parque dos Poderes', '(67) 3320-1119', 'Seg a Sex, 11h às 19h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Fórum da Justiça Federal - Juizado Especial Federal (JEF)', 'Rua Del. Carlos Roberto Bastos de Oliveira, 128 - Parque dos Poderes', '(67) 3320-1119', 'Seg a Sex, 11h às 19h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'FÓRUM DA JUSTIÇA FEDERAL – JUIZADO ESPECIAL FEDERAL (JEF / TRF3)', 'Rua Del. Carlos Roberto Bastos de Oliveira, 128 – Parque dos Poderes, Campo Grande/MS', 'Protocolo de atermação (Jus Postulandi), consulta processual ou comparecimento à perícia judicial no JEF.')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
           </div>
         </div>
 
-        <!-- 6. SAS / CRAS CadÚnico -->
-        <div data-categoria="assistencia" class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded uppercase">Assistência Social • Municipal</span>
-              <span class="text-[11px] font-mono text-slate-500">SAS / CRAS</span>
+        <!-- 6. SAS & CRAS – Cadastro Único -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="social">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-800">ASSISTÊNCIA SOCIAL • MUNICIPAL</span>
+              <span class="text-[10px] font-bold text-slate-400">SAS / CRAS</span>
             </div>
             <h3 class="text-sm font-bold text-slate-900">SAS & CRAS – Cadastro Único (CadÚnico)</h3>
-            <p class="text-xs text-slate-600">Inscrição, atualização cadastral e emissão da Folha Resumo obrigatória para requerimento de BPC/LOAS.</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
-              <p>📍 <strong>Sede SAS:</strong> Rua Cândido Mariano, 2655 – Centro</p>
-              <p>📞 <strong>Agendamento CadÚnico:</strong> (67) 3314-4482 / (67) 3314-4480</p>
-              <p>🌐 <strong>Agendamento Web:</strong> agendamentocras.campogrande.ms.gov.br</p>
+            <p class="text-slate-600">Inscrição, atualização cadastral e emissão da Folha Resumo obrigatória para requerimento de BPC/LOAS.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Sede SAS:</strong> Rua Cândido Mariano, 2655 – Centro</p>
+              <p><strong>📞 Agendamento CadÚnico:</strong> (67) 3314-4482 / (67) 3314-4480</p>
+              <p><strong>🌐 Agendamento Web:</strong> agendamentocras.campogrande.ms.gov.br</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-            <button type="button" onclick="copiarContatoOrgao('SAS & CRAS – Cadastro Único (CadÚnico)', 'Rua Cândido Mariano, 2655 – Centro (ou CRAS do bairro)', '(67) 3314-4482 / (67) 3314-4480', 'Seg a Sex, 07h30 às 17h00')" class="text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">📋 Copiar</button>
-            <button type="button" onclick="enviarWhatsAppContatoOrgao('SAS & CRAS – Cadastro Único (CadÚnico)', 'Rua Cândido Mariano, 2655 – Centro', '(67) 3314-4482', 'Seg a Sex, 07h30 às 17h00')" class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition">💬 WhatsApp</button>
-            <button type="button" onclick="encaminharParaOrgaoDireto('CRAS')" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1.5 rounded-lg transition ml-auto">✉️ Encaminhar</button>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('SAS & CRAS - Cadastro Único', 'Rua Cândido Mariano, 2655 - Centro', '(67) 3314-4482', 'Seg a Sex, 07h30 às 17h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('SAS & CRAS - Cadastro Único', 'Rua Cândido Mariano, 2655 - Centro', '(67) 3314-4482', 'Seg a Sex, 07h30 às 17h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('CRAS')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
           </div>
         </div>
 
-        <!-- 7. TJMS -->
-        <div data-categoria="justica" class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded uppercase">Justiça Estadual</span>
-              <span class="text-[11px] font-mono text-slate-500">TJMS</span>
+        <!-- 7. Fórum Heitor Medeiros – Tribunal de Justiça de MS -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="justica">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-sky-100 text-sky-800">FÓRUNS DA JUSTIÇA • ESTADUAL</span>
+              <span class="text-[10px] font-bold text-slate-400">TJMS</span>
             </div>
-            <h3 class="text-sm font-bold text-slate-900">Tribunal de Justiça de MS (Fórum Heitor Medeiros)</h3>
-            <p class="text-xs text-slate-600">Ações acidentárias (acidente de trabalho contra o INSS tramitam na Justiça Estadual), curatela e família.</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
-              <p>📍 <strong>Endereço:</strong> Rua da Paz, 14 – Jardim dos Estados</p>
-              <p>📞 <strong>Telefone:</strong> (67) 3317-3300</p>
+            <h3 class="text-sm font-bold text-slate-900">Fórum Heitor Medeiros – Tribunal de Justiça de MS</h3>
+            <p class="text-slate-600">Varas Cíveis, Fazenda Pública e Acidentes do Trabalho (ações acidentárias contra o INSS tramitam na Justiça Estadual), curatela e família.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Endereço:</strong> Rua da Paz, 14 – Jardim dos Estados</p>
+              <p><strong>📞 Telefone:</strong> (67) 3317-3300</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-            <button type="button" onclick="copiarContatoOrgao('Tribunal de Justiça de MS (Fórum Heitor Medeiros)', 'Rua da Paz, 14 – Jardim dos Estados', '(67) 3317-3300', 'Seg a Sex, 12h00 às 19h00')" class="text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">📋 Copiar</button>
-            <button type="button" onclick="enviarWhatsAppContatoOrgao('Tribunal de Justiça de MS (Fórum)', 'Rua da Paz, 14 – Jardim dos Estados', '(67) 3317-3300', 'Seg a Sex, 12h00 às 19h00')" class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition">💬 WhatsApp</button>
-            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'TRIBUNAL DE JUSTIÇA DE MATO GROSSO DO SUL (FÓRUM HEITOR MEDEIROS)', 'Rua da Paz, 14 – Jardim dos Estados, Campo Grande/MS', 'Comparecimento ao balcão / distribuidor da Justiça Estadual (ações acidentárias, curatela ou família).')" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1.5 rounded-lg transition ml-auto">✉️ Encaminhar</button>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Fórum Heitor Medeiros - Tribunal de Justiça de MS', 'Rua da Paz, 14 - Jardim dos Estados', '(67) 3317-3300', 'Seg a Sex, 12h às 19h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Fórum Heitor Medeiros - Tribunal de Justiça de MS', 'Rua da Paz, 14 - Jardim dos Estados', '(67) 3317-3300', 'Seg a Sex, 12h às 19h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'FÓRUM HEITOR MEDEIROS – TRIBUNAL DE JUSTIÇA DE MS (TJMS)', 'Rua da Paz, 14 – Jardim dos Estados, Campo Grande/MS', 'Atendimento no Fórum Estadual (varas cíveis, família/curatela ou ação acidentária contra o INSS).')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
           </div>
         </div>
 
-        <!-- 8. Procon Estadual e Municipal -->
-        <div data-categoria="bancos" class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-rose-800 bg-rose-100 px-2 py-0.5 rounded uppercase">Defesa do Consumidor</span>
-              <span class="text-[11px] font-mono text-slate-500">PROCON</span>
+        <!-- 8. Fórum Trabalhista de Campo Grande (TRT 24ª Região) -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="justica">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-sky-100 text-sky-800">FÓRUNS DA JUSTIÇA • TRABALHO</span>
+              <span class="text-[10px] font-bold text-slate-400">TRT 24ª</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">Fórum Trabalhista de Campo Grande (TRT 24ª Região)</h3>
+            <p class="text-slate-600">Varas do Trabalho e atermação trabalhista (reconhecimento de vínculo empregatício para posterior averbação no INSS).</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Endereço:</strong> Rua Jornalista Belizário Lima, 418 – Vila Glória</p>
+              <p><strong>📞 Telefone:</strong> (67) 3316-1700</p>
+              <p><strong>🕒 Horário:</strong> Seg a Sex, 11h00 às 17h00</p>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Fórum Trabalhista de Campo Grande (TRT 24ª Região)', 'Rua Jornalista Belizário Lima, 418 - Vila Glória', '(67) 3316-1700', 'Seg a Sex, 11h às 17h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Fórum Trabalhista de Campo Grande (TRT 24ª Região)', 'Rua Jornalista Belizário Lima, 418 - Vila Glória', '(67) 3316-1700', 'Seg a Sex, 11h às 17h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'FÓRUM TRABALHISTA DE CAMPO GRANDE (TRT 24ª REGIÃO)', 'Rua Jornalista Belizário Lima, 418 – Vila Glória, Campo Grande/MS', 'Atendimento no Fórum Trabalhista para atermação ou consulta de reclamação trabalhista / reconhecimento de vínculo.')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
+          </div>
+        </div>
+
+        <!-- 9. Fórum dos Juizados Especiais Estaduais (TJMS) -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="justica">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-sky-100 text-sky-800">FÓRUNS DA JUSTIÇA • JUIZADOS</span>
+              <span class="text-[10px] font-bold text-slate-400">JEC / TJMS</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">Fórum dos Juizados Especiais Estaduais (TJMS)</h3>
+            <p class="text-slate-600">Juizados Especiais Cíveis Estaduais (causas cíveis de menor complexidade contra bancos privados, empresas e particulares).</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Endereço:</strong> Rua Antônio Maria Coelho, 2722 – Jardim dos Estados</p>
+              <p><strong>📞 Telefone:</strong> (67) 3317-8600</p>
+              <p><strong>🕒 Horário:</strong> Seg a Sex, 12h00 às 19h00</p>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Fórum dos Juizados Especiais Estaduais (TJMS)', 'Rua Antônio Maria Coelho, 2722 - Jardim dos Estados', '(67) 3317-8600', 'Seg a Sex, 12h às 19h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Fórum dos Juizados Especiais Estaduais (TJMS)', 'Rua Antônio Maria Coelho, 2722 - Jardim dos Estados', '(67) 3317-8600', 'Seg a Sex, 12h às 19h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'FÓRUM DOS JUIZADOS ESPECIAIS ESTADUAIS (TJMS)', 'Rua Antônio Maria Coelho, 2722 – Jardim dos Estados, Campo Grande/MS', 'Atendimento e atermação no Juizado Especial Cível Estadual (demandas contra instituições financeiras privadas ou relações de consumo).')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
+          </div>
+        </div>
+
+        <!-- 10. Procon/MS & Procon Municipal -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="social">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-rose-100 text-rose-800">DEFESA DO CONSUMIDOR</span>
+              <span class="text-[10px] font-bold text-slate-400">PROCON</span>
             </div>
             <h3 class="text-sm font-bold text-slate-900">Procon/MS & Procon Municipal</h3>
-            <p class="text-xs text-slate-600">Contestações de empréstimos consignados indevidos, descontos associativos não autorizados no benefício e superendividamento.</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
-              <p>📍 <strong>Procon/MS:</strong> Rua 13 de Junho, 930 – Centro (Tel: 151 / 3316-9800)</p>
-              <p>📍 <strong>Procon Municipal:</strong> Av. Afonso Pena, 3128 – Centro (Tel: 156)</p>
+            <p class="text-slate-600">Contestações de empréstimos consignados indevidos, descontos associativos não autorizados no benefício e superendividamento.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Procon/MS:</strong> Rua 13 de Junho, 930 – Centro (Tel: 151 / 3316-9800)</p>
+              <p><strong>📍 Procon Municipal:</strong> Av. Afonso Pena, 3128 – Centro (Tel: 156)</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-            <button type="button" onclick="copiarContatoOrgao('Procon/MS & Procon Municipal', 'Rua 13 de Junho, 930 – Centro / Av. Afonso Pena, 3128', '151 / (67) 3316-9800 / 156', 'Seg a Sex, 07h30 às 17h00')" class="text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">📋 Copiar</button>
-            <button type="button" onclick="enviarWhatsAppContatoOrgao('Procon/MS & Procon Municipal', 'Rua 13 de Junho, 930 – Centro', '151 ou (67) 3316-9800', 'Seg a Sex, 07h30 às 17h00')" class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition">💬 WhatsApp</button>
-            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'PROCON/MS – SUPERINTENDÊNCIA DE ORIENTAÇÃO E DEFESA DO CONSUMIDOR', 'Rua 13 de Junho, 930 – Centro, Campo Grande/MS', 'Contestação de desconto associativo indevido ou empréstimo consignado não autorizado em benefício do INSS.')" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1.5 rounded-lg transition ml-auto">✉️ Encaminhar</button>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Procon/MS & Procon Municipal', 'Rua 13 de Junho, 930 - Centro', '151 / (67) 3316-9800', 'Seg a Sex, 07h30 às 17h30')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Procon/MS & Procon Municipal', 'Rua 13 de Junho, 930 - Centro', '151 / (67) 3316-9800', 'Seg a Sex, 07h30 às 17h30')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'PROCON/MS – SUPERINTENDÊNCIA DE DEFESA DO CONSUMIDOR', 'Rua 13 de Junho, 930 – Centro, Campo Grande/MS', 'Abertura de reclamação administrativa por descontos indevidos ou empréstimo consignado não autorizado em benefício previdenciário.')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
           </div>
         </div>
 
-        <!-- 9. Banco Central (BACEN) -->
-        <div data-categoria="bancos" class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-sky-800 bg-sky-100 px-2 py-0.5 rounded uppercase">Sistema Financeiro</span>
-              <span class="text-[11px] font-mono text-slate-500">BACEN</span>
+        <!-- 11. Banco Central do Brasil – Registrato -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="social">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-sky-100 text-sky-800">SISTEMA FINANCEIRO</span>
+              <span class="text-[10px] font-bold text-slate-400">BACEN</span>
             </div>
             <h3 class="text-sm font-bold text-slate-900">Banco Central do Brasil – Registrato & Reclamações</h3>
-            <p class="text-xs text-slate-600">Emissão de relatório de contas e empréstimos (Registrato) e abertura de reclamação formal contra bancos.</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
-              <p>📞 <strong>Telefone:</strong> 145 (Seg a Sex, 08h às 20h)</p>
-              <p>🌐 <strong>Portal:</strong> bcb.gov.br / registrato.bcb.gov.br</p>
+            <p class="text-slate-600">Emissão de relatório de contas e empréstimos (Registrato) e abertura de reclamação formal contra bancos.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📞 Telefone:</strong> 145 (Seg a Sex, 08h às 20h)</p>
+              <p><strong>🌐 Portal:</strong> bcb.gov.br / registrato.bcb.gov.br</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-            <button type="button" onclick="copiarContatoOrgao('Banco Central do Brasil (BACEN / Registrato)', 'Atendimento Digital: registrato.bcb.gov.br', 'Telefone 145', 'Seg a Sex, 08h00 às 20h00')" class="text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">📋 Copiar</button>
-            <button type="button" onclick="enviarWhatsAppContatoOrgao('Banco Central do Brasil (BACEN)', 'Portal registrato.bcb.gov.br', 'Telefone 145', 'Seg a Sex, 08h00 às 20h00')" class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition">💬 WhatsApp</button>
-            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'BANCO CENTRAL DO BRASIL (BACEN – REGISTRATO / OUVIDORIA)', 'Atendimento Digital: registrato.bcb.gov.br | Central 145', 'Emissão de relatório Registrato (contas e empréstimos) ou registro de reclamação formal contra instituição financeira.')" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1.5 rounded-lg transition ml-auto">✉️ Encaminhar</button>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Banco Central do Brasil - Registrato', 'Portal Registrato (bcb.gov.br)', '145', 'Seg a Sex, 08h às 20h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Banco Central do Brasil - Registrato', 'Portal Registrato (bcb.gov.br)', '145', 'Seg a Sex, 08h às 20h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'BANCO CENTRAL DO BRASIL – PORTAL REGISTRATO', 'Acesso digital via Gov.br (registrato.bcb.gov.br) ou Telefone 145', 'Emissão do Relatório de Empréstimos e Financiamentos (SCR) para instruir ação contra consignado fraudulento.')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
           </div>
         </div>
 
-        <!-- 10. Receita Federal -->
-        <div data-categoria="assistencia" class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-blue-800 bg-blue-100 px-2 py-0.5 rounded uppercase">Documentação & CPF</span>
-              <span class="text-[11px] font-mono text-slate-500">RFB</span>
+        <!-- 12. Receita Federal do Brasil -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="social">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-sky-100 text-sky-800">DOCUMENTAÇÃO & CPF</span>
+              <span class="text-[10px] font-bold text-slate-400">RFB</span>
             </div>
             <h3 class="text-sm font-bold text-slate-900">Receita Federal do Brasil – Delegacia Campo Grande</h3>
-            <p class="text-xs text-slate-600">Regularização cadastral de CPF suspenso/pendente, certidões e comprovação de isenção.</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
-              <p>📍 <strong>Endereço:</strong> Rua Desembargador Leão Neto do Carmo, 03 – Jardim Veraneio</p>
-              <p>📞 <strong>Telefone:</strong> (67) 3318-7200</p>
+            <p class="text-slate-600">Regularização cadastral de CPF suspenso/pendente, certidões e comprovação de isenção.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Endereço:</strong> Rua Desembargador Leão Neto do Carmo, 03 – Jardim Veraneio</p>
+              <p><strong>📞 Telefone:</strong> (67) 3318-7200</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-            <button type="button" onclick="copiarContatoOrgao('Receita Federal do Brasil – Campo Grande', 'Rua Desembargador Leão Neto do Carmo, 03 – Jardim Veraneio', '(67) 3318-7200', 'Seg a Sex, 08h00 às 17h00')" class="text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">📋 Copiar</button>
-            <button type="button" onclick="enviarWhatsAppContatoOrgao('Receita Federal do Brasil', 'Rua Desembargador Leão Neto do Carmo, 03 – Jardim Veraneio', '(67) 3318-7200', 'Seg a Sex, 08h00 às 17h00')" class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition">💬 WhatsApp</button>
-            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'RECEITA FEDERAL DO BRASIL – DELEGACIA EM CAMPO GRANDE/MS', 'Rua Desembargador Leão Neto do Carmo, 03 – Jardim Veraneio', 'Regularização cadastral de CPF suspenso ou pendente de regularização para fins previdenciários/assistenciais.')" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1.5 rounded-lg transition ml-auto">✉️ Encaminhar</button>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Receita Federal do Brasil', 'Rua Desembargador Leão Neto do Carmo, 03 - Jardim Veraneio', '(67) 3318-7200', 'Seg a Sex, 07h30 às 12h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Receita Federal do Brasil', 'Rua Desembargador Leão Neto do Carmo, 03 - Jardim Veraneio', '(67) 3318-7200', 'Seg a Sex, 07h30 às 12h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'RECEITA FEDERAL DO BRASIL – CAMPO GRANDE/MS', 'Rua Desembargador Leão Neto do Carmo, 03 – Jardim Veraneio, Campo Grande/MS', 'Regularização cadastral de CPF para viabilizar protocolo no Meu INSS, CadÚnico ou PJe TRF3.')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
           </div>
         </div>
 
-        <!-- 11. Bancos Pagadores (BB e Caixa) -->
-        <div data-categoria="bancos" class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded uppercase">Pagamento RPV / Precatórios</span>
-              <span class="text-[11px] font-mono text-slate-500">BB / CAIXA</span>
+        <!-- 13. Banco do Brasil & Caixa Econômica Federal -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="social">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-800">PAGAMENTO RPV / PRECATÓRIOS</span>
+              <span class="text-[10px] font-bold text-slate-400">BB / CAIXA</span>
             </div>
             <h3 class="text-sm font-bold text-slate-900">Banco do Brasil & Caixa Econômica Federal</h3>
-            <p class="text-xs text-slate-600">Saque de Requisições de Pequeno Valor (RPVs) expedidas pelo TRF3 e liberação de benefícios.</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
-              <p>📍 <strong>BB Centro:</strong> Av. Afonso Pena, 2202 – Centro</p>
-              <p>📍 <strong>Caixa Centro:</strong> Rua 13 de Maio, 2838 – Centro</p>
-              <p>ℹ️ <strong>Documentos RPV:</strong> RG, CPF e Comprovante de Residência originais</p>
+            <p class="text-slate-600">Saque de Requisições de Pequeno Valor (RPVs) expedidas pelo TRF3 e liberação de benefícios.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 BB Centro:</strong> Av. Afonso Pena, 2202 – Centro</p>
+              <p><strong>📍 Caixa Centro:</strong> Rua 13 de Maio, 2838 – Centro</p>
+              <p><strong>ℹ️ Documentos RPV:</strong> RG, CPF e Comprovante de Residência originais</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-            <button type="button" onclick="copiarContatoOrgao('Banco do Brasil & Caixa Econômica (Saque RPV)', 'BB Centro: Av. Afonso Pena, 2202 | Caixa Centro: Rua 13 de Maio, 2838', 'Levar RG, CPF e Comprovante de Residência originais', 'Seg a Sex, 10h00 às 15h00')" class="text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">📋 Copiar</button>
-            <button type="button" onclick="enviarWhatsAppContatoOrgao('Banco do Brasil & Caixa (Saque de RPV)', 'BB Centro: Av. Afonso Pena, 2202 | Caixa Centro: Rua 13 de Maio, 2838', 'Levar RG, CPF e Comprovante de Residência originais', 'Seg a Sex, 10h00 às 15h00')" class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition">💬 WhatsApp</button>
-            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'BANCO DO BRASIL / CAIXA ECONÔMICA FEDERAL (SAQUE DE RPV / BENEFÍCIO)', 'BB Centro: Av. Afonso Pena, 2202 | Caixa Centro: Rua 13 de Maio, 2838', 'Comparecimento à agência bancária pagadora para saque de Requisição de Pequeno Valor (RPV) expedida pelo TRF3 ou regularização de pagamento de benefício.')" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1.5 rounded-lg transition ml-auto">✉️ Encaminhar</button>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Banco do Brasil & Caixa Econômica Federal (RPV)', 'BB: Av. Afonso Pena, 2202 | Caixa: Rua 13 de Maio, 2838', '10h às 16h', 'Levar RG, CPF e Comprovante de Residência')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Banco do Brasil & Caixa Econômica Federal (RPV)', 'BB: Av. Afonso Pena, 2202 | Caixa: Rua 13 de Maio, 2838', '10h às 16h', 'Levar RG, CPF e Comprovante de Residência')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'BANCO DO BRASIL / CAIXA ECONÔMICA FEDERAL (SAQUE DE RPV)', 'BB: Av. Afonso Pena, 2202 | Caixa: Rua 13 de Maio, 2838 – Centro, Campo Grande/MS', 'Saque de Requisição de Pequeno Valor (RPV) depositada pelo TRF3 (levar RG, CPF e Comprovante de Residência originais).')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
           </div>
         </div>
 
-        <!-- 12. OAB/MS -->
-        <div data-categoria="justica" class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded uppercase">Advocacia & Comissões</span>
-              <span class="text-[11px] font-mono text-slate-500">OAB/MS</span>
+        <!-- 14. Caixa Econômica Federal – Agência Centro -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="social">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-sky-100 text-sky-800">FGTS • PIS • BOLSA FAMÍLIA</span>
+              <span class="text-[10px] font-bold text-slate-400">CEF</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">Caixa Econômica Federal – Agência Centro</h3>
+            <p class="text-slate-600">Atendimento social para saque de FGTS, PIS/PASEP, Bolsa Família, Seguro-Desemprego e NIS.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Endereço:</strong> Rua 13 de Maio, 2838 – Centro</p>
+              <p><strong>📞 Atendimento Caixa:</strong> 4004-0104 / 0800 104 0104</p>
+              <p><strong>🕒 Horário:</strong> Seg a Sex, 10h00 às 16h00</p>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Caixa Econômica Federal - Agência Centro', 'Rua 13 de Maio, 2838 - Centro', '4004-0104 / 0800 104 0104', 'Seg a Sex, 10h às 16h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Caixa Econômica Federal - Agência Centro', 'Rua 13 de Maio, 2838 - Centro', '4004-0104 / 0800 104 0104', 'Seg a Sex, 10h às 16h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'CAIXA ECONÔMICA FEDERAL – AGÊNCIA CENTRO', 'Rua 13 de Maio, 2838 – Centro, Campo Grande/MS', 'Atendimento administrativo junto à Caixa Econômica Federal para consulta/liberação de FGTS, PIS ou benefício social.')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
+          </div>
+        </div>
+
+        <!-- 15. Casa da Mulher Brasileira / DEAM -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="social">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-rose-100 text-rose-800">PROTEÇÃO À MULHER • 24H</span>
+              <span class="text-[10px] font-bold text-slate-400">CMB / DEAM</span>
+            </div>
+            <h3 class="text-sm font-bold text-slate-900">Casa da Mulher Brasileira / DEAM</h3>
+            <p class="text-slate-600">Atendimento humanizado 24h, medidas protetivas (Lei Maria da Penha — inclusive para afastamento do trabalho pelo INSS), Defensoria e apoio psicossocial.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Endereço:</strong> Rua Brasília, s/n – Jardim Imá</p>
+              <p><strong>📞 Telefone:</strong> (67) 2020-1300 / Ligue 180</p>
+              <p><strong>🕒 Horário:</strong> Plantão 24 horas (todos os dias)</p>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Casa da Mulher Brasileira / DEAM', 'Rua Brasília, s/n - Jardim Imá', '(67) 2020-1300 / 180', 'Plantão 24 horas')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Casa da Mulher Brasileira / DEAM', 'Rua Brasília, s/n - Jardim Imá', '(67) 2020-1300 / 180', 'Plantão 24 horas')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'CASA DA MULHER BRASILEIRA / DEAM – CAMPO GRANDE/MS', 'Rua Brasília, s/n – Jardim Imá, Campo Grande/MS', 'Atendimento integral e acolhimento especializado (medidas protetivas, assistência social e orientação jurídica).')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
+          </div>
+        </div>
+
+        <!-- 16. Ordem dos Advogados do Brasil – Seccional MS -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="justica">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-rose-100 text-rose-800">ADVOCACIA & COMISSÕES</span>
+              <span class="text-[10px] font-bold text-slate-400">OAB/MS</span>
             </div>
             <h3 class="text-sm font-bold text-slate-900">Ordem dos Advogados do Brasil – Seccional MS</h3>
-            <p class="text-xs text-slate-600">Consulta de inscrição profissional, ouvidoria e Comissões de Direito Previdenciário e Assistência Social.</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
-              <p>📍 <strong>Endereço:</strong> Av. Mato Grosso, 4700 – Carandá Bosque</p>
-              <p>📞 <strong>Telefone:</strong> (67) 3318-4700</p>
+            <p class="text-slate-600">Consulta de inscrição profissional, ouvidoria e Comissões de Direito Previdenciário e Assistência Social.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Endereço:</strong> Av. Mato Grosso, 4700 – Carandá Bosque</p>
+              <p><strong>📞 Telefone:</strong> (67) 3318-4700</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-            <button type="button" onclick="copiarContatoOrgao('OAB/MS – Seccional Mato Grosso do Sul', 'Av. Mato Grosso, 4700 – Carandá Bosque', '(67) 3318-4700', 'Seg a Sex, 08h00 às 18h00')" class="text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">📋 Copiar</button>
-            <button type="button" onclick="enviarWhatsAppContatoOrgao('OAB/MS', 'Av. Mato Grosso, 4700 – Carandá Bosque', '(67) 3318-4700', 'Seg a Sex, 08h00 às 18h00')" class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition">💬 WhatsApp</button>
-            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'ORDEM DOS ADVOGADOS DO BRASIL – SECCIONAL MATO GROSSO DO SUL (OAB/MS)', 'Av. Mato Grosso, 4700 – Carandá Bosque, Campo Grande/MS', 'Atendimento junto à Ouvidoria / Comissões temáticas da OAB/MS para orientação institucional.')" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1.5 rounded-lg transition ml-auto">✉️ Encaminhar</button>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Ordem dos Advogados do Brasil - Seccional MS', 'Av. Mato Grosso, 4700 - Carandá Bosque', '(67) 3318-4700', 'Seg a Sex, 08h às 18h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Ordem dos Advogados do Brasil - Seccional MS', 'Av. Mato Grosso, 4700 - Carandá Bosque', '(67) 3318-4700', 'Seg a Sex, 08h às 18h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'ORDEM DOS ADVOGADOS DO BRASIL – SECCIONAL MS (OAB/MS)', 'Av. Mato Grosso, 4700 – Carandá Bosque, Campo Grande/MS', 'Atendimento institucional junto à Ouvidoria / Comissões Temáticas da OAB/MS.')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
           </div>
         </div>
 
-        <!-- 13. MPT 24ª Região -->
-        <div data-categoria="justica" class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-purple-800 bg-purple-100 px-2 py-0.5 rounded uppercase">Ministério Público</span>
-              <span class="text-[11px] font-mono text-slate-500">MPT 24ª</span>
+        <!-- 17. Ministério Público do Trabalho -->
+        <div class="card-orgao bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between space-y-3" data-categoria="justica">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-purple-100 text-purple-800">MINISTÉRIO PÚBLICO</span>
+              <span class="text-[10px] font-bold text-slate-400">MPT</span>
             </div>
-            <h3 class="text-sm font-bold text-slate-900">Ministério Público do Trabalho (PRT 24ª Região)</h3>
-            <p class="text-xs text-slate-600">Denúncias de trabalho análogo à escravidão, ausência de registro em CTPS e fraudes trabalhistas/previdenciárias.</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1">
-              <p>📍 <strong>Endereço:</strong> Rua Dr. Paulo Machado, 120 – Royal Park</p>
-              <p>📞 <strong>Telefone:</strong> (67) 3358-3000</p>
+            <h3 class="text-sm font-bold text-slate-900">Ministério Público do Trabalho</h3>
+            <p class="text-slate-600">Denúncias de trabalho análogo à escravidão, irregularidades trabalhistas graves e ausência de registro em carteira.</p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1 text-slate-700">
+              <p><strong>📍 Endereço:</strong> Rua Pimenta Bueno, 139 – Amambaí</p>
+              <p><strong>📞 Telefone:</strong> (67) 3358-3000</p>
             </div>
           </div>
-          <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
-            <button type="button" onclick="copiarContatoOrgao('Ministério Público do Trabalho (PRT 24ª Região)', 'Rua Dr. Paulo Machado, 120 – Royal Park', '(67) 3358-3000', 'Seg a Sex, 12h00 às 18h00')" class="text-[11px] font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg transition">📋 Copiar</button>
-            <button type="button" onclick="enviarWhatsAppContatoOrgao('Ministério Público do Trabalho (MPT 24ª)', 'Rua Dr. Paulo Machado, 120 – Royal Park', '(67) 3358-3000', 'Seg a Sex, 12h00 às 18h00')" class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition">💬 WhatsApp</button>
-            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'MINISTÉRIO PÚBLICO DO TRABALHO – PROCURADORIA REGIONAL DO TRABALHO DA 24ª REGIÃO (MPT)', 'Rua Dr. Paulo Machado, 120 – Royal Park, Campo Grande/MS', 'Registro de notícia de fato / denúncia trabalhista e previdenciária (ausência de registro em CTPS ou irregularidade laboral).')" class="text-[11px] font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-2.5 py-1.5 rounded-lg transition ml-auto">✉️ Encaminhar</button>
+          <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+            <button type="button" onclick="copiarContatoOrgao('Ministério Público do Trabalho', 'Rua Pimenta Bueno, 139 - Amambaí', '(67) 3358-3000', 'Seg a Sex, 11h às 17h')" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700">📋 Copiar</button>
+            <button type="button" onclick="enviarWhatsAppContatoOrgao('Ministério Público do Trabalho', 'Rua Pimenta Bueno, 139 - Amambaí', '(67) 3358-3000', 'Seg a Sex, 11h às 17h')" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 font-semibold text-emerald-800">💬 WhatsApp</button>
+            <button type="button" onclick="encaminharParaOrgaoDireto('OUTRO', 'MINISTÉRIO PÚBLICO DO TRABALHO', 'Rua Pimenta Bueno, 139 – Amambaí, Campo Grande/MS', 'Registro de notícia de fato / denúncia trabalhista por ausência de anotação em CTPS ou irregularidades trabalhistas graves.')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 font-bold text-sky-800">✉️ Encaminhar</button>
           </div>
         </div>
+
       </div>
     </section>
   </main>
@@ -1948,6 +2054,86 @@
        DOCUMENTO TIMBRADO EXCLUSIVO PARA IMPRESSÃO (TCARP)
        ======================================================== -->
   <div id="folha-tcarp-impressao" class="hidden p-6 bg-white text-slate-900 space-y-3.5 font-serif text-xs leading-relaxed">
+  </div>
+
+  <!-- ========================================================
+       DOCUMENTO TIMBRADO EXCLUSIVO PARA IMPRESSÃO (PLANEJAMENTO CNIS)
+       ======================================================== -->
+  <div id="folha-planejamento-impressao" class="hidden p-8 bg-white text-slate-900 space-y-5 text-xs">
+    <div class="border-b-2 border-slate-800 pb-4 text-center space-y-1">
+      <p class="text-[10px] uppercase font-bold tracking-widest text-slate-500">Universidade Federal de Mato Grosso do Sul • Faculdade de Direito (FADIR)</p>
+      <h2 class="text-base font-black text-slate-900 tracking-tight">LAPREVS – LIGA ACADÊMICA DE PRÁTICA JURÍDICA EM SEGURIDADE SOCIAL</h2>
+      <p class="text-[11px] text-slate-600 font-medium">Plantão de Orientação Previdenciária • Campo Grande/MS</p>
+      <div class="inline-block mt-2 px-3 py-1 bg-indigo-50 border border-indigo-200 rounded-md">
+        <span class="text-xs font-bold text-indigo-950 uppercase tracking-wide">AUDITORIA CNIS & PLANO DE AÇÃO PREVIDENCIÁRIO</span>
+      </div>
+    </div>
+
+    <div class="border border-slate-300 rounded-lg p-3.5 bg-slate-50 space-y-1.5">
+      <div class="grid grid-cols-3 gap-2">
+        <div><span class="text-slate-500 font-semibold">Segurado(a):</span> <strong id="print-cnis-nome" class="text-slate-900">--</strong></div>
+        <div><span class="text-slate-500 font-semibold">CPF:</span> <strong id="print-cnis-cpf" class="text-slate-900">--</strong></div>
+        <div><span class="text-slate-500 font-semibold">NIT/PIS:</span> <strong id="print-cnis-nit" class="text-slate-900">--</strong></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2 pt-1.5 border-t border-slate-200">
+        <div><span class="text-slate-500 font-semibold">Carência Apurada:</span> <strong id="print-cnis-carencia" class="text-indigo-900">--</strong></div>
+        <div><span class="text-slate-500 font-semibold">Qualidade de Segurado:</span> <strong id="print-cnis-qualidade" class="text-slate-900">--</strong></div>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 border-b border-slate-300 pb-1">1. Semáforo de Cobertura por Carência</h3>
+      <div id="print-cnis-semaforo" class="grid grid-cols-2 gap-2.5"></div>
+    </div>
+
+    <div class="space-y-2">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 border-b border-slate-300 pb-1">2. Providências e Documentos Recomendados ao Assistido</h3>
+      <div id="print-cnis-plano" class="space-y-2"></div>
+    </div>
+
+    <div class="pt-4 border-t border-slate-300 text-center text-[10px] text-slate-500 space-y-0.5">
+      <p>Documento orientativo emitido em <span id="print-cnis-data">--</span> pelo Plantão Acadêmico LAPREVS / UFMS.</p>
+      <p>Guarde este plano junto aos seus documentos pessoais e extrato CNIS.</p>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       DOCUMENTO TIMBRADO EXCLUSIVO PARA IMPRESSÃO (SIMULAÇÃO)
+       ======================================================== -->
+  <div id="folha-simulacao-impressao" class="hidden p-8 bg-white text-slate-900 space-y-5 text-xs">
+    <div class="border-b-2 border-slate-800 pb-4 text-center space-y-1">
+      <p class="text-[10px] uppercase font-bold tracking-widest text-slate-500">Universidade Federal de Mato Grosso do Sul • Faculdade de Direito (FADIR)</p>
+      <h2 class="text-base font-black text-slate-900 tracking-tight">LAPREVS – LIGA ACADÊMICA DE PRÁTICA JURÍDICA EM SEGURIDADE SOCIAL</h2>
+      <p class="text-[11px] text-slate-600 font-medium">Plantão de Orientação Previdenciária • Campo Grande/MS</p>
+      <div class="inline-block mt-2 px-3 py-1 bg-emerald-50 border border-emerald-200 rounded-md">
+        <span class="text-xs font-bold text-emerald-950 uppercase tracking-wide">SIMULAÇÃO ORIENTATIVA DE APOSENTADORIA (EC 103/2019)</span>
+      </div>
+    </div>
+
+    <div class="border border-slate-300 rounded-lg p-3.5 bg-slate-50 space-y-2">
+      <div class="grid grid-cols-2 gap-2">
+        <div><span class="text-slate-500 font-semibold">Segurado(a):</span> <strong id="print-sim-nome" class="text-slate-900">--</strong></div>
+        <div><span class="text-slate-500 font-semibold">Sexo / Idade Atual:</span> <strong id="print-sim-perfil" class="text-slate-900">--</strong></div>
+      </div>
+      <div class="grid grid-cols-3 gap-2 pt-1.5 border-t border-slate-200">
+        <div><span class="text-slate-500 font-semibold">Tempo Total:</span> <strong id="print-sim-tempo" class="text-sky-900">--</strong></div>
+        <div><span class="text-slate-500 font-semibold">Pontuação Atual:</span> <strong id="print-sim-pontos" class="text-indigo-900">--</strong></div>
+        <div><span class="text-slate-500 font-semibold">RMI Estimada:</span> <strong id="print-sim-rmi" class="text-emerald-900">--</strong></div>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 border-b border-slate-300 pb-1">Projeção das Modalidades de Aposentadoria (Parâmetros 2026)</h3>
+      <div id="print-sim-cenarios" class="space-y-2.5"></div>
+    </div>
+
+    <div class="p-3 rounded-lg bg-amber-50 border border-amber-200 text-[10px] text-amber-950 leading-relaxed">
+      <strong>Nota Explicativa:</strong> Esta simulação possui caráter estritamente orientativo e acadêmico, elaborada com base nas informações e períodos informados nesta data e no salário mínimo vigente em 2026 (R$ 1.621,00). A concessão oficial depende da validação documental pelo INSS ou pelo Juizado Especial Federal.
+    </div>
+
+    <div class="pt-3 border-t border-slate-300 text-center text-[10px] text-slate-500">
+      <p>Emitido em <span id="print-sim-data">--</span> • Plantão Acadêmico LAPREVS / UFMS</p>
+    </div>
   </div>
 
   <!-- ==================== MODAL DE FICHA PROCESSUAL DO CASO ==================== -->
@@ -3296,7 +3482,6 @@
       if (!input || !input.value) return;
       const partes = input.value.split('-');
       const dataSel = new Date(Number(partes[0]), Number(partes[1]) - 1, Number(partes[2]));
-      // 2 = Terça-feira (0=Dom, 1=Seg, 2=Ter, 3=Qua, 4=Qui, 5=Sex, 6=Sáb)
       if (dataSel.getDay() !== 2) {
         const proximaTerca = obterProximaTercaFeiraIso(dataSel);
         input.value = proximaTerca;
@@ -3837,7 +4022,7 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
       }
     }
 
-    /* ==================== AUDITORIA & PLANEJAMENTO CNIS (ETAPA 1) ==================== */
+    /* ==================== AUDITORIA & PLANEJAMENTO CNIS ==================== */
     async function processarArquivoPdfCnis(input) {
       if (!input.files || !input.files[0]) return;
       const arquivo = input.files[0];
@@ -3888,7 +4073,6 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
     function executarAnaliseTextoCnis(textoBruto) {
       const textoLimpo = textoBruto.replace(/\s+/g, ' ');
 
-      // Extração de CPF, NIT e Nome
       const matchCpf = textoLimpo.match(/\b\d{3}\.\d{3}\.\d{3}-\d{2}\b/);
       const matchNit = textoLimpo.match(/\b\d{3}\.\d{5}\.\d{2}-\d\b/);
       const matchNome = textoLimpo.match(/Nome:\s*([A-ZÀ-Ú\s]{5,60}?)(?=\s+(?:Data|CPF|NIT|Nome da M|Sexo))/i);
@@ -3906,7 +4090,6 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
       while ((match = regexIntervalo.exec(textoLimpo)) !== null) {
         const dtInicio = match[1];
         const dtFim = match[2] && /\d{2}\/\d{2}\/\d{4}/.test(match[2]) ? match[2] : '';
-        // Evita capturar datas de nascimento ou emissão isoladas sem contexto de vínculo
         const contextoTrecho = textoLimpo.substring(Math.max(0, match.index - 80), Math.min(textoLimpo.length, match.index + 80));
         if (/Nascimento|Emissão|Página|Extrato/i.test(contextoTrecho)) continue;
 
@@ -3926,7 +4109,6 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
         if (contador > 40) break;
       }
 
-      // Detecção de Indicadores Críticos do INSS
       const catalogoIndicadores = [
         {
           sigla: 'PEXT',
@@ -3963,7 +4145,6 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
       const indicadoresEncontrados = catalogoIndicadores.filter(ind => ind.regex.test(textoLimpo));
       const temVinculoAberto = vinculos.some(v => !v.fimIso);
 
-      // Cálculo de Carência (Competências) e Período de Graça (Art. 15, Lei 8.213/91)
       let totalCompetencias = 0;
       let dataMaisRecente = null;
       const hoje = new Date();
@@ -4002,7 +4183,6 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
         document.getElementById('sim-nascimento').value = nascimentoIso;
       }
 
-      // Renderiza Resumo
       document.getElementById('cnis-segurado-nome').textContent = nome;
       document.getElementById('cnis-segurado-cpf').textContent = cpf;
       document.getElementById('cnis-segurado-nit').textContent = nit;
@@ -4032,7 +4212,6 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
         `).join('');
       }
 
-      // Renderiza Plano de Ação
       const planoEl = document.getElementById('box-plano-acao-cnis');
       let htmlPlano = '';
 
@@ -4071,6 +4250,26 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
 
       planoEl.innerHTML = htmlPlano;
       mostrarNotificacao('✓ Auditoria do CNIS concluída!');
+    }
+
+    function imprimirPlanejamentoCnisA4() {
+      const dados = estadoApp.cnisAnalisado;
+      if (!dados || (!dados.nome && dados.vinculos.length === 0)) {
+        mostrarNotificacao('⚠️ Analise um CNIS antes de imprimir o plano.', '!');
+        return;
+      }
+      document.getElementById('print-cnis-nome').textContent = dados.nome || 'Não identificado';
+      document.getElementById('print-cnis-cpf').textContent = dados.cpf || '--';
+      document.getElementById('print-cnis-nit').textContent = dados.nit || '--';
+      document.getElementById('print-cnis-carencia').textContent = `${dados.carenciaInfo?.totalCompetencias || 0} competência(s)`;
+      document.getElementById('print-cnis-qualidade').textContent = dados.carenciaInfo?.textoQualidade || '--';
+      document.getElementById('print-cnis-semaforo').innerHTML = document.getElementById('grid-semaforo-beneficios-cnis')?.innerHTML || '';
+      document.getElementById('print-cnis-plano').innerHTML = document.getElementById('box-plano-acao-cnis')?.innerHTML || '';
+      document.getElementById('print-cnis-data').textContent = new Date().toLocaleDateString('pt-BR');
+
+      document.body.classList.add('imprimindo-planejamento');
+      window.print();
+      setTimeout(() => document.body.classList.remove('imprimindo-planejamento'), 1000);
     }
 
     function renderizarSemaforoCarenciaCnis(info) {
@@ -4211,7 +4410,7 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
       mostrarNotificacao('✓ Dados do segurado preenchidos no Registro, TCARP, Petição e Encaminhamento!');
     }
 
-    /* ==================== SIMULAÇÃO PREVIDENCIÁRIA (ETAPA 2) ==================== */
+    /* ==================== SIMULAÇÃO PREVIDENCIÁRIA ==================== */
     function importarDadosParaSimulacao(origem) {
       const lista = origem === 'cnis'
         ? (estadoApp.cnisAnalisado?.vinculos || []).map(v => ({ inicio: v.inicioIso, fim: v.fimIso, tipo: v.tipo }))
@@ -4264,7 +4463,6 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
       const carencia = parseInt(document.getElementById('sim-carencia')?.value, 10) || 0;
       const mediaSalarial = Math.max(SALARIO_MINIMO_2026, parseFloat(document.getElementById('sim-media-salarial')?.value) || SALARIO_MINIMO_2026);
 
-      // Cálculo da idade atual exata em anos decimais
       const hoje = new Date();
       const dtNasc = new Date(nascVal + 'T00:00:00');
       const idadeDecimal = Math.max(0, (hoje.getTime() - dtNasc.getTime()) / (1000 * 60 * 60 * 24 * 365.25));
@@ -4275,7 +4473,6 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
       const tempoTotalAnos = tempoUrbanoTotal + anosRur;
       const pontosAtuais = idadeDecimal + tempoTotalAnos;
 
-      // Coeficiente EC 103/2019: 60% + 2% por ano que exceder 15 anos (Mulher) ou 20 anos (Homem)
       const divisorBase = sexo === 'F' ? 15 : 20;
       const anosExcedentes = Math.max(0, Math.floor(tempoTotalAnos - divisorBase));
       const percentualRmi = Math.min(100, 60 + (anosExcedentes * 2));
@@ -4286,28 +4483,23 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
       document.getElementById('sim-res-pontos').textContent = `${pontosAtuais.toFixed(1)} pts`;
       document.getElementById('sim-res-rmi').textContent = rmiCalculada.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-      // Regras de Elegibilidade
       const idadeMinUrbana = sexo === 'F' ? 62 : 65;
       const tempoMinUrbano = (sexo === 'M' && filiacao === 'apos_ec103') ? 20 : 15;
       const carenciaMin = 180;
 
-      // 1. Aposentadoria por Idade Urbana
       const faltaIdadeUrb = Math.max(0, idadeMinUrbana - idadeDecimal);
       const faltaTempoUrb = Math.max(0, tempoMinUrbano - tempoUrbanoTotal);
       const faltaCarenciaUrb = Math.max(0, carenciaMin - carencia);
       const aptoIdadeUrb = faltaIdadeUrb === 0 && faltaTempoUrb === 0 && faltaCarenciaUrb === 0;
 
-      // 2. Aposentadoria Híbrida (Soma Urbano + Rural)
       const faltaTempoHibrida = Math.max(0, tempoMinUrbano - tempoTotalAnos);
       const aptoHibrida = faltaIdadeUrb === 0 && faltaTempoHibrida === 0 && faltaCarenciaUrb === 0;
 
-      // 3. Aposentadoria por Idade Rural
       const idadeMinRural = sexo === 'F' ? 55 : 60;
       const faltaIdadeRur = Math.max(0, idadeMinRural - idadeDecimal);
       const faltaTempoRur = Math.max(0, 15 - anosRur);
       const aptoRural = faltaIdadeRur === 0 && faltaTempoRur === 0;
 
-      // 4. Regra de Transição por Pontos (2026: 93 Mulher / 103 Homem)
       const metaPontos2026 = sexo === 'F' ? 93 : 103;
       const tempoMinPontos = sexo === 'F' ? 30 : 35;
       const faltaPontos = Math.max(0, metaPontos2026 - pontosAtuais);
@@ -4368,6 +4560,31 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
           </div>
         `).join('');
       }
+    }
+
+    function imprimirSimulacaoA4() {
+      calcularSimulacaoPrevidenciaria();
+
+      const nomeSegurado = (estadoApp.cnisAnalisado?.nome && estadoApp.cnisAnalisado.nome !== 'Segurado(a) identificado(a) no CNIS')
+        ? estadoApp.cnisAnalisado.nome
+        : (document.getElementById('reg-nome')?.value.trim() || document.getElementById('pet-nome')?.value.trim() || 'Assistido(a) LAPREVS');
+      const sexoTxt = document.getElementById('sim-sexo')?.value === 'F' ? 'Feminino' : 'Masculino';
+      const idadeTxt = document.getElementById('sim-res-idade')?.textContent || '--';
+
+      document.getElementById('print-sim-nome').textContent = nomeSegurado;
+      document.getElementById('print-sim-perfil').textContent = `${sexoTxt} • ${idadeTxt}`;
+      document.getElementById('print-sim-data').textContent = new Date().toLocaleDateString('pt-BR');
+      document.getElementById('print-sim-tempo').textContent = document.getElementById('sim-res-tempo-total')?.textContent || '--';
+      document.getElementById('print-sim-pontos').textContent = document.getElementById('sim-res-pontos')?.textContent || '--';
+      document.getElementById('print-sim-rmi').textContent = document.getElementById('sim-res-rmi')?.textContent || '--';
+
+      const gridSim = document.getElementById('grid-resultados-simulacao');
+      const printSim = document.getElementById('print-sim-cenarios');
+      if (gridSim && printSim) printSim.innerHTML = gridSim.innerHTML;
+
+      document.body.classList.add('imprimindo-simulacao');
+      window.print();
+      setTimeout(() => document.body.classList.remove('imprimindo-simulacao'), 1000);
     }
 
     /* Encaminhamentos */
@@ -4450,7 +4667,7 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
     }
 
     function obterDadosDestinoAtualEncaminhamento() {
-      const ch = document.getElementById('enc-destino').value;
+      const ch = document.getElementById('enc-destino')?.value || 'CRAS';
       const base = dadosModelosEncaminhamento[ch] || dadosModelosEncaminhamento.OUTRO;
       if (ch === 'OUTRO') {
         const orgaoCustom = (document.getElementById('enc-outro-orgao')?.value || '').trim();
@@ -4471,15 +4688,14 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
 
     function atualizarTextoEncaminhamento() {
       const m = obterDadosDestinoAtualEncaminhamento();
-      const nome = document.getElementById('enc-nome').value.trim() || '[NOME COMPLETO DO ASSISTIDO]';
-      const cpf = document.getElementById('enc-cpf').value.trim() || '[DOCUMENTO CPF/RNM]';
-      const prio = document.getElementById('enc-prioridade').value;
-      const motivo = document.getElementById('enc-motivo').value.trim();
-      const docs = document.getElementById('enc-documentos').value.trim();
-      const dicas = document.getElementById('enc-dicas').value.trim();
+      const nome = document.getElementById('enc-nome')?.value.trim() || '[NOME COMPLETO DO ASSISTIDO]';
+      const cpf = document.getElementById('enc-cpf')?.value.trim() || '[DOCUMENTO CPF/RNM]';
+      const prio = document.getElementById('enc-prioridade')?.value || 'geral';
+      const motivo = document.getElementById('enc-motivo')?.value.trim() || '';
+      const docs = document.getElementById('enc-documentos')?.value.trim() || '';
+      const dicas = document.getElementById('enc-dicas')?.value.trim() || '';
       const dataHoje = new Date().toLocaleDateString('pt-BR');
 
-      // Atualiza Pré-visualização Executiva na Tela
       if (document.getElementById('prev-enc-nome')) document.getElementById('prev-enc-nome').textContent = nome;
       if (document.getElementById('prev-enc-cpf')) document.getElementById('prev-enc-cpf').textContent = cpf;
       if (document.getElementById('prev-enc-data')) document.getElementById('prev-enc-data').textContent = dataHoje;
