@@ -7,7 +7,8 @@
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
+<!-- Supabase JS SDK v2 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <!-- Mozilla PDF.js CDN (Leitura 100% local do PDF do CNIS) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
@@ -218,8 +219,15 @@
         </div>
       </div>
 
-      <!-- Atalho Rápido de Ajuda -->
+<!-- Atalho Rápido de Ajuda & Autenticação Supabase -->
       <div class="flex items-center gap-2">
+        <span id="laprevs-user-badge" class="hidden md:inline-flex items-center text-[11px] font-bold bg-emerald-50 text-emerald-900 px-2.5 py-1.5 rounded-lg border border-emerald-200"></span>
+        <button id="btn-laprevs-login" onclick="abrirModalLoginLaprevs()" class="text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-2xs">
+          <span>🔒</span> <span>Entrar</span>
+        </button>
+        <button id="btn-laprevs-logout" onclick="fazerLogoutLaprevs()" class="hidden text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 px-2.5 py-1.5 rounded-lg transition shadow-2xs">
+          Sair
+        </button>
         <button onclick="mudarAba('view-triagem')" class="text-xs font-semibold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-2xs">
           <span>🎯</span> <span class="hidden sm:inline">Nova</span> Triagem
         </button>
@@ -237,20 +245,20 @@
         <span>🧭</span> Triagem & Acolhimento
       </button>
 
-      <!-- 2. Registro & Quantitativo -->
+<!-- 2. Registro & Quantitativo -->
       <button onclick="mudarAba('view-registro')" id="tab-btn-view-registro" class="aba-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
-        <span>📋</span> Registro & Quantitativo
+        <span>📋</span> Registro & Quantitativo <span class="lock-laprevs text-[10px]">🔒</span>
       </button>
 
       <!-- 2.1 Casos & Acompanhamento (Ficha Processual) -->
       <button onclick="mudarAba('view-casos')" id="tab-btn-view-casos" class="aba-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
-        <span>📁</span> Casos & Acompanhamento
+        <span>📁</span> Casos & Acompanhamento <span class="lock-laprevs text-[10px]">🔒</span>
         <span id="badge-nav-casos" class="text-[10px] bg-sky-100 text-sky-800 font-bold px-1.5 py-0.2 rounded-full">0</span>
       </button>
 
       <!-- 2.2 Agendamento de Retorno -->
       <button onclick="mudarAba('view-retornos')" id="tab-btn-view-retornos" class="aba-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
-        <span>📅</span> Agendamento de Retorno
+        <span>📅</span> Agendamento de Retorno <span class="lock-laprevs text-[10px]">🔒</span>
         <span id="badge-nav-retornos" class="text-[10px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.2 rounded-full">0</span>
       </button>
 
@@ -4885,6 +4893,263 @@ Requerente em Causa Própria (Jus Postulandi – Apoio LAPREVS/UFMS)`;
       }
       document.body.removeChild(textarea);
     }
+  </script>
+  <!-- ==================== MODAL DE LOGIN INSTITUCIONAL LAPREVS ==================== -->
+  <div id="modal-login-laprevs" class="fixed inset-0 bg-slate-900/60 z-50 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white max-w-md w-full rounded-2xl p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-sky-700 bg-sky-50 px-2 py-0.5 rounded border border-sky-100">Sigilo Previdenciário & LGPD</span>
+          <h3 class="text-sm font-bold text-slate-900 mt-1">Acesso Restrito • Extensionistas LAPREVS</h3>
+        </div>
+        <button onclick="fecharModalLoginLaprevs()" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+      </div>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        As ferramentas de consulta, simuladores, leitura local de CNIS e geradores de petições permanecem livres. Para registrar atendimentos, acessar fichas de casos ou agendar retornos, faça login:
+      </p>
+      <form onsubmit="fazerLoginLaprevs(event)" class="space-y-3 text-xs">
+        <div class="space-y-1">
+          <label class="font-semibold text-slate-700">E-mail Institucional / Extensionista *</label>
+          <input type="email" id="laprevs-login-email" required placeholder="atendimento.laprevs@ufms.br" class="w-full p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+        </div>
+        <div class="space-y-1">
+          <label class="font-semibold text-slate-700">Senha de Acesso *</label>
+          <input type="password" id="laprevs-login-pass" required placeholder="••••••••" class="w-full p-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-600">
+        </div>
+        <div id="laprevs-login-erro" class="hidden p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 font-semibold"></div>
+        <button type="submit" id="btn-submit-login-laprevs" class="w-full font-bold text-white bg-sky-700 hover:bg-sky-800 py-2.5 rounded-xl transition shadow-xs">
+          Autenticar e Liberar Acesso
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== INTEGRAÇÃO SUPABASE (PORTAL-LAPREVS) ==================== -->
+  <script>
+    const SUPABASE_LAPREVS_URL = 'https://btmznrgvuedefpcwaxol.supabase.co';
+    const SUPABASE_LAPREVS_KEY = 'sb_publishable_AKOqWXcRWMsJ3j7gKFv_cA_zL0VYtj0';
+    const supabaseLaprevs = window.supabase.createClient(SUPABASE_LAPREVS_URL, SUPABASE_LAPREVS_KEY);
+
+    let sessaoLaprevs = null;
+    const ABAS_RESTRITAS_LAPREVS = ['view-registro', 'view-casos', 'view-retornos'];
+
+    function abrirModalLoginLaprevs() {
+      const m = document.getElementById('modal-login-laprevs');
+      if (m) m.classList.remove('hidden');
+      const err = document.getElementById('laprevs-login-erro');
+      if (err) err.classList.add('hidden');
+    }
+
+    function fecharModalLoginLaprevs() {
+      const m = document.getElementById('modal-login-laprevs');
+      if (m) m.classList.add('hidden');
+    }
+
+    async function fazerLoginLaprevs(e) {
+      e.preventDefault();
+      const email = document.getElementById('laprevs-login-email').value.trim();
+      const password = document.getElementById('laprevs-login-pass').value;
+      const btn = document.getElementById('btn-submit-login-laprevs');
+      const erroBox = document.getElementById('laprevs-login-erro');
+
+      btn.disabled = true;
+      btn.textContent = 'Autenticando...';
+      erroBox.classList.add('hidden');
+
+      const { data, error } = await supabaseLaprevs.auth.signInWithPassword({ email, password });
+
+      btn.disabled = false;
+      btn.textContent = 'Autenticar e Liberar Acesso';
+
+      if (error) {
+        erroBox.textContent = 'E-mail ou senha inválidos. Verifique suas credenciais.';
+        erroBox.classList.remove('hidden');
+        return;
+      }
+
+      fecharModalLoginLaprevs();
+      atualizarInterfaceAuthLaprevs(data.session);
+      await carregarDadosSupabaseLaprevs();
+      mostrarNotificacao('✓ Login realizado! Banco de dados da LAPREVS conectado.');
+    }
+
+    async function fazerLogoutLaprevs() {
+      await supabaseLaprevs.auth.signOut();
+      estadoApp.atendimentos = [];
+      estadoApp.retornos = [];
+      atualizarInterfaceAuthLaprevs(null);
+      renderizarTabelaAtendimentos();
+      renderizarGridCasos();
+      renderizarTabelaRetornos();
+      if (ABAS_RESTRITAS_LAPREVS.includes(estadoApp.abaAtiva)) {
+        mudarAba('view-triagem');
+      }
+      mostrarNotificacao('Sessão encerrada com segurança.');
+    }
+
+    function atualizarInterfaceAuthLaprevs(session) {
+      sessaoLaprevs = session;
+      const btnIn = document.getElementById('btn-laprevs-login');
+      const btnOut = document.getElementById('btn-laprevs-logout');
+      const badge = document.getElementById('laprevs-user-badge');
+      const locks = document.querySelectorAll('.lock-laprevs');
+
+      if (session && session.user) {
+        if (btnIn) btnIn.classList.add('hidden');
+        if (btnOut) btnOut.classList.remove('hidden');
+        if (badge) {
+          badge.textContent = `🔓 ${session.user.email}`;
+          badge.classList.remove('hidden');
+        }
+        locks.forEach(l => l.textContent = '🔓');
+      } else {
+        if (btnIn) btnIn.classList.remove('hidden');
+        if (btnOut) btnOut.classList.add('hidden');
+        if (badge) badge.classList.add('hidden');
+        locks.forEach(l => l.textContent = '🔒');
+      }
+    }
+
+    const _mudarAbaOriginal = mudarAba;
+    mudarAba = function(idAba) {
+      if (ABAS_RESTRITAS_LAPREVS.includes(idAba) && !sessaoLaprevs) {
+        abrirModalLoginLaprevs();
+        mostrarNotificacao('🔒 Faça login institucional para acessar dados de assistidos.', '!');
+        return;
+      }
+      _mudarAbaOriginal(idAba);
+      if (ABAS_RESTRITAS_LAPREVS.includes(idAba) && sessaoLaprevs) {
+        carregarDadosSupabaseLaprevs();
+      }
+    };
+
+    async function carregarDadosSupabaseLaprevs() {
+      if (!sessaoLaprevs) return;
+
+      const [resAtend, resRet] = await Promise.all([
+        supabaseLaprevs.from('atendimentos_laprevs').select('*').order('id', { ascending: false }),
+        supabaseLaprevs.from('retornos_laprevs').select('*').order('id', { ascending: false })
+      ]);
+
+      if (!resAtend.error && resAtend.data) {
+        estadoApp.atendimentos = resAtend.data.map(row => ({
+          id: row.id,
+          data: row.data,
+          nome: row.nome,
+          tipoDoc: row.tipo_doc || 'CPF',
+          doc: row.doc,
+          telefone: row.telefone,
+          objeto: row.objeto,
+          statusInss: row.status_inss,
+          providencia: row.providencia,
+          atendente: row.atendente,
+          observacoes: row.observacoes,
+          arquivado: !!row.arquivado,
+          andamentos: Array.isArray(row.andamentos) ? row.andamentos : []
+        }));
+        renderizarTabelaAtendimentos();
+        renderizarGridCasos();
+        atualizarContadoresFiltrosCasos();
+        atualizarSelectCasosParaRetorno();
+      }
+
+      if (!resRet.error && resRet.data) {
+        estadoApp.retornos = resRet.data.map(row => ({
+          id: row.id,
+          casoId: row.caso_id,
+          nome: row.nome,
+          telefone: row.telefone,
+          data: row.data,
+          horario: row.horario,
+          atendente: row.atendente,
+          motivo: row.motivo,
+          docs: row.docs,
+          status: row.status || 'Agendado'
+        }));
+        renderizarTabelaRetornos();
+      }
+    }
+
+    salvarAtendimentosLocais = async function() {
+      if (!sessaoLaprevs) return;
+      const payloads = estadoApp.atendimentos.map(c => ({
+        id: c.id,
+        updated_at: new Date().toISOString(),
+        atendente_id: sessaoLaprevs.user.id,
+        atendente_email: sessaoLaprevs.user.email,
+        data: c.data,
+        nome: c.nome,
+        tipo_doc: c.tipoDoc || 'CPF',
+        doc: c.doc,
+        telefone: c.telefone,
+        objeto: c.objeto,
+        status_inss: c.statusInss,
+        providencia: c.providencia,
+        atendente: c.atendente,
+        observacoes: c.observacoes,
+        arquivado: !!c.arquivado,
+        andamentos: c.andamentos || []
+      }));
+
+      if (payloads.length > 0) {
+        const { error } = await supabaseLaprevs.from('atendimentos_laprevs').upsert(payloads, { onConflict: 'id' });
+        if (error) {
+          console.error('Erro ao salvar atendimentos no Supabase:', error);
+          mostrarNotificacao('⚠️ Erro ao sincronizar atendimento na nuvem: ' + error.message, '!');
+        }
+      }
+    };
+
+    salvarRetornosLocais = async function() {
+      if (!sessaoLaprevs) return;
+      const payloads = estadoApp.retornos.map(r => ({
+        id: r.id,
+        atendente_id: sessaoLaprevs.user.id,
+        caso_id: r.casoId || null,
+        nome: r.nome,
+        telefone: r.telefone,
+        data: r.data,
+        horario: r.horario,
+        atendente: r.atendente,
+        motivo: r.motivo,
+        docs: r.docs,
+        status: r.status || 'Agendado'
+      }));
+
+      if (payloads.length > 0) {
+        const { error } = await supabaseLaprevs.from('retornos_laprevs').upsert(payloads, { onConflict: 'id' });
+        if (error) {
+          console.error('Erro ao salvar retornos no Supabase:', error);
+          mostrarNotificacao('⚠️ Erro ao sincronizar agendamento na nuvem: ' + error.message, '!');
+        }
+      }
+    };
+
+    const _excluirRetornoOriginal = excluirRetorno;
+    excluirRetorno = async function(id) {
+      _excluirRetornoOriginal(id);
+      if (sessaoLaprevs) {
+        await supabaseLaprevs.from('retornos_laprevs').delete().eq('id', id);
+      }
+    };
+
+    carregarAtendimentosLocais = function() {
+      estadoApp.atendimentos = [];
+      renderizarTabelaAtendimentos();
+      renderizarGridCasos();
+    };
+    carregarRetornosLocais = function() {
+      estadoApp.retornos = [];
+      renderizarTabelaRetornos();
+    };
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      const { data: { session } } = await supabaseLaprevs.auth.getSession();
+      atualizarInterfaceAuthLaprevs(session);
+      if (session) {
+        await carregarDadosSupabaseLaprevs();
+      }
+    });
   </script>
 </body>
 </html>
