@@ -1,0 +1,17 @@
+{
+  "name": "Portal LAPREVS - UFMS",
+  "short_name": "LAPREVS",
+  "description": "Sistema de Atendimento e Prática Jurídica em Seguridade Social - FADIR/UFMS",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "./LAPREVS%20-%20Logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
