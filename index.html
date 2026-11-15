@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" href="./LAPREVS%20-%20Logo.png">
     <link rel="apple-touch-icon" href="./LAPREVS%20-%20Logo.png">
     <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#0f172a">
+    <meta name="theme-color" content="#ffffff">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 <!-- Supabase JS SDK v2 -->
@@ -245,12 +245,17 @@
       
       <!-- 1. Triagem & Acolhimento -->
       <button onclick="mudarAba('view-triagem')" id="tab-btn-view-triagem" class="aba-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
-        <span>🧭</span> Triagem & Acolhimento
+        <span>🧭</span>
+        <span class="sm:hidden">Triagem</span>
+        <span class="hidden sm:inline">Triagem & Acolhimento</span>
       </button>
 
 <!-- 2. Registro & Quantitativo -->
       <button onclick="mudarAba('view-registro')" id="tab-btn-view-registro" class="aba-btn px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5">
-        <span>📋</span> Registro & Quantitativo <span class="lock-laprevs text-[10px]">🔒</span>
+        <span>📋</span>
+        <span class="sm:hidden">Registros</span>
+        <span class="hidden sm:inline">Registro & Quantitativo</span>
+        <span class="lock-laprevs text-[10px]">🔒</span>
       </button>
 
       <!-- 2.1 Casos & Acompanhamento (Ficha Processual) -->
